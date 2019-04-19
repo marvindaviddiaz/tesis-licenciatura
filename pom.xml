@@ -9,6 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>servicios-ficticios-terceros</module>
+        <module>arquitectura-monolitica</module>
+        <module>arquitectura-serverless</module>
     </modules>
     <packaging>pom</packaging>
 
