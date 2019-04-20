@@ -26,7 +26,7 @@ Resources:
         PostEvent:
           Type: Api
           Properties:
-            Path: /eafg/consulta
+            Path: /eafg/consulta/
             Method: post
 
   LambdaExecutionRole:
