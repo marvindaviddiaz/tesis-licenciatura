@@ -12,7 +12,7 @@ public class Servicio implements RequestHandler<Peticion, Respuesta> {
     public Respuesta handleRequest(Peticion peticion, Context context) {
         Respuesta respuesta = new Respuesta();
         respuesta.setId(UUID.randomUUID());
-        respuesta.setSaldo(new BigDecimal(125.50));
+        respuesta.setSaldo(BigDecimal.valueOf(125.50));
 
         return respuesta;
     }
