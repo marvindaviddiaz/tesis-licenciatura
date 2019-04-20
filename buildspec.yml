@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - mvn clean && mvn package
+      - mvn clean && mvn install
       - aws cloudformation deploy --template-file ./app.yml --stack-name tesis-licenciatura-stack
 artifacts:
   discard-paths: yes
