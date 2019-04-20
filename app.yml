@@ -33,7 +33,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'LambdaExecutionRole'
+      RoleName: 'LambdaExecutionRole'
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
