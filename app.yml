@@ -8,7 +8,7 @@ Resources:
       FunctionName: eafg-consulta
       Handler: com.github.marvindaviddiaz.Servicio
       Runtime: java8
-      CodeUri: servicios-ficticios-terceros/eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar
+      CodeUri: ./servicios-ficticios-terceros/eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar
       Description: Consulta de Agua
       Timeout: 30
       MemorySize: 128
