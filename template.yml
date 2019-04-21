@@ -15,10 +15,6 @@ Globals:
 #        RDS_DB_NAME: Bets
 #        RDS_USERNAME: master
 #        RDS_PASSWORD: master123
-    Role:
-      Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
 
 Resources:
   eafgConsulta:
@@ -34,6 +30,10 @@ Resources:
           Properties:
             Path: /eafg/consulta/
             Method: post
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
