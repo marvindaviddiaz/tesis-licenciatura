@@ -9,8 +9,8 @@ Globals:
     MemorySize: 128
     Tags:
       bill: tesis
-    Environment:
-      Variables:
+#    Environment:
+#      Variables:
 #        RDS_HOSTNAME: betsrds.ckcok406xu5a.us-west-2.rds.amazonaws.com:3006
 #        RDS_DB_NAME: Bets
 #        RDS_USERNAME: master
@@ -46,7 +46,7 @@ Resources:
             Principal:
               Service: [lambda.amazonaws.com]
             Action: sts:AssumeRole
-      Path: /eafg/consulta/
+      Path: /
       ManagedPolicyArns:
         -  arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 #      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
