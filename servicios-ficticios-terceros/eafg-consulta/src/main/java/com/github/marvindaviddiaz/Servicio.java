@@ -14,7 +14,7 @@ public class Servicio implements RequestHandler<Peticion, Respuesta> {
 
     @Override
     public Respuesta handleRequest(Peticion peticion, Context context) {
-        logger.log(Level.INFO, "Petición: {0}, Contexto: {1}", new Object[]{peticion, context});
+        logger.log(Level.INFO, "{0} Petición: {1}, Contexto: {2}", new Object[]{context.getAwsRequestId(), peticion, context});
         Respuesta respuesta = new Respuesta();
         respuesta.setId(UUID.randomUUID());
         respuesta.setSaldo(BigDecimal.valueOf(125.50));

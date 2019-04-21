@@ -16,7 +16,6 @@ artifacts:
   discard-paths: yes
   files:
     - template-export.yml
-    - template-configuration.json
 cache:
   paths:
     - '/root/.m2/**/*'
