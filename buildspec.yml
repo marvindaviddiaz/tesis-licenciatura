@@ -10,6 +10,7 @@ phases:
       - mv servicios-ficticios-terceros/eefg-pago/target/eefg-pago-1.0-SNAPSHOT.jar eefg-pago.jar
       - mv servicios-ficticios-terceros/etfg-consulta/target/etfg-consulta-1.0-SNAPSHOT.jar etfg-consulta.jar
       - mv servicios-ficticios-terceros/etfg-pago/target/etfg-pago-1.0-SNAPSHOT.jar etfg-pago.jar
+      - sha256sum eafg-consulta.jar
       - aws cloudformation package --template template.yml --s3-bucket tesis-licenciatura-artifacts --output-template template-export.yml
       - aws cloudformation deploy --template-file template-export.yml --stack-name tesis-licenciatura-stack --capabilities CAPABILITY_NAMED_IAM
 artifacts:
