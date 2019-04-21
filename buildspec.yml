@@ -3,17 +3,28 @@ version: 0.2
 phases:
   build:
     commands:
-      - mvn clean && mvn package
-      - aws cloudformation deploy --template-file ./app.yml --stack-name tesis-licenciatura-stack --capabilities CAPABILITY_NAMED_IAM
+      - mvn package
+      - mkdir artifacts
+      - mv servicios-ficticios-terceros/eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar artifacts/eafg-consulta.jar
+      - mv servicios-ficticios-terceros/eafg-pago/target/eafg-pago-1.0-SNAPSHOT.jar artifacts/eafg-pago.jar
+      - mv servicios-ficticios-terceros/eefg-consulta/target/eefg-consulta-1.0-SNAPSHOT.jar artifacts/eefg-consulta.jar
+      - mv servicios-ficticios-terceros/eefg-pago/target/eefg-pago-1.0-SNAPSHOT.jar artifacts/eefg-pago.jar
+      - mv servicios-ficticios-terceros/etfg-consulta/target/etfg-consulta-1.0-SNAPSHOT.jar artifacts/etfg-consulta.jar
+      - mv servicios-ficticios-terceros/etfg-pago/target/etfg-pago-1.0-SNAPSHOT.jar artifacts/etfg-pago.jar
+      - cd artifacts
+      - aws cloudformation package --template ../app.yml --s3-bucket tesis-licenciatura-artifacts --output-template template-export.yml
+      - cd ..
+#      - mvn clean && mvn package
+#      - aws cloudformation deploy --template-file ./app.yml --stack-name tesis-licenciatura-stack --capabilities CAPABILITY_NAMED_IAM
 artifacts:
   discard-paths: yes
   files:
-    - servicios-ficticios-terceros/eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar
-    - servicios-ficticios-terceros/eafg-pago/target/eafg-pago-1.0-SNAPSHOT.jar
-    - servicios-ficticios-terceros/eefg-consulta/target/eefg-consulta-1.0-SNAPSHOT.jar
-    - servicios-ficticios-terceros/eefg-pago/target/eefg-pago-1.0-SNAPSHOT.jar
-    - servicios-ficticios-terceros/etfg-consulta/target/etfg-consulta-1.0-SNAPSHOT.jar
-    - servicios-ficticios-terceros/etfg-pago/target/etfg-pago-1.0-SNAPSHOT.jar
+    - artifacts/eafg-consulta.jar
+    - artifacts/eafg-pago.jar
+    - artifacts/eefg-consulta.jar
+    - artifacts/eefg-pago.jar
+    - artifacts/etfg-consulta.jar
+    - artifacts/etfg-pago.jar
 cache:
   paths:
     - '/root/.m2/**/*'
