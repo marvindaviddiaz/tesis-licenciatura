@@ -4,23 +4,19 @@ phases:
   build:
     commands:
       - mvn package
-      - mkdir tmp
-      - mv servicios-ficticios-terceros/eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar tmp/eafg-consulta.jar
-      - mv servicios-ficticios-terceros/eafg-pago/target/eafg-pago-1.0-SNAPSHOT.jar tmp/eafg-pago.jar
-      - mv servicios-ficticios-terceros/eefg-consulta/target/eefg-consulta-1.0-SNAPSHOT.jar tmp/eefg-consulta.jar
-      - mv servicios-ficticios-terceros/eefg-pago/target/eefg-pago-1.0-SNAPSHOT.jar tmp/eefg-pago.jar
-      - mv servicios-ficticios-terceros/etfg-consulta/target/etfg-consulta-1.0-SNAPSHOT.jar tmp/etfg-consulta.jar
-      - mv servicios-ficticios-terceros/etfg-pago/target/etfg-pago-1.0-SNAPSHOT.jar tmp/etfg-pago.jar
-      - mv template-configuration.json tmp/template-configuration.json
-      - mv template.yml tmp/template.yml
-      - cd tmp
+      - mv servicios-ficticios-terceros/eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar eafg-consulta.jar
+      - mv servicios-ficticios-terceros/eafg-pago/target/eafg-pago-1.0-SNAPSHOT.jar eafg-pago.jar
+      - mv servicios-ficticios-terceros/eefg-consulta/target/eefg-consulta-1.0-SNAPSHOT.jar eefg-consulta.jar
+      - mv servicios-ficticios-terceros/eefg-pago/target/eefg-pago-1.0-SNAPSHOT.jar eefg-pago.jar
+      - mv servicios-ficticios-terceros/etfg-consulta/target/etfg-consulta-1.0-SNAPSHOT.jar etfg-consulta.jar
+      - mv servicios-ficticios-terceros/etfg-pago/target/etfg-pago-1.0-SNAPSHOT.jar etfg-pago.jar
       - aws cloudformation package --template template.yml --s3-bucket tesis-licenciatura-artifacts --output-template template-export.yml
-      - cd ..
+      - aws cloudformation deploy --template-file template-export.yml --stack-name tesis-licenciatura-stack --capabilities CAPABILITY_NAMED_IAM
 artifacts:
   discard-paths: yes
   files:
-    - tmp/template-export.yml
-    - tmp/template-configuration.json
+    - template-export.yml
+    - template-configuration.json
 cache:
   paths:
     - '/root/.m2/**/*'
