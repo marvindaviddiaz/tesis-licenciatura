@@ -28,10 +28,10 @@ Resources:
       Events:
         PostEvent:
           Type: Api
+          RestApiId: !Ref ServerlessTercerosApi
           Properties:
             Path: /eafg/consulta/
             Method: post
-      RestApiId: !Ref ServerlessTercerosApi
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
