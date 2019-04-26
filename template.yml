@@ -145,7 +145,6 @@ Resources:
               httpMethod: POST
               uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsulta.Arn}/invocations'
 
-
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
