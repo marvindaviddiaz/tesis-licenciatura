@@ -140,11 +140,10 @@ Resources:
             responses:
               '200':
                 description: 200 response
-            post:
-              x-amazon-apigateway-integration:
-                httpMethod: POST
-                type: AWS #AWS_PROXY
-                  uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsulta.Arn}/invocations'
+            x-amazon-apigateway-integration:
+              httpMethod: POST
+              type: AWS #AWS_PROXY
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsulta.Arn}/invocations'
 
 
   LambdaExecutionRole:
