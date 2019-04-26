@@ -25,13 +25,13 @@ Resources:
       Handler: com.github.marvindaviddiaz.Servicio
       CodeUri: ./eafg-consulta.jar
       Description: Consulta de Agua
-      Events:
-        PostEvent:
-          Type: Api
-          RestApiId: !Ref ServerlessTercerosApi
-          Properties:
-            Path: /eafg/consulta/
-            Method: post
+#      Events:
+#        PostEvent:
+#          Type: Api
+#          RestApiId: !Ref ServerlessTercerosApi
+#          Properties:
+#            Path: /eafg/consulta/
+#            Method: post
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -143,8 +143,8 @@ Resources:
                 '200':
                   description: 200 response
               x-amazon-apigateway-integration:
-                type: AWS
-                httpMethod: POST
+                type: aws
+                httpMethod: post
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsulta.Arn}/invocations'
 
   LambdaExecutionRole:
