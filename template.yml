@@ -25,17 +25,7 @@ Resources:
       Handler: com.github.marvindaviddiaz.Servicio
       CodeUri: ./eafg-consulta.jar
       Description: Consulta de Agua
-#      Events:
-#        PostEvent:
-#          Type: Api
-#          RestApiId: !Ref ServerlessTercerosApi
-#          Properties:
-#            Path: /eafg/consulta/
-#            Method: post
-      Role:
-        Fn::GetAtt:
-          - LambdaExecutionRole
-          - Arn
+      Role: !GetAtt RoleForLambdas.Arn
 #
 #  eafgPago:
 #    Type: AWS::Serverless::Function
@@ -147,20 +137,20 @@ Resources:
                 httpMethod: post
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsulta.Arn}/invocations'
 
-  LambdaExecutionRole:
-    Description: Creating service role in IAM for AWS Lambda
+  RoleForLambdas:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: 'LambdaExecutionRole'
       AssumeRolePolicyDocument:
+        Version: "2012-10-17"
         Statement:
-          - Effect: Allow
-            Principal:
-              Service: [lambda.amazonaws.com]
-            Action: sts:AssumeRole
-      Path: /
+          -   Effect: "Allow"
+              Principal:
+                Service: "lambda.amazonaws.com"
+              Action: "sts:AssumeRole"
+          -   Effect: "Allow"
+              Principal:
+                Service: "apigateway.amazonaws.com"
+              Action: "sts:AssumeRole"
       ManagedPolicyArns:
-        -  arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-#      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
-
-
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
