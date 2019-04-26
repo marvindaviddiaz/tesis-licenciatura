@@ -26,96 +26,52 @@ Resources:
       CodeUri: ./eafg-consulta.jar
       Description: Consulta de Agua
       Role: !GetAtt RoleForLambdas.Arn
-#
-#  eafgPago:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      FunctionName: eafg-pago
-#      Handler: com.github.marvindaviddiaz.Servicio
-#      CodeUri: ./eafg-pago.jar
-#      Description: Pago de Agua
-#      Events:
-#        PostEvent:
-#          Type: Api
-#          Properties:
-#            Path: /eafg/pago/
-#            Method: post
-#      Role:
-#        Fn::GetAtt:
-#          - LambdaExecutionRole
-#          - Arn
-#
-#  eefgConsulta:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      FunctionName: eefg-consulta
-#      Handler: com.github.marvindaviddiaz.Servicio
-#      CodeUri: ./eefg-consulta.jar
-#      Description: Consulta de Electricidad
-#      Events:
-#        PostEvent:
-#          Type: Api
-#          Properties:
-#            Path: /eefg/consulta/
-#            Method: post
-#      Role:
-#        Fn::GetAtt:
-#          - LambdaExecutionRole
-#          - Arn
-#
-#  eefgPago:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      FunctionName: eefg-pago
-#      Handler: com.github.marvindaviddiaz.Servicio
-#      CodeUri: ./eefg-pago.jar
-#      Description: Pago de Electricidad
-#      Events:
-#        PostEvent:
-#          Type: Api
-#          Properties:
-#            Path: /eefg/pago/
-#            Method: post
-#      Role:
-#        Fn::GetAtt:
-#          - LambdaExecutionRole
-#          - Arn
-#
-#  etfgConsulta:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      FunctionName: etfg-consulta
-#      Handler: com.github.marvindaviddiaz.Servicio
-#      CodeUri: ./etfg-consulta.jar
-#      Description: Consulta de Teléfono
-#      Events:
-#        PostEvent:
-#          Type: Api
-#          Properties:
-#            Path: /etfg/consulta/
-#            Method: post
-#      Role:
-#        Fn::GetAtt:
-#          - LambdaExecutionRole
-#          - Arn
-#
-#  etfgPago:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      FunctionName: etfg-pago
-#      Handler: com.github.marvindaviddiaz.Servicio
-#      CodeUri: ./etfg-pago.jar
-#      Description: Pago de Teléfono
-#      Events:
-#        PostEvent:
-#          Type: Api
-#          Properties:
-#            Path: /etfg/pago/
-#            Method: post
-#      Role:
-#        Fn::GetAtt:
-#          - LambdaExecutionRole
-#          - Arn
+
+  eafgPago:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: eafg-pago
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./eafg-pago.jar
+      Description: Pago de Agua
+      Role: !GetAtt RoleForLambdas.Arn
+
+  eefgConsulta:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: eefg-consulta
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./eefg-consulta.jar
+      Description: Consulta de Electricidad
+      Role: !GetAtt RoleForLambdas.Arn
+
+  eefgPago:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: eefg-pago
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./eefg-pago.jar
+      Description: Pago de Electricidad
+      Role: !GetAtt RoleForLambdas.Arn
+
+  etfgConsulta:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: etfg-consulta
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./etfg-consulta.jar
+      Description: Consulta de Teléfono
+      Role: !GetAtt RoleForLambdas.Arn
+
+  etfgPago:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: etfg-pago
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./etfg-pago.jar
+      Description: Pago de Teléfono
+      Role: !GetAtt RoleForLambdas.Arn
+
 
   ServerlessTercerosApi:
     Type: AWS::Serverless::Api
@@ -139,15 +95,125 @@ Resources:
                 responses:
                   default:
                     statusCode: "200"
+          /eafg/pago/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgPago.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /etfg/consulta/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgConsulta.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /etfg/pago/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgPago.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /eefg/consulta/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgConsulta.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /eefg/pago/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgPago.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
 
-
-  eafgPermission:
+  eafgConsultaPermission:
     Type: "AWS::Lambda::Permission"
     Properties:
       Action: "lambda:InvokeFunction"
       FunctionName: !GetAtt eafgConsulta.Arn
       Principal: "apigateway.amazonaws.com"
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
+
+  eafgPagoPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt eafgPago.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
+
+  eefgConsultaPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt eefgConsulta.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
+
+  eefgPagoPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt eefgPago.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
+
+  etfgConsultaPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt etfgConsulta.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
+
+  etfgPagoPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt etfgPago.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
+
 
   RoleForLambdas:
     Type: AWS::IAM::Role
