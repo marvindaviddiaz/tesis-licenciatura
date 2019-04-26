@@ -35,6 +35,96 @@ Resources:
           - LambdaExecutionRole
           - Arn
 
+  eafgPago:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: eafg-pago
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./eafg-pago.jar
+      Description: Pago de Agua
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /eafg/pago/
+            Method: post
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+
+  eefgConsulta:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: eefg-consulta
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./eefg-consulta.jar
+      Description: Consulta de Electricidad
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /eefg/consulta/
+            Method: post
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+
+  eefgPago:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: eefg-pago
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./eefg-pago.jar
+      Description: Pago de Electricidad
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /eefg/pago/
+            Method: post
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+
+  etfgConsulta:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: etfg-consulta
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./etfg-consulta.jar
+      Description: Consulta de Teléfono
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /etfg/consulta/
+            Method: post
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+
+  etfgPago:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: etfg-pago
+      Handler: com.github.marvindaviddiaz.Servicio
+      CodeUri: ./etfg-pago.jar
+      Description: Pago de Teléfono
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /etfg/pago/
+            Method: post
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
