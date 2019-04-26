@@ -147,7 +147,7 @@ Resources:
       Action: "lambda:InvokeFunction"
       FunctionName: !GetAtt eafgConsulta.Arn
       Principal: "apigateway.amazonaws.com"
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/post"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
   RoleForLambdas:
     Type: AWS::IAM::Role
