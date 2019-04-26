@@ -17,6 +17,7 @@ Globals:
 #        RDS_PASSWORD: master123
 
 Resources:
+
   eafgConsulta:
     Type: AWS::Serverless::Function
     Properties:
@@ -124,6 +125,27 @@ Resources:
         Fn::GetAtt:
           - LambdaExecutionRole
           - Arn
+
+  api:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: servicios-ficticios-terceros
+      StageName: dev
+      DefinitionBody:
+        swagger: '2.0'
+        paths:
+          /eafg/consulta/:
+            produces:
+              - application/json
+            responses:
+              '200':
+                description: 200 response
+            post:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: AWS #AWS_PROXY
+                  uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsulta.Arn}/invocations'
+
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
