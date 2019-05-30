@@ -18,6 +18,28 @@ Globals:
 
 Resources:
 
+  RoleForLambdas:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -   Effect: "Allow"
+              Principal:
+                Service: "lambda.amazonaws.com"
+              Action: "sts:AssumeRole"
+          -   Effect: "Allow"
+              Principal:
+                Service: "apigateway.amazonaws.com"
+              Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
+
+#################
+######## TERCEROS
+#################
+
   eafgConsulta:
     Type: AWS::Serverless::Function
     Properties:
@@ -214,21 +236,46 @@ Resources:
       Principal: "apigateway.amazonaws.com"
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
+##################
+######## SERVICIOS
+##################
 
-  RoleForLambdas:
-    Type: AWS::IAM::Role
+  buscarServicio:
+    Type: AWS::Serverless::Function
     Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          -   Effect: "Allow"
-              Principal:
-                Service: "lambda.amazonaws.com"
-              Action: "sts:AssumeRole"
-          -   Effect: "Allow"
-              Principal:
-                Service: "apigateway.amazonaws.com"
-              Action: "sts:AssumeRole"
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
+      FunctionName: buscar-servicio
+      Handler: com.github.marvindaviddiaz.ServicioService
+      CodeUri: ./buscar-servicio.jar
+      Description: Buscar Servicio
+      Role: !GetAtt RoleForLambdas.Arn
+
+  buscarServicioPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt buscarServicio.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+
+  ServerlessApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: arquitectura-serverless
+      StageName: dev
+      DefinitionBody:
+        swagger: '2.0'
+        paths:
+          /api/buscar-servicio/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicio.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
