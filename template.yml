@@ -14,7 +14,7 @@ Globals:
         RDS_ENDPOINT: instancia-01-tesis-licenciatura.cn8jbgeyzda1.us-east-1.rds.amazonaws.com
         RDS_DB_NAME: tesis
         RDS_USERNAME: usuariomaestro01
-        RDS_PASSWORD: _8V\=vMmCmrJLtD!F
+        RDS_PASSWORD: _8V=vMmCmrJLtD!F
 
 Resources:
 
@@ -252,14 +252,9 @@ Resources:
       VpcConfig:
         SecurityGroupIds:
           - sg-0b2c9b4bfdded5eaf
-          - sg-877d0ee2
         SubnetIds:
-          - subnet-02711238
           - subnet-73dbc135
           - subnet-84e018f3
-          - subnet-a30268c6
-          - subnet-ef8a1ce3
-          - subnet-fad6ecd2
 
 
   buscarServicioPermission:
