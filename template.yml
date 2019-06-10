@@ -252,6 +252,7 @@ Resources:
       VpcConfig:
         SecurityGroupIds:
           - sg-0b2c9b4bfdded5eaf
+          - sg-877d0ee2
         SubnetIds:
           - subnet-02711238
           - subnet-73dbc135
