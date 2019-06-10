@@ -35,6 +35,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
         - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
 
 #################
 ######## TERCEROS
@@ -248,6 +249,17 @@ Resources:
       CodeUri: ./buscar-servicio.jar
       Description: Buscar Servicio
       Role: !GetAtt RoleForLambdas.Arn
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0b2c9b4bfdded5eaf
+        SubnetIds:
+          - subnet-02711238
+          - subnet-73dbc135
+          - subnet-84e018f3
+          - subnet-a30268c6
+          - subnet-ef8a1ce3
+          - subnet-fad6ecd2
+
 
   buscarServicioPermission:
     Type: "AWS::Lambda::Permission"
