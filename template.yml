@@ -256,12 +256,34 @@ Resources:
           - subnet-73dbc135
           - subnet-84e018f3
 
+  listarCuentas:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: listar-cuentas
+      Handler: com.github.marvindaviddiaz.CuentaService
+      CodeUri: ./listar-cuentas.jar
+      Description: Listar Cuentas
+      Role: !GetAtt RoleForLambdas.Arn
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0b2c9b4bfdded5eaf
+        SubnetIds:
+          - subnet-73dbc135
+          - subnet-84e018f3
 
   buscarServicioPermission:
     Type: "AWS::Lambda::Permission"
     Properties:
       Action: "lambda:InvokeFunction"
       FunctionName: !GetAtt buscarServicio.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+
+  listarCuentasPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt listarCuentas.Arn
       Principal: "apigateway.amazonaws.com"
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
 
@@ -273,7 +295,8 @@ Resources:
       DefinitionBody:
         swagger: '2.0'
         paths:
-          /api/buscar-servicio/:
+
+          /api/servicios/buscar/:
             post:
               produces:
                 - application/json
@@ -284,6 +307,21 @@ Resources:
                 type: aws
                 httpMethod: post
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicio.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+
+          /api/cuentas/listar/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentas.Arn}/invocations'
                 responses:
                   default:
                     statusCode: "200"

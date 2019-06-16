@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>buscar-servicio</module>
+        <module>listar-cuentas</module>
     </modules>
 
 
