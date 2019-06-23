@@ -289,14 +289,6 @@ Resources:
 
   ServerlessApi:
     Type: AWS::Serverless::Api
-#    Auth:
-#      DefaultAuthorizer: TesisCognitoAuth # OPTIONAL, if you use IAM permissions, specify AWS_IAM.
-#      Authorizers:
-#        TesisCognitoAuth:
-#          UserPoolArn: !GetAtt TesisCognitoUserPool.Arn # Can also accept an array
-#          Identity: # OPTIONAL
-#            Header: TesisAuthorizationHeader # OPTIONAL; Default: 'Authorization'
-#            ValidationExpression: myauthvalidationexpression # OPTIONAL
     Properties:
       Name: arquitectura-serverless
       StageName: dev
@@ -337,7 +329,7 @@ Resources:
                 '200':
                   description: 200 response
               security:
-                - cognitoUserPool: []
+                - cognitoUserPool
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
