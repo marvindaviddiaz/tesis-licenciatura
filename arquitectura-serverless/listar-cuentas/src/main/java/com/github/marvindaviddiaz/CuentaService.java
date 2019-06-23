@@ -17,6 +17,8 @@ public class CuentaService implements RequestHandler<Object, List<CuentaDTO>> {
     @Override
     public List<CuentaDTO> handleRequest(Object object, Context context) {
         logger.log(Level.INFO, "Contexto: {0}", context);
+        logger.log(Level.INFO, "Identity: {0}", context.getIdentity());
+        logger.log(Level.INFO, "Pool: {0}", context.getIdentity().getIdentityPoolId());
         Integer usuario = Integer.valueOf(context.getIdentity().getIdentityId());
         return cuentaDAO.listaCuentas(usuario);
     }
