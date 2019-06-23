@@ -333,3 +333,8 @@ Resources:
                 responses:
                   default:
                     statusCode: "200"
+              x-amazon-apigateway-authtype: "cognito_user_pools"
+              x-amazon-apigateway-authorizer:
+                type: "cognito_user_pools"
+                providerARNs:
+                  - !GetAtt TesisCognitoUserPool.Arn
