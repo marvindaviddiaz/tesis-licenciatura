@@ -289,11 +289,11 @@ Resources:
 
   ServerlessApi:
     Type: AWS::Serverless::Api
-    Auth:
-      DefaultAuthorizer: TesisCognitoAuth # OPTIONAL, if you use IAM permissions, specify AWS_IAM.
-      Authorizers:
-        TesisCognitoAuth:
-          UserPoolArn: !GetAtt TesisCognitoUserPool.Arn # Can also accept an array
+#    Auth:
+#      DefaultAuthorizer: TesisCognitoAuth # OPTIONAL, if you use IAM permissions, specify AWS_IAM.
+#      Authorizers:
+#        TesisCognitoAuth:
+#          UserPoolArn: !GetAtt TesisCognitoUserPool.Arn # Can also accept an array
 #          Identity: # OPTIONAL
 #            Header: TesisAuthorizationHeader # OPTIONAL; Default: 'Authorization'
 #            ValidationExpression: myauthvalidationexpression # OPTIONAL
@@ -304,9 +304,9 @@ Resources:
         swagger: '2.0'
         securityDefinitions:
           cognitoUserPool:
-            in: header
-            name: Authorization
             type: apiKey
+            name: Authorization
+            in: header
             x-amazon-apigateway-authtype: cognito_user_pools
             x-amazon-apigateway-authorizer:
               type: cognito_user_pools
