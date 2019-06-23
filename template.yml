@@ -302,6 +302,16 @@ Resources:
       StageName: dev
       DefinitionBody:
         swagger: '2.0'
+        securityDefinitions:
+          cognitoUserPool:
+            in: header
+            name: Authorization
+            type: apiKey
+            x-amazon-apigateway-authtype: cognito_user_pools
+            x-amazon-apigateway-authorizer:
+              type: cognito_user_pools
+              providerARNs:
+                - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
         paths:
 
           /api/servicios/buscar/:
@@ -326,6 +336,8 @@ Resources:
               responses:
                 '200':
                   description: 200 response
+              security:
+                - cognitoUserPool: []
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
@@ -333,19 +345,14 @@ Resources:
                 responses:
                   default:
                     statusCode: "200"
-              x-amazon-apigateway-authtype: "cognito_user_pools"
-              x-amazon-apigateway-authorizer:
-                type: cognito_user_pools
-                providerARNs:
-                  - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
 
-          securitySchemes:
-            cognitoAuth:
-              type: apiKey
-              name: Authorization
-              in: header
-              x-amazon-apigateway-authtype: cognito_user_pools
-              x-amazon-apigateway-authorizer:
-                type: cognito_user_pools
-                providerARNs:
-                  - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
+#          securitySchemes:
+#            cognitoAuth:
+#              type: apiKey
+#              name: Authorization
+#              in: header
+#              x-amazon-apigateway-authtype: cognito_user_pools
+#              x-amazon-apigateway-authorizer:
+#                type: cognito_user_pools
+#                providerARNs:
+#                  - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
