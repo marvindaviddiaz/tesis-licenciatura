@@ -337,4 +337,4 @@ Resources:
               x-amazon-apigateway-authorizer:
                 type: "cognito_user_pools"
                 providerARNs:
-                  - !GetAtt TesisCognitoUserPool.Arn
+                  - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
