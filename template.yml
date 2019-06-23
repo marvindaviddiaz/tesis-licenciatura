@@ -335,6 +335,17 @@ Resources:
                     statusCode: "200"
               x-amazon-apigateway-authtype: "cognito_user_pools"
               x-amazon-apigateway-authorizer:
-                type: "cognito_user_pools"
+                type: cognito_user_pools
+                providerARNs:
+                  - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
+
+          securitySchemes:
+            cognitoAuth:
+              type: apiKey
+              name: Authorization
+              in: header
+              x-amazon-apigateway-authtype: cognito_user_pools
+              x-amazon-apigateway-authorizer:
+                type: cognito_user_pools
                 providerARNs:
                   - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
