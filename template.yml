@@ -295,7 +295,7 @@ Resources:
       DefinitionBody:
         swagger: '2.0'
         securityDefinitions:
-          cognitoUserPool:
+          cognitoUserPoolAuthorizer:
             type: apiKey
             name: Authorization
             in: header
@@ -328,8 +328,6 @@ Resources:
               responses:
                 '200':
                   description: 200 response
-              security:
-                - cognitoUserPool
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
@@ -337,6 +335,8 @@ Resources:
                 responses:
                   default:
                     statusCode: "200"
+              security:
+                - cognitoUserPoolAuthorizer: []
 
 #          securitySchemes:
 #            cognitoAuth:
