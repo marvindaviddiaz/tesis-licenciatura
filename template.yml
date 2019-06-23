@@ -290,12 +290,12 @@ Resources:
   ServerlessApi:
     Type: AWS::Serverless::Api
     Auth:
-      DefaultAuthorizer: AppCognitoAuth # OPTIONAL, if you use IAM permissions, specify AWS_IAM.
+      DefaultAuthorizer: TesisCognitoAuth # OPTIONAL, if you use IAM permissions, specify AWS_IAM.
       Authorizers:
-        AppCognitoAuth:
+        TesisCognitoAuth:
           UserPoolArn: !GetAtt TesisCognitoUserPool.Arn # Can also accept an array
 #          Identity: # OPTIONAL
-#            Header: AppAuthorizationHeader # OPTIONAL; Default: 'Authorization'
+#            Header: TesisAuthorizationHeader # OPTIONAL; Default: 'Authorization'
 #            ValidationExpression: myauthvalidationexpression # OPTIONAL
     Properties:
       Name: arquitectura-serverless
