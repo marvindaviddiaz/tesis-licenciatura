@@ -329,7 +329,7 @@ Resources:
                 '200':
                   description: 200 response
               x-amazon-apigateway-integration:
-                type: aws
+                type: aws_proxy
                 httpMethod: post
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentas.Arn}/invocations'
                 responses:
