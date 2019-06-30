@@ -4,18 +4,16 @@ import com.amazonaws.services.lambda.runtime.ClientContext;
 import com.amazonaws.services.lambda.runtime.CognitoIdentity;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import com.github.marvindaviddiaz.dto.CuentaDTO;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.List;
 
 public class ListarCuentasTest {
 
     @Test
     public void listarCuentasTest() {
         CuentaService servicio = new CuentaService();
-        List<CuentaDTO> cuentas = servicio.handleRequest(null, new Context() {
+        APIGatewayProxyResponseEvent cuentas = servicio.handleRequest(null, new Context() {
             @Override
             public String getAwsRequestId() {
                 return null;
@@ -81,7 +79,7 @@ public class ListarCuentasTest {
                 return null;
             }
         });
-        Assert.assertTrue(cuentas != null && !cuentas.isEmpty());
+        Assert.assertTrue(cuentas != null && cuentas.getStatusCode() == 200);
     }
 
 }

@@ -6,6 +6,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.github.marvindaviddiaz.dao.CuentaDAO;
 import com.github.marvindaviddiaz.dto.CuentaDTO;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,6 @@ public class CuentaService implements RequestHandler<APIGatewayProxyRequestEvent
         logger.log(Level.INFO, "Result: {0}", cuentaDTOS);
         return new APIGatewayProxyResponseEvent()
                 .withStatusCode(200)
-                .withBody("{\"test\" : 123}");
+                .withBody(new Gson().toJson(cuentaDTOS));
     }
-
 }
