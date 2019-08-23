@@ -256,12 +256,34 @@ Resources:
           - subnet-73dbc135
           - subnet-84e018f3
 
+  listarCuentas:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: listar-cuentas
+      Handler: com.github.marvindaviddiaz.CuentaService
+      CodeUri: ./listar-cuentas.jar
+      Description: Listar Cuentas
+      Role: !GetAtt RoleForLambdas.Arn
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0b2c9b4bfdded5eaf
+        SubnetIds:
+          - subnet-73dbc135
+          - subnet-84e018f3
 
   buscarServicioPermission:
     Type: "AWS::Lambda::Permission"
     Properties:
       Action: "lambda:InvokeFunction"
       FunctionName: !GetAtt buscarServicio.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+
+  listarCuentasPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt listarCuentas.Arn
       Principal: "apigateway.amazonaws.com"
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
 
@@ -272,8 +294,19 @@ Resources:
       StageName: dev
       DefinitionBody:
         swagger: '2.0'
+        securityDefinitions:
+          cognitoUserPoolAuthorizer:
+            type: apiKey
+            name: Authorization
+            in: header
+            x-amazon-apigateway-authtype: cognito_user_pools
+            x-amazon-apigateway-authorizer:
+              type: cognito_user_pools
+              providerARNs:
+                - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
         paths:
-          /api/buscar-servicio/:
+
+          /api/servicios/buscar/:
             post:
               produces:
                 - application/json
@@ -287,3 +320,31 @@ Resources:
                 responses:
                   default:
                     statusCode: "200"
+
+          /api/cuentas/listar/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws_proxy
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentas.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+              security:
+                - cognitoUserPoolAuthorizer: []
+
+#          securitySchemes:
+#            cognitoAuth:
+#              type: apiKey
+#              name: Authorization
+#              in: header
+#              x-amazon-apigateway-authtype: cognito_user_pools
+#              x-amazon-apigateway-authorizer:
+#                type: cognito_user_pools
+#                providerARNs:
+#                  - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
