@@ -1,6 +1,8 @@
 package com.github.marvindaviddiaz;
 
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.github.marvindaviddiaz.dto.ServicioDTO;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.xml.bind.JAXB;
@@ -11,8 +13,8 @@ public class BuscarServicioTest {
     @Test
     public void buscarServicioTest() {
         ServicioService servicio = new ServicioService();
-//        List<ServicioDTO> servicios = servicio.handleRequest(null, null);
-//        servicios.forEach(e -> JAXB.marshal(e, System.out));
+        APIGatewayProxyResponseEvent apiGatewayProxyResponseEvent = servicio.handleRequest(null, null);
+        Assert.assertTrue(apiGatewayProxyResponseEvent != null);
     }
 
 }

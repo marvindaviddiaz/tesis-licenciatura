@@ -313,8 +313,10 @@ Resources:
               responses:
                 '200':
                   description: 200 response
+              security:
+                - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
-                type: aws
+                type: aws_proxy
                 httpMethod: post
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicio.Arn}/invocations'
                 responses:
@@ -328,6 +330,8 @@ Resources:
               responses:
                 '200':
                   description: 200 response
+              security:
+                - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
                 type: aws_proxy
                 httpMethod: post
@@ -335,8 +339,6 @@ Resources:
                 responses:
                   default:
                     statusCode: "200"
-              security:
-                - cognitoUserPoolAuthorizer: []
 
 #          securitySchemes:
 #            cognitoAuth:
