@@ -1,0 +1,28 @@
+<div>
+  <form class="form-signin"
+        (ngSubmit)="onSubmit()"
+        [formGroup]="form">
+
+    <mat-toolbar>
+      <mat-toolbar-row color="primary"><span class="title">Pagos de Servicios</span></mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-form-field>
+      <input matInput
+             placeholder="Búsqueda de Servicios"
+             required
+             type="text"
+             maxlength="80"
+             formControlName="search">
+    </mat-form-field>
+
+    <div>
+      <button
+        [disabled]="!form.valid"
+        type="submit"
+        mat-raised-button>Buscar
+      </button>
+    </div>
+
+  </form>
+</div>

@@ -21,6 +21,8 @@ import {NonAuthGuardService} from "./shared/guards/nonauth-guard.service";
 import {AuthGuardService} from "./shared/guards/auth-guard.service";
 import {AppHttpInterceptor} from "./security/interceptors/app-http-interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BuscarServicioComponent} from "./buscar-servicio/buscar-servicio.component";
+import {HistoricoComponent} from "./historico/historico.component";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ForgotPasswordStep1Component,
     ForgotPasswordStep2Component,
     MenuComponent,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    BuscarServicioComponent,
+    HistoricoComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -8,6 +8,8 @@ import {NonAuthGuardService} from "./shared/guards/nonauth-guard.service";
 import {AuthGuardService} from "./shared/guards/auth-guard.service";
 import {HomeComponent} from "./home/home.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
+import {BuscarServicioComponent} from "./buscar-servicio/buscar-servicio.component";
+import {HistoricoComponent} from "./historico/historico.component";
 
 const routes: Routes = [
 
@@ -19,6 +21,10 @@ const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuardService]},
   {path: 'existingPassword', component: ExistingPasswordComponent, canActivate: [AuthGuardService]},
+
+  // app
+  {path: 'buscar-servicio', component: BuscarServicioComponent, canActivate: [AuthGuardService]},
+  {path: 'historico', component: HistoricoComponent, canActivate: [AuthGuardService]},
 
   {path: '404', component: NotFoundComponent, pathMatch: 'full', canActivate: [AuthGuardService]}, // not found manually
   {path: '**', redirectTo: '/404', pathMatch: 'full'} // not found

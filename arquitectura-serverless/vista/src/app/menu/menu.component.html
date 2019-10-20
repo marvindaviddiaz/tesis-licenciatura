@@ -3,29 +3,29 @@
 </div>
 <mat-divider></mat-divider>
 <mat-nav-list>
-  <a [routerLink]="['/tracking/alert']">
+  <a [routerLink]="['/buscar-servicio']">
     <mat-list-item
       class="app-menu-item"
-      matTooltip="Alert">
-      <mat-icon mat-list-icon>notifications</mat-icon>
+      matTooltip="Pagos">
+      <mat-icon mat-list-icon>payment</mat-icon>
     </mat-list-item>
   </a>
   <div class="mini-separator"><mat-divider></mat-divider></div>
-  <a [routerLink]="['/tracking']">
+  <a [routerLink]="['/historico']">
     <mat-list-item
-      matTooltip="List"
+      matTooltip="Histórico de Pagos"
       class="app-menu-item">
       <mat-icon mat-list-icon>list</mat-icon>
     </mat-list-item>
   </a>
-  <mat-divider></mat-divider>
-  <a [routerLink]="['/profile']">
-    <mat-list-item
-      matTooltip="Perfil"
-      class="app-menu-item">
-      <mat-icon mat-list-icon>settings</mat-icon>
-    </mat-list-item>
-  </a>
+<!--  <mat-divider></mat-divider>-->
+<!--  <a [routerLink]="['/profile']">-->
+<!--    <mat-list-item-->
+<!--      matTooltip="Perfil"-->
+<!--      class="app-menu-item">-->
+<!--      <mat-icon mat-list-icon>settings</mat-icon>-->
+<!--    </mat-list-item>-->
+<!--  </a>-->
   <div class="to-bottom">
     <mat-divider></mat-divider>
     <a (click)="logout()">

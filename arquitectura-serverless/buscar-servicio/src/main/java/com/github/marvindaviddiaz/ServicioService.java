@@ -2,22 +2,32 @@ package com.github.marvindaviddiaz;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.github.marvindaviddiaz.dao.ServicioDAO;
 import com.github.marvindaviddiaz.dto.ServicioDTO;
+import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ServicioService implements RequestHandler<String, List<ServicioDTO>> {
+public class ServicioService implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     private static final Logger logger = Logger.getLogger(ServicioService.class.getName());
     private ServicioDAO servicioDAO = new ServicioDAO();
 
     @Override
-    public List<ServicioDTO> handleRequest(String busqueda, Context context) {
-        logger.log(Level.INFO, "Búsqueda: {0}, Contexto: {1}", new Object[]{busqueda, context});
-        return servicioDAO.buscarServicio(busqueda);
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {
+        logger.log(Level.INFO, "Authorizer: {0}", event.getRequestContext().getAuthorizer());
+        String usuario = (String) ((Map)event.getRequestContext().getAuthorizer().get("claims")).get("cognito:username");
+        logger.log(Level.INFO, "User: {0}", usuario);
+        String busqueda = new Gson().fromJson(event.getBody(), String.class);
+        List<ServicioDTO> servicioDTOS = servicioDAO.buscarServicio(busqueda);
+        return new APIGatewayProxyResponseEvent()
+                .withStatusCode(200)
+                .withBody(new Gson().toJson(servicioDTOS));
     }
 
 }

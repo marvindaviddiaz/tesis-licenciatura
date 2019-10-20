@@ -7,7 +7,7 @@
 }
 
 .mat-drawer {
-  background: linear-gradient(6deg, #3DA9C3 0%, #2DA2B6 26%, #2C9BAF 49%, #2A94A7 49%, #298D9F 50%, #278899 75%, #248191 100%);
+  background: #3f51b5;
   border-right: 1px solid rgba(0, 0, 0, .12);
 }
 
