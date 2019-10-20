@@ -1,0 +1,39 @@
+<div class="profile-item">
+  <button mat-fab [routerLink]="['/home']"></button>
+</div>
+<mat-divider></mat-divider>
+<mat-nav-list>
+  <a [routerLink]="['/tracking/alert']">
+    <mat-list-item
+      class="app-menu-item"
+      matTooltip="Alert">
+      <mat-icon mat-list-icon>notifications</mat-icon>
+    </mat-list-item>
+  </a>
+  <div class="mini-separator"><mat-divider></mat-divider></div>
+  <a [routerLink]="['/tracking']">
+    <mat-list-item
+      matTooltip="List"
+      class="app-menu-item">
+      <mat-icon mat-list-icon>list</mat-icon>
+    </mat-list-item>
+  </a>
+  <mat-divider></mat-divider>
+  <a [routerLink]="['/profile']">
+    <mat-list-item
+      matTooltip="Perfil"
+      class="app-menu-item">
+      <mat-icon mat-list-icon>settings</mat-icon>
+    </mat-list-item>
+  </a>
+  <div class="to-bottom">
+    <mat-divider></mat-divider>
+    <a (click)="logout()">
+      <mat-list-item
+        matTooltip="Cerrar Sesión"
+        class="app-menu-item">
+        <mat-icon mat-list-icon>settings_power</mat-icon>
+      </mat-list-item>
+    </a>
+  </div>
+</mat-nav-list>

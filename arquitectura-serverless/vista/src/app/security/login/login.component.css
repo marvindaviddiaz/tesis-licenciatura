@@ -1,0 +1,81 @@
+.form-signin {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+
+.title {
+  text-transform: uppercase;
+  color: white;
+}
+
+.img-logo-header {
+  background: url('../../../assets/images/logoicc.png') no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 135px;
+  position: relative;
+  margin: 0 auto;
+}
+
+mat-toolbar {
+  background: rgb(61,169,195);
+}
+
+.mat-form-field {
+  width: 90%;
+}
+
+.mat-raised-button {
+  width: 90%;
+}
+
+.login-submit {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: rgb(61,169,195);
+  color: white;
+}
+
+a {
+  color: gray;
+  text-decoration: none;
+  font-size: small;
+}
+
+.signUp {
+  float: left; width: 50%;
+  text-align: right;
+}
+
+.forgot {
+  float: right; width: 50%;
+  text-align: left;
+}
+
+.bottom-opts {
+  margin: 15px;
+}
+
+.btn-first {
+  margin-top: 20px;
+  background: rgb(61,169,195);
+  color: white;
+}
+
+
+.alert-danger {
+  font-size: small;
+  color: red;
+}
+
+.remember-me {
+  color: gray;
+  font-size: small;
+}
+

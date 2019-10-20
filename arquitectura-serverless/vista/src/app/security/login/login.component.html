@@ -1,0 +1,65 @@
+<div class="intro-header background-image">
+
+  <form class="form-signin"
+        (ngSubmit)="onLogin()"
+        [formGroup]="form">
+
+    <mat-toolbar>
+      <mat-toolbar-row color="primary"><span class="title">Inicio de Sesión</span></mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-card>
+
+      <div class="img-logo-header"></div>
+
+      <mat-form-field>
+        <input matInput
+               placeholder="Usuario"
+               required
+               type="email"
+               maxlength="60"
+               formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+               placeholder="Contraseña"
+               required
+               type="password"
+               maxlength="25"
+               formControlName="password">
+      </mat-form-field>
+
+      <mat-checkbox
+        class="remember-me"
+        color="primary"
+        formControlName="rememberMe">Recordar Sesión
+      </mat-checkbox>
+
+      <div class="alert-danger" *ngIf="errorMessage != null">
+        <span class="alert-danger">{{ errorMessage }}</span>
+      </div>
+
+      <div>
+        <button
+          [disabled]="!form.valid"
+          type="submit"
+          class="login-submit"
+          mat-raised-button>Continuar
+        </button>
+      </div>
+
+      <br>
+      <div>
+        <div class="signUp">
+          <a class="bottom-opts" [routerLink]="['/signUp']"><i></i>Registrarse</a>
+        </div>
+        <div class="forgot" >
+          <a class="bottom-opts" [routerLink]="['/security/forgotPassword']">Recuperar contraseña</a>
+        </div>
+      </div>
+      <br>
+    </mat-card>
+  </form>
+
+</div>
