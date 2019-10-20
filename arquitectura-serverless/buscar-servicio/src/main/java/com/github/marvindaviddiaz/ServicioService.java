@@ -29,5 +29,4 @@ public class ServicioService implements RequestHandler<APIGatewayProxyRequestEve
                 .withStatusCode(200)
                 .withBody(new Gson().toJson(servicioDTOS));
     }
-
 }

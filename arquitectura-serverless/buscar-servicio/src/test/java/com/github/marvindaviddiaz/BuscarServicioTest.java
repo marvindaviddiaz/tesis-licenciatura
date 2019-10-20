@@ -11,8 +11,8 @@ public class BuscarServicioTest {
     @Test
     public void buscarServicioTest() {
         ServicioService servicio = new ServicioService();
-        List<ServicioDTO> servicios = servicio.handleRequest("tel", null);
-        servicios.forEach(e -> JAXB.marshal(e, System.out));
+//        List<ServicioDTO> servicios = servicio.handleRequest(null, null);
+//        servicios.forEach(e -> JAXB.marshal(e, System.out));
     }
 
 }
