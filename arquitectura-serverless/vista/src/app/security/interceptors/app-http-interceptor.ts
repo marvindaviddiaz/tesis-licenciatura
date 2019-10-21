@@ -12,7 +12,6 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.securityService.getAccessToken().subscribe(token => {
-      console.log(token);
       if (token != null) {
         request = request.clone({
           setHeaders: {

@@ -24,11 +24,8 @@ public class ServicioService implements RequestHandler<APIGatewayProxyRequestEve
         logger.log(Level.INFO, "Authorizer:  {0}", event.getRequestContext().getAuthorizer());
         String usuario = (String) ((Map)event.getRequestContext().getAuthorizer().get("claims")).get("cognito:username");
         logger.log(Level.INFO, "User:  {0}", usuario);
-        String search = new Gson().fromJson(event.getBody(), String.class);
+        String search = event.getQueryStringParameters().getOrDefault("busqueda", "");
         List<ServicioDTO> servicioDTOS = servicioDAO.buscarServicio(search);
-
-
-
         return new APIGatewayProxyResponseEvent()
                 .withStatusCode(200)
                 .withHeaders(Collections.singletonMap("Access-Control-Allow-Origin", "*"))

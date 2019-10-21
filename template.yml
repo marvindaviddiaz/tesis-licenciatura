@@ -313,7 +313,7 @@ Resources:
         paths:
 
           /api/servicios/buscar/:
-            post:
+            get:
               produces:
                 - application/json
               responses:
@@ -323,7 +323,7 @@ Resources:
                 - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
                 type: aws_proxy
-                httpMethod: post
+                httpMethod: get
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicio.Arn}/invocations'
                 responses:
                   default:
