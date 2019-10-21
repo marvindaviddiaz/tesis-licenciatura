@@ -325,12 +325,6 @@ Resources:
                   type: string
               produces:
                 - application/json
-              responses:
-                '200':
-                  description: 200 response
-                  headers:
-                    Access-Control-Allow-Origin:
-                      type: string
               security:
                 - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
@@ -338,12 +332,22 @@ Resources:
                 httpMethod: post
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicio.Arn}/invocations'
                 responses:
-                  default:
+                  default :
                     statusCode: "200"
                     responseParameters:
-                      method.response.header.Access-Control-Allow-Origin: "'*'"
-                passthroughBehavior: "when_no_match"
-                contentHandling: "CONVERT_TO_TEXT"
+                      method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                      method.response.header.Access-Control-Allow-Methods : "'*'"
+                      method.response.header.Access-Control-Allow-Origin : "'*'"
+              responses:
+                '200':
+                  description: Respuesta Ok
+                  headers:
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Origin:
+                      type: "string"
 
           /api/cuentas/listar/:
             post:
