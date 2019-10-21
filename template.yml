@@ -19,7 +19,7 @@ Globals:
     # Allows an application running locally on port 8080 to call this API
     Cors:
       AllowMethods: "'OPTIONS,POST,GET'"
-      AllowHeaders: "'Content-Type'"
+      AllowHeaders: "'Content-Type,Authorization'"
       AllowOrigin: "'http://localhost:4200'"
 
 Resources:
