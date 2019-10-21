@@ -15,6 +15,12 @@ Globals:
         RDS_DB_NAME: tesis
         RDS_USERNAME: usuariomaestro01
         RDS_PASSWORD: _8V=vMmCmrJLtD!F
+  Api:
+    # Allows an application running locally on port 8080 to call this API
+    Cors:
+      AllowMethods: "'OPTIONS,POST,GET'"
+      AllowHeaders: "'Content-Type'"
+      AllowOrigin: "'http://localhost:4200'"
 
 Resources:
 
