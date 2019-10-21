@@ -20,7 +20,7 @@ Globals:
     Cors:
       AllowMethods: "'OPTIONS,GET,POST,PUT,DELETE'"
       AllowHeaders: "'Content-Type,Authorization'"
-      AllowOrigin: "'http://localhost:4200'"
+      AllowOrigin: "'*'"
 
 Resources:
 
