@@ -28,6 +28,7 @@ public class ServicioService implements RequestHandler<APIGatewayProxyRequestEve
         List<ServicioDTO> servicioDTOS = servicioDAO.buscarServicio(search);
         return new APIGatewayProxyResponseEvent()
                 .withStatusCode(200)
+                .withHeaders(Collections.singletonMap("Access-Control-Allow-Origin", "*"))
                 .withBody(new Gson().toJson(servicioDTOS));
     }
 }
