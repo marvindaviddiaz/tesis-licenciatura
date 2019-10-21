@@ -320,7 +320,7 @@ Resources:
                   required: true
                   type: string
                 - name: busqueda
-                  in: path
+                  in: query
                   required: true
                   type: string
               produces:
