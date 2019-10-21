@@ -14,6 +14,6 @@ export class BuscarServicioService {
   constructor(private http: HttpClient) { }
 
   query(query: string): Observable<any> {
-    return this.http.post(this.apiUrl, query);
+    return this.http.get(this.apiUrl, {params : {"busqueda" : query}});
   }
 }
