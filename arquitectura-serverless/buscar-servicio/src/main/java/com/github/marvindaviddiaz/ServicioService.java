@@ -20,9 +20,9 @@ public class ServicioService implements RequestHandler<APIGatewayProxyRequestEve
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {
-        logger.log(Level.INFO, "Authorizer: {0}", event.getRequestContext().getAuthorizer());
+        logger.log(Level.INFO, "Authorizer:  {0}", event.getRequestContext().getAuthorizer());
         String usuario = (String) ((Map)event.getRequestContext().getAuthorizer().get("claims")).get("cognito:username");
-        logger.log(Level.INFO, "User: {0}", usuario);
+        logger.log(Level.INFO, "User:  {0}", usuario);
         String search = new Gson().fromJson(event.getBody(), String.class);
         List<ServicioDTO> servicioDTOS = servicioDAO.buscarServicio(search);
         return new APIGatewayProxyResponseEvent()
