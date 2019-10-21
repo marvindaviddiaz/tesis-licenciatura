@@ -8,6 +8,7 @@ import com.github.marvindaviddiaz.dao.ServicioDAO;
 import com.github.marvindaviddiaz.dto.ServicioDTO;
 import com.google.gson.Gson;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -25,8 +26,12 @@ public class ServicioService implements RequestHandler<APIGatewayProxyRequestEve
         logger.log(Level.INFO, "User:  {0}", usuario);
         String search = new Gson().fromJson(event.getBody(), String.class);
         List<ServicioDTO> servicioDTOS = servicioDAO.buscarServicio(search);
+
+
+
         return new APIGatewayProxyResponseEvent()
                 .withStatusCode(200)
+                .withHeaders(Collections.singletonMap("Access-Control-Allow-Origin", "*"))
                 .withBody(new Gson().toJson(servicioDTOS));
     }
 }

@@ -13,7 +13,7 @@ export class BuscarServicioService {
 
   constructor(private http: HttpClient) { }
 
-  query(query: string): Observable<Servicio> {
+  query(query: string): Observable<any> {
     return this.http.post(this.apiUrl, query);
   }
 }
