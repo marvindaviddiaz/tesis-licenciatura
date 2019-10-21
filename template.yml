@@ -314,6 +314,15 @@ Resources:
 
           /api/servicios/buscar/:
             get:
+              parameters:
+                - name: Authorization
+                  in: header
+                  required: true
+                  type: string
+                - name: busqueda
+                  in: path
+                  required: true
+                  type: string
               produces:
                 - application/json
               responses:
