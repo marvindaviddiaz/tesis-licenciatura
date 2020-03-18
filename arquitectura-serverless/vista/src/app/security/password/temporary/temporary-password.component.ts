@@ -55,7 +55,7 @@ export class TemporaryPasswordComponent implements OnInit, OnDestroy {
       data => {
 
       }, messageErr => {
-        let key: string = 'errorCognito.' + messageErr.name;
+        const key: string = 'errorCognito.' + messageErr.name;
         this.errorMessage = key;
       }
     );

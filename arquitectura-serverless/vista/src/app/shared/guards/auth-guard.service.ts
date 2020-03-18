@@ -20,7 +20,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
     }
 
     private validate(state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        let ob = this.securityService.validateSession();
+        const ob = this.securityService.validateSession();
         ob.subscribe((isValid) => {
             // console.log("AuthGuardService: " +  isValid);
             if (!isValid) {

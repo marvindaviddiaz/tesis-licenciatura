@@ -4,12 +4,12 @@ import {isNullOrUndefined} from 'util';
 export function customValidator(): ValidatorFn {
 
   return (control: AbstractControl): { [key: string]: any } => {
-    let message = {
+    const message = {
       'same': true
     };
 
 
-    let isValid = !isNullOrUndefined(control.parent) && control.value === control.parent.get('password').value;
+    const isValid = !isNullOrUndefined(control.parent) && control.value === control.parent.get('password').value;
     return isValid ? null : message;
 
   };

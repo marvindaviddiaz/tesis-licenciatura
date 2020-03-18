@@ -12,7 +12,7 @@ export class SecurityService {
     constructor(private router: Router) {}
 
     getUserPool(): CognitoUserPool {
-        let data = { UserPoolId : environment.userPoolId,
+        const data = { UserPoolId : environment.userPoolId,
             ClientId : environment.clientId
         };
         return new CognitoUserPool(data);
@@ -21,19 +21,19 @@ export class SecurityService {
     authenticate(username: string, password: string): Observable<any> {
         return Observable.create(observer => {
             console.log('SecurityService: starting the authentication');
-            let authenticationData = {
+            const authenticationData = {
                 Username: username,
                 Password: password,
             };
-            let authenticationDetails = new AuthenticationDetails(authenticationData);
+            const authenticationDetails = new AuthenticationDetails(authenticationData);
 
-            let userData = {
+            const userData = {
                 Username: username,
                 Pool: this.getUserPool()
             };
 
             console.log('SecurityService: Params set...Authenticating the user');
-            let cognitoUser = new CognitoUser(userData);
+            const cognitoUser = new CognitoUser(userData);
             cognitoUser.authenticateUser(authenticationDetails, {
                 newPasswordRequired: function (userAttributes, requiredAttributes) {
                     observer.error('SetPassword');
@@ -44,7 +44,7 @@ export class SecurityService {
                     observer.complete();
                 },
                 onFailure: function (err) {
-                  if (err.code && err.code === "PasswordResetRequiredException") {
+                  if (err.code && err.code === 'PasswordResetRequiredException') {
                     observer.error('ForgotPassword');
                     observer.complete();
                   } else {
@@ -58,11 +58,11 @@ export class SecurityService {
 
     forgotPassword(username: string): Observable<any> {
         return Observable.create(observer => {
-            let userData = {
+            const userData = {
                 Username: username,
                 Pool: this.getUserPool()
             };
-            let cognitoUser = new CognitoUser(userData);
+            const cognitoUser = new CognitoUser(userData);
             cognitoUser.forgotPassword({
                 onSuccess: function (data) {
                     observer.next(data);
@@ -82,12 +82,12 @@ export class SecurityService {
 
     confirmNewPassword(email: string, verificationCode: string, password: string): Observable<any> {
         return Observable.create(observer => {
-            let userData = {
+            const userData = {
                 Username: email,
                 Pool: this.getUserPool()
             };
 
-            let cognitoUser = new CognitoUser(userData);
+            const cognitoUser = new CognitoUser(userData);
 
             cognitoUser.confirmPassword(verificationCode, password, {
                 onSuccess: function () {
@@ -104,11 +104,11 @@ export class SecurityService {
 
     changePassword(newPasswordUser: NewPasswordUser): Observable<any> {
         return Observable.create(observer => {
-            let cognitoUser = this.getUserPool().getCurrentUser();
+            const cognitoUser = this.getUserPool().getCurrentUser();
             if (cognitoUser != null) {
                 cognitoUser.getSession(function (err, session) {
                     if (err) {
-                        console.log("SecurityService: Couldn't get the session: " + err, err.stack);
+                        console.log('SecurityService: Couldn\'t get the session: ' + err, err.stack);
                         observer.error(err);
                         observer.complete();
                     } else {
@@ -133,21 +133,21 @@ export class SecurityService {
     newPassword(newPasswordUser: NewPasswordUser): Observable<any> {
         return Observable.create(observer => {
             // Get these details and call
-            //cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this);
-            let authenticationData = {
+            // cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this);
+            const authenticationData = {
                 Username: newPasswordUser.username,
                 Password: newPasswordUser.existingPassword,
             };
-            let authenticationDetails = new AuthenticationDetails(authenticationData);
+            const authenticationDetails = new AuthenticationDetails(authenticationData);
 
-            let userData = {
+            const userData = {
                 Username: newPasswordUser.username,
                 Pool: this.getUserPool()
             };
 
-            console.log("SecurityService: Params set...Authenticating the user");
-            let cognitoUser = new CognitoUser(userData);
-            console.log("SecurityService: config is " + AWS.config);
+            console.log('SecurityService: Params set...Authenticating the user');
+            const cognitoUser = new CognitoUser(userData);
+            console.log('SecurityService: config is ' + AWS.config);
             cognitoUser.authenticateUser(authenticationDetails, {
                 newPasswordRequired: function (userAttributes, requiredAttributes) {
                     // User was signed up by an admin and must provide new
@@ -188,11 +188,11 @@ export class SecurityService {
 
     public validateSession(): Observable<boolean> {
         return Observable.create(observer => {
-            let data = { UserPoolId : environment.userPoolId,
+            const data = { UserPoolId : environment.userPoolId,
                 ClientId : environment.clientId
             };
-            let userPool = new CognitoUserPool(data);
-            let cognitoUser = userPool.getCurrentUser();
+            const userPool = new CognitoUserPool(data);
+            const cognitoUser = userPool.getCurrentUser();
             if (cognitoUser != null) {
                 cognitoUser.getSession(function(err, session) {
                     if (err) {
@@ -212,11 +212,11 @@ export class SecurityService {
 
     public isLoggedOut(): Observable<boolean> {
         return Observable.create(observer => {
-            let data = { UserPoolId : environment.userPoolId,
+            const data = { UserPoolId : environment.userPoolId,
                 ClientId : environment.clientId
             };
-            let userPool = new CognitoUserPool(data);
-            let cognitoUser = userPool.getCurrentUser();
+            const userPool = new CognitoUserPool(data);
+            const cognitoUser = userPool.getCurrentUser();
             if (cognitoUser != null) {
                 cognitoUser.getSession(function(err, session) {
                     if (err) {
@@ -227,7 +227,7 @@ export class SecurityService {
                     observer.complete();
                 });
             } else {
-                observer.next(true); //reverse
+                observer.next(true); // reverse
                 observer.complete();
             }
         });
@@ -236,11 +236,11 @@ export class SecurityService {
 
     public getAccessToken(): Observable<any> {
         return Observable.create(observer => {
-            let data = { UserPoolId : environment.userPoolId,
+            const data = { UserPoolId : environment.userPoolId,
                 ClientId : environment.clientId
             };
-            let userPool = new CognitoUserPool(data);
-            let cognitoUser = userPool.getCurrentUser();
+            const userPool = new CognitoUserPool(data);
+            const cognitoUser = userPool.getCurrentUser();
             if (cognitoUser != null) {
                 cognitoUser.getSession(function(err, session) {
                     if (err) {
@@ -260,11 +260,11 @@ export class SecurityService {
 
   public getCurrentUserAttributes(): Observable<CognitoUserAttribute[]> {
     return Observable.create(observer => {
-      let data = { UserPoolId : environment.userPoolId,
+      const data = { UserPoolId : environment.userPoolId,
         ClientId : environment.clientId
       };
-      let userPool = new CognitoUserPool(data);
-      let cognitoUser = userPool.getCurrentUser();
+      const userPool = new CognitoUserPool(data);
+      const cognitoUser = userPool.getCurrentUser();
       if (cognitoUser != null) {
         cognitoUser.getSession(function(err, session) {
           if (err) {
@@ -286,10 +286,10 @@ export class SecurityService {
   }
 
     public getCurrentUser(): CognitoUser {
-        let data = { UserPoolId : environment.userPoolId,
+        const data = { UserPoolId : environment.userPoolId,
           ClientId : environment.clientId
         };
-        let userPool = new CognitoUserPool(data);
+        const userPool = new CognitoUserPool(data);
         return userPool.getCurrentUser();
     }
 

@@ -23,16 +23,16 @@ export class NonAuthGuardService implements CanActivate, CanActivateChild {
     }
 
     private validate(): Observable<boolean> | Promise<boolean> | boolean {
-        let ob = this.securityService.isLoggedOut();
+        const ob = this.securityService.isLoggedOut();
         ob.subscribe((isValid) => {
-            console.log("AuthGuardService: " +  isValid);
+            console.log('AuthGuardService: ' +  isValid);
             if (!isValid) {
                 this.router.navigate(['/home']);
             }
-            console.log("isValid: " + isValid);
+            console.log('isValid: ' + isValid);
         }, (error) => {
             this.router.navigate(['/home']);
-            console.log("error: " + error);
+            console.log('error: ' + error);
         });
         return ob;
     }

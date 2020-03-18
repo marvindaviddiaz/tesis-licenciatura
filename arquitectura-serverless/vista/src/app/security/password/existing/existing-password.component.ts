@@ -52,8 +52,8 @@ export class ExistingPasswordComponent implements OnInit {
             this.securityService.changePassword(this.registrationUser).subscribe(
                 data =>  this.successSubmit(),
                 messageErr => {
-                    let key: string = "errorCognito." + messageErr.name;
-                  this.errorMessage = key;
+                    const key: string = 'errorCognito.' + messageErr.name;
+                    this.errorMessage = key;
                 }
             );
         }

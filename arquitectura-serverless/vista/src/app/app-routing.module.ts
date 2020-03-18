@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {LoginComponent} from "./security/login/login.component";
-import {TemporaryPasswordComponent} from "./security/password/temporary/temporary-password.component";
-import {ForgotPasswordStep1Component, ForgotPasswordStep2Component} from "./security/forgot/forgotPassword.component";
-import {ExistingPasswordComponent} from "./security/password/existing/existing-password.component";
-import {NonAuthGuardService} from "./shared/guards/nonauth-guard.service";
-import {AuthGuardService} from "./shared/guards/auth-guard.service";
-import {HomeComponent} from "./home/home.component";
-import {NotFoundComponent} from "./not-found/not-found.component";
-import {BuscarServicioComponent} from "./buscar-servicio/buscar-servicio.component";
-import {HistoricoComponent} from "./historico/historico.component";
+import {LoginComponent} from './security/login/login.component';
+import {TemporaryPasswordComponent} from './security/password/temporary/temporary-password.component';
+import {ForgotPasswordStep1Component, ForgotPasswordStep2Component} from './security/forgot/forgotPassword.component';
+import {ExistingPasswordComponent} from './security/password/existing/existing-password.component';
+import {NonAuthGuardService} from './shared/guards/nonauth-guard.service';
+import {AuthGuardService} from './shared/guards/auth-guard.service';
+import {HomeComponent} from './home/home.component';
+import {NotFoundComponent} from './not-found/not-found.component';
+import {BuscarServicioComponent} from './buscar-servicio/buscar-servicio.component';
+import {HistoricoComponent} from './historico/historico.component';
 
 const routes: Routes = [
 

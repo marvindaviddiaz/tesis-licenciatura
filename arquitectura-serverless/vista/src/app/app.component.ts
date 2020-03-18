@@ -43,8 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    let lastActivity = +localStorage.getItem(LAST_ACTIVITY);
-    let rememberMe = 'true' === localStorage.getItem(REMEMBER_ME);
+    const lastActivity = +localStorage.getItem(LAST_ACTIVITY);
+    const rememberMe = 'true' === localStorage.getItem(REMEMBER_ME);
     if (!rememberMe) {
       if ((new Date().getTime() - lastActivity) > INACTIVITY_TIMEOUT) {
         this.securityService.validateSession().subscribe(value => {

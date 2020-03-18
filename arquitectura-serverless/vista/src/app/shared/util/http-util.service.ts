@@ -7,9 +7,9 @@ export class HttpUtilService {
     if (0 === error.status) {
       // TODO check if '0' is the correct status
       // window.location.href = '/';
-      return "Ha ocurrido un error con la conexión";
+      return 'Ha ocurrido un error con la conexión';
     } else {
-      let ex = error.error;
+      const ex = error.error;
       if (ex.message) {
         return ex.message;
       } else if (ex.content) {

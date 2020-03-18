@@ -27,7 +27,7 @@ export class InactivityService implements OnDestroy {
     }
 
     private onInactive() {
-        let rememberMe = 'true' === localStorage.getItem(REMEMBER_ME);
+        const rememberMe = 'true' === localStorage.getItem(REMEMBER_ME);
         if (!rememberMe) {
             this.securityService.validateSession()
                 .subscribe(value => {

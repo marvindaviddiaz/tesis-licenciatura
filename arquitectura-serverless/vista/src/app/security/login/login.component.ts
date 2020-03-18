@@ -31,9 +31,9 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
 
-    let email = this.form.get('email').value.toString().toLowerCase().trim();
+    const email = this.form.get('email').value.toString().toLowerCase().trim();
 
-    let password = this.form.get('password').value;
+    const password = this.form.get('password').value;
     if (email == null || password == null) {
       this.errorMessage = 'Debe ingresar la información';
       return;
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.errorMessage = null;
     this.securityService.authenticate(email, password).subscribe(value => {
       console.log('Login success');
-      let rememberMe = this.form.get('rememberMe').value === true ? "true" : 'false';
+      const rememberMe = this.form.get('rememberMe').value === true ? 'true' : 'false';
       localStorage.setItem(LAST_ACTIVITY, new Date().getTime().toString());
       localStorage.setItem(REMEMBER_ME, rememberMe);
       this.router.navigate(['/home']);
