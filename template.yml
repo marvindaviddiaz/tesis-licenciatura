@@ -366,7 +366,7 @@ Resources:
                 '200':
                   description: Respuesta Ok
 
-          /api/servicios/{servicio}/identificadores:
+          /api/servicios/{servicio}/identificadores/:
             get:
               parameters:
                 - name: Authorization
