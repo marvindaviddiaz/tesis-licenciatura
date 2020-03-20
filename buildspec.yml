@@ -13,6 +13,7 @@ phases:
 
       - mv arquitectura-serverless/buscar-servicio/target/buscar-servicio-1.0-SNAPSHOT.jar buscar-servicio.jar
       - mv arquitectura-serverless/listar-cuentas/target/listar-cuentas-1.0-SNAPSHOT.jar listar-cuentas.jar
+      - mv arquitectura-serverless/obtener-identificadores/target/obtener-identificadores-1.0-SNAPSHOT.jar obtener-identificadores.jar
 
       - aws cloudformation package --template template.yml --s3-bucket tesis-licenciatura-artifacts --output-template template-export.yml
       - aws cloudformation deploy --template-file template-export.yml --stack-name tesis-licenciatura-stack --capabilities CAPABILITY_NAMED_IAM

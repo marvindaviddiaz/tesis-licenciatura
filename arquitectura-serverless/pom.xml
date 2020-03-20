@@ -14,6 +14,7 @@
     <modules>
         <module>buscar-servicio</module>
         <module>listar-cuentas</module>
+        <module>obtener-identificadores</module>
     </modules>
 
 

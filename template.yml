@@ -277,6 +277,24 @@ Resources:
           - subnet-73dbc135
           - subnet-84e018f3
 
+
+  obtenerIdentificadores:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: obtener-identificadores
+      Handler: com.github.marvindaviddiaz.IdentificadorService
+      CodeUri: ./obtener-identificadores.jar
+      Description: Obtener Identificadores
+      Role: !GetAtt RoleForLambdas.Arn
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0b2c9b4bfdded5eaf
+        SubnetIds:
+          - subnet-73dbc135
+          - subnet-84e018f3
+
+## PERMISOS
+
   buscarServicioPermission:
     Type: "AWS::Lambda::Permission"
     Properties:
@@ -292,6 +310,16 @@ Resources:
       FunctionName: !GetAtt listarCuentas.Arn
       Principal: "apigateway.amazonaws.com"
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+
+  obtenerIdentificadoresPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt obtenerIdentificadores.Arn
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+
+## API
 
   ServerlessApi:
     Type: AWS::Serverless::Api
@@ -323,6 +351,32 @@ Resources:
                   in: query
                   required: true
                   type: string
+              produces:
+                - application/json
+              security:
+                - cognitoUserPoolAuthorizer: []
+              x-amazon-apigateway-integration:
+                type: aws_proxy
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicio.Arn}/invocations'
+                responses:
+                  default :
+                    statusCode: "200"
+              responses:
+                '200':
+                  description: Respuesta Ok
+
+          /api/servicios/{servicio}/identificadores:
+            get:
+              parameters:
+                - name: Authorization
+                  in: header
+                  required: true
+                  type: string
+                - name: servicio
+                  in: path
+                  required: true
+                  type: integer
               produces:
                 - application/json
               security:
