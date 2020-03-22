@@ -4,7 +4,7 @@ Description: Tesis Licenciatura
 
 Globals:
   Function:
-    Runtime: java8
+    Runtime: java11
     Timeout: 30
     MemorySize: 128
     Tags:
