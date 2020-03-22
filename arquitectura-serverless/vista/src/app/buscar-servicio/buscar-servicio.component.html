@@ -26,7 +26,7 @@
 
     <div class="div-card-servicios">
       <mat-card class="servicios-card" *ngFor="let entity of servicios">
-        <mat-card-header>
+        <mat-card-header [routerLink]="['/consulta-pago/' + entity.idServicio]">
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title>{{entity.nombreServicio}}</mat-card-title>
           <mat-card-subtitle>{{entity.nombreTercero}}</mat-card-subtitle>

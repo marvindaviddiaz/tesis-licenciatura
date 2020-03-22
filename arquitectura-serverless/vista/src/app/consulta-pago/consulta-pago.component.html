@@ -1,0 +1,48 @@
+<div>
+  <form class="form-signin"
+        (ngSubmit)="onSubmit()"
+        [formGroup]="form">
+
+    <mat-toolbar>
+      <mat-toolbar-row color="primary"><span class="title">Consulta</span></mat-toolbar-row>
+    </mat-toolbar>
+
+
+    <div class="col-md-6">
+      <ul id="params" formArrayName="identificadores">
+        <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+          <div formGroupName="{{i}}" class="form-group">
+            <!-- INPUT -->
+            <mat-form-field>
+              <input matInput
+                     placeholder="{{e.value.nombre}}"
+                     required
+                     type="text"
+                     maxlength="80"
+                     formControlName="valor">
+            </mat-form-field>
+          </div>
+        </div>
+      </ul>
+    </div>
+
+    <div>
+      <button
+        [disabled]="!form.valid"
+        type="submit"
+        mat-raised-button>Buscar
+      </button>
+    </div>
+
+    <div class="div-card-servicios">
+      <mat-card class="servicios-card" *ngFor="let entity of servicios">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{entity.nombreServicio}}</mat-card-title>
+          <mat-card-subtitle>{{entity.nombreTercero}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+
+  </form>
+</div>

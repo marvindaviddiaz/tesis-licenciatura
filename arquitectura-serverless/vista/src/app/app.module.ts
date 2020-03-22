@@ -23,6 +23,7 @@ import {AppHttpInterceptor} from './security/interceptors/app-http-interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BuscarServicioComponent} from './buscar-servicio/buscar-servicio.component';
 import {HistoricoComponent} from './historico/historico.component';
+import {ConsultaPagoComponent} from './consulta-pago/consulta-pago.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {HistoricoComponent} from './historico/historico.component';
     MenuComponent,
     ControlMessagesComponent,
     BuscarServicioComponent,
-    HistoricoComponent
+    HistoricoComponent,
+    ConsultaPagoComponent
   ],
   imports: [
     BrowserAnimationsModule,
