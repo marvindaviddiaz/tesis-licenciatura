@@ -7,6 +7,7 @@ Globals:
     Runtime: java11
     Timeout: 30
     MemorySize: 256
+    Tracing: Active
     Tags:
       bill: tesis
     Environment:
@@ -54,6 +55,14 @@ Resources:
               - Effect: Allow
                 Action: 'kms:Decrypt'
                 Resource: !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/5a4f90fd-e1eb-4181-858f-d277187bfd1c'
+        - PolicyName: XRayPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: ['xray:PutTraceSegments', 'xray:PutTelemetryRecords']
+                Resource: '*'
+
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
         - arn:aws:iam::aws:policy/service-role/AWSLambdaRole

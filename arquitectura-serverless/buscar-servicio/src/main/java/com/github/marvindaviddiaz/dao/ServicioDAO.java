@@ -1,6 +1,5 @@
 package com.github.marvindaviddiaz.dao;
 
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement;
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClientBuilder;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest;
@@ -17,7 +16,7 @@ import java.util.logging.Logger;
 public class ServicioDAO {
 
     private static final Logger logger = Logger.getLogger(ServicioDAO.class.getName());
-    private static final AWSSimpleSystemsManagement ssm = AWSSimpleSystemsManagementClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+    private static final AWSSimpleSystemsManagement ssm = AWSSimpleSystemsManagementClientBuilder.standard().build();
     private static final NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(
             new DriverManagerDataSource(
                     String.format("jdbc:mysql://%s/%s",
