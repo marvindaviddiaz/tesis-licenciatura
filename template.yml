@@ -11,10 +11,11 @@ Globals:
       bill: tesis
     Environment:
       Variables:
-        RDS_ENDPOINT: instancia-01-tesis-licenciatura.cn8jbgeyzda1.us-east-1.rds.amazonaws.com
-        RDS_DB_NAME: tesis
-        RDS_USERNAME: usuariomaestro01
-        RDS_PASSWORD: _8V=vMmCmrJLtD!F
+        RDS_ENDPOINT: /Tesis/BD/host
+        RDS_DB_NAME: /Tesis/BD/name
+        RDS_USERNAME: /Tesis/BD/user
+        RDS_PASSWORD: /Tesis/BD/password
+
   Api:
     # Allows an application running locally on port 8080 to call this API
     Cors:
@@ -38,6 +39,12 @@ Resources:
               Principal:
                 Service: "apigateway.amazonaws.com"
               Action: "sts:AssumeRole"
+          -   Effect: Allow
+              Action: "ssm:GetParameter"
+              Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/Tesis/BD/*'
+          -   Effect: Allow
+              Action: ["kms:Decrypt"]
+              Resource: !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/5a4f90fd-e1eb-4181-858f-d277187bfd1c'
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
         - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
