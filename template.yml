@@ -6,7 +6,7 @@ Globals:
   Function:
     Runtime: java11
     Timeout: 30
-    MemorySize: 128
+    MemorySize: 256
     Tags:
       bill: tesis
     Environment:
