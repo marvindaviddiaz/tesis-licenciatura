@@ -32,11 +32,16 @@ public class ServicioDAO {
             "group by s.id, s.nombre, t.id, t.nombre";
 
     private static String getParameter(String parameterName, Boolean decryption) {
-        logger.log(Level.INFO, "Getting param: {0}", parameterName);
-        return ssm.getParameter(new GetParameterRequest()
-                .withName(parameterName)
-                .withWithDecryption(decryption)
-        ).getParameter().getValue();
+        try {
+            logger.log(Level.INFO, "Getting param: {0}", parameterName);
+            return ssm.getParameter(new GetParameterRequest()
+                    .withName(parameterName)
+                    .withWithDecryption(decryption)
+            ).getParameter().getValue();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+            throw e;
+        }
     }
 
 
