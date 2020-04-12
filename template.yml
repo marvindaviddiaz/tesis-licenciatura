@@ -39,14 +39,10 @@ Resources:
               Principal:
                 Service: "apigateway.amazonaws.com"
               Action: "sts:AssumeRole"
-      Policies:
-        - Statement:
-            - Sid: GetParametersSystemManagerPolicy
-              Effect: "Allow"
+          -   Effect: "Allow"
               Action: "ssm:GetParameter"
               Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/Tesis/BD/*'
-            - Sid: DecryptParametersSystemManagerPolicy
-              Effect: "Allow"
+          -   Effect: "Allow"
               Action: "kms:Decrypt"
               Resource: !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/5a4f90fd-e1eb-4181-858f-d277187bfd1c'
       ManagedPolicyArns:

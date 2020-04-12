@@ -6,7 +6,7 @@ phases:
       java: corretto11
   build:
     commands:
-      - mvn package -Dmaven.test.skip=true --batch-mode
+      - mvn package -DskipTests=true --batch-mode --quiet
       - mv servicios-ficticios-terceros/eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar eafg-consulta.jar
       - mv servicios-ficticios-terceros/eafg-pago/target/eafg-pago-1.0-SNAPSHOT.jar eafg-pago.jar
       - mv servicios-ficticios-terceros/eefg-consulta/target/eefg-consulta-1.0-SNAPSHOT.jar eefg-consulta.jar
