@@ -54,7 +54,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: 'kms:Decrypt'
-                Resource: !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/5a4f90fd-e1eb-4181-858f-d277187bfd1c'
+                Resource: !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/d7487d9a-9099-4a31-992a-b704d9f00ab4'
         - PolicyName: XRayPolicy
           PolicyDocument:
             Version: 2012-10-17
