@@ -39,12 +39,13 @@ Resources:
               Principal:
                 Service: "apigateway.amazonaws.com"
               Action: "sts:AssumeRole"
-          -   Effect: Allow
-              Action: "ssm:GetParameter"
-              Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/Tesis/BD/*'
-          -   Effect: Allow
-              Action: ["kms:Decrypt"]
-              Resource: !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/5a4f90fd-e1eb-4181-858f-d277187bfd1c'
+      Policies:
+        - Effect: "Allow"
+          Action: "ssm:GetParameter"
+          Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/Tesis/BD/*'
+        - Effect: "Allow"
+          Action: "kms:Decrypt"
+          Resource: !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/5a4f90fd-e1eb-4181-858f-d277187bfd1c'
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
         - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
