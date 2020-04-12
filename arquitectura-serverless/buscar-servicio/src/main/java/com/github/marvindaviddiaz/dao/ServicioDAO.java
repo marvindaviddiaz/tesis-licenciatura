@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ServicioDAO {
 
     private static final Logger logger = Logger.getLogger(ServicioDAO.class.getName());
-    private static final AWSSimpleSystemsManagement ssm = AWSSimpleSystemsManagementClientBuilder.standard().build();
+    private static final AWSSimpleSystemsManagement ssm = AWSSimpleSystemsManagementClientBuilder.defaultClient();
     private static final NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(
             new DriverManagerDataSource(
                     String.format("jdbc:mysql://%s/%s",
