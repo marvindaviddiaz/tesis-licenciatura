@@ -1,5 +1,6 @@
 package com.github.marvindaviddiaz.dao;
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement;
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClientBuilder;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 public class ServicioDAO {
 
     private static final Logger logger = Logger.getLogger(ServicioDAO.class.getName());
-    private static final AWSSimpleSystemsManagement ssm = AWSSimpleSystemsManagementClientBuilder.defaultClient();
+    private static final AWSSimpleSystemsManagement ssm = AWSSimpleSystemsManagementClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
     private static final NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(
             new DriverManagerDataSource(
                     String.format("jdbc:mysql://%s/%s",
@@ -32,16 +33,11 @@ public class ServicioDAO {
             "group by s.id, s.nombre, t.id, t.nombre";
 
     private static String getParameter(String parameterName, Boolean decryption) {
-        try {
-            logger.log(Level.INFO, "Getting param: {0}", parameterName);
-            return ssm.getParameter(new GetParameterRequest()
-                    .withName(parameterName)
-                    .withWithDecryption(decryption)
-            ).getParameter().getValue();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            throw e;
-        }
+        logger.log(Level.INFO, "Getting param: {0}", parameterName);
+        return ssm.getParameter(new GetParameterRequest()
+                .withName(parameterName)
+                .withWithDecryption(decryption)
+        ).getParameter().getValue();
     }
 
 
