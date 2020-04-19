@@ -6,16 +6,16 @@ Resources:
   ApiStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./arquitectura-serverless-api.yml
+      TemplateURL: ./arquitectura-serverless/api.yml
   FunctionsStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./arquitectura-serverless-functions.yml
+      TemplateURL: ./arquitectura-serverless/functions.yml
   ApiSFTStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./servicios-ficticios-terceros-api.yml
+      TemplateURL: ./servicios-ficticios-terceros/api.yml
   FunctionsSFTStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./servicios-ficticios-terceros-functions.yml
+      TemplateURL: ./servicios-ficticios-terceros/functions.yml
