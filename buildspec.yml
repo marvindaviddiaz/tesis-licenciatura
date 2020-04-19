@@ -8,7 +8,7 @@ phases:
     commands:
       - mvn package -DskipTests=true --batch-mode --quiet
       - aws cloudformation package --template template.yml --s3-bucket tesis-licenciatura-artifacts --output-template template-export.yml
-      - aws cloudformation deploy --template-file template-export.yml --stack-name tesis-licenciatura-stack --capabilities CAPABILITY_NAMED_IAM
+      - aws cloudformation deploy --template-file template-export.yml --stack-name tesis-licenciatura-stack --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND
 artifacts:
   discard-paths: yes
   files:
