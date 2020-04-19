@@ -7,18 +7,6 @@ phases:
   build:
     commands:
       - mvn package -DskipTests=true --batch-mode --quiet
-      - mv servicios-ficticios-terceros/eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar eafg-consulta.jar
-      - mv servicios-ficticios-terceros/eafg-pago/target/eafg-pago-1.0-SNAPSHOT.jar eafg-pago.jar
-      - mv servicios-ficticios-terceros/eefg-consulta/target/eefg-consulta-1.0-SNAPSHOT.jar eefg-consulta.jar
-      - mv servicios-ficticios-terceros/eefg-pago/target/eefg-pago-1.0-SNAPSHOT.jar eefg-pago.jar
-      - mv servicios-ficticios-terceros/etfg-consulta/target/etfg-consulta-1.0-SNAPSHOT.jar etfg-consulta.jar
-      - mv servicios-ficticios-terceros/etfg-pago/target/etfg-pago-1.0-SNAPSHOT.jar etfg-pago.jar
-
-      - mv arquitectura-serverless/buscar-servicio/target/buscar-servicio-1.0-SNAPSHOT.jar buscar-servicio.jar
-      - mv arquitectura-serverless/listar-cuentas/target/listar-cuentas-1.0-SNAPSHOT.jar listar-cuentas.jar
-      - mv arquitectura-serverless/obtener-identificadores/target/obtener-identificadores-1.0-SNAPSHOT.jar obtener-identificadores.jar
-      - mv arquitectura-serverless/consulta/target/consulta-1.0-SNAPSHOT.jar consulta.jar
-
       - aws cloudformation package --template template.yml --s3-bucket tesis-licenciatura-artifacts --output-template template-export.yml
       - aws cloudformation deploy --template-file template-export.yml --stack-name tesis-licenciatura-stack --capabilities CAPABILITY_NAMED_IAM
 artifacts:

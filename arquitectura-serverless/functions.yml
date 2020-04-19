@@ -69,7 +69,7 @@ Resources:
     Properties:
       FunctionName: buscar-servicio
       Handler: com.github.marvindaviddiaz.ServicioService
-      CodeUri: ./buscar-servicio.jar
+      CodeUri: ./buscar-servicio/target/buscar-servicio-1.0-SNAPSHOT.jar
       Description: Buscar Servicio
       Role: !GetAtt RoleForLambdas.Arn
       VpcConfig:
@@ -84,7 +84,7 @@ Resources:
     Properties:
       FunctionName: listar-cuentas
       Handler: com.github.marvindaviddiaz.CuentaService
-      CodeUri: ./listar-cuentas.jar
+      CodeUri: ./listar-cuentas/target/listar-cuentas-1.0-SNAPSHOT.jar
       Description: Listar Cuentas
       Role: !GetAtt RoleForLambdas.Arn
       VpcConfig:
@@ -100,7 +100,7 @@ Resources:
     Properties:
       FunctionName: obtener-identificadores
       Handler: com.github.marvindaviddiaz.IdentificadorService
-      CodeUri: ./obtener-identificadores.jar
+      CodeUri: ./obtener-identificadores/target/obtener-identificadores-1.0-SNAPSHOT.jar
       Description: Obtener Identificadores
       Role: !GetAtt RoleForLambdas.Arn
       VpcConfig:

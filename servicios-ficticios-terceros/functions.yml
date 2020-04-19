@@ -48,7 +48,7 @@ Resources:
     Properties:
       FunctionName: eafg-consulta
       Handler: com.github.marvindaviddiaz.Servicio
-      CodeUri: ./eafg-consulta.jar
+      CodeUri: ./eafg-consulta/target/eafg-consulta-1.0-SNAPSHOT.jar
       Description: Consulta de Agua
       Role: !GetAtt RoleForLambdasSFT.Arn
 
@@ -57,7 +57,7 @@ Resources:
     Properties:
       FunctionName: eafg-pago
       Handler: com.github.marvindaviddiaz.Servicio
-      CodeUri: ./eafg-pago.jar
+      CodeUri: ./eafg-pago/target/eafg-pago-1.0-SNAPSHOT.jar
       Description: Pago de Agua
       Role: !GetAtt RoleForLambdasSFT.Arn
 
@@ -66,7 +66,7 @@ Resources:
     Properties:
       FunctionName: eefg-consulta
       Handler: com.github.marvindaviddiaz.Servicio
-      CodeUri: ./eefg-consulta.jar
+      CodeUri: ./eefg-consulta/target/eefg-consulta-1.0-SNAPSHOT.jar
       Description: Consulta de Electricidad
       Role: !GetAtt RoleForLambdasSFT.Arn
 
@@ -75,7 +75,7 @@ Resources:
     Properties:
       FunctionName: eefg-pago
       Handler: com.github.marvindaviddiaz.Servicio
-      CodeUri: ./eefg-pago.jar
+      CodeUri: ./eefg-pago/target/eefg-pago-1.0-SNAPSHOT.jar
       Description: Pago de Electricidad
       Role: !GetAtt RoleForLambdasSFT.Arn
 
@@ -84,7 +84,7 @@ Resources:
     Properties:
       FunctionName: etfg-consulta
       Handler: com.github.marvindaviddiaz.Servicio
-      CodeUri: ./etfg-consulta.jar
+      CodeUri: ./etfg-consulta/target/etfg-consulta-1.0-SNAPSHOT.jar
       Description: Consulta de Teléfono
       Role: !GetAtt RoleForLambdasSFT.Arn
 
@@ -93,7 +93,7 @@ Resources:
     Properties:
       FunctionName: etfg-pago
       Handler: com.github.marvindaviddiaz.Servicio
-      CodeUri: ./etfg-pago.jar
+      CodeUri: ./etfg-pago/target/etfg-pago-1.0-SNAPSHOT.jar
       Description: Pago de Teléfono
       Role: !GetAtt RoleForLambdasSFT.Arn
 
