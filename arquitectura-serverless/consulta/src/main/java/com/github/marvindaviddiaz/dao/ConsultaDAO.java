@@ -37,17 +37,17 @@ public class ConsultaDAO {
         ).getParameter().getValue();
     }
 
-    public List<ConsultaDTO> buscarIdentificador(Integer servicio) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("servicio", servicio);
-        return jdbcTemplate.query(QUERY, namedParameters,
-                (rs, rowNum) -> {
-                    ConsultaDTO p = new ConsultaDTO();
-                    p.setId(rs.getInt(1));
-                    p.setNombre(rs.getString(2));
-                    p.setTipo(rs.getString(3));
-                    p.setCodigo(rs.getString(4));
-                    return p;
-                });
-    }
+//    public List<ConsultaDTO> buscarIdentificador(Integer servicio) {
+//        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("servicio", servicio);
+//        return jdbcTemplate.query(QUERY, namedParameters,
+//                (rs, rowNum) -> {
+//                    ConsultaDTO p = new ConsultaDTO();
+//                    p.setId(rs.getInt(1));
+//                    p.setNombre(rs.getString(2));
+//                    p.setTipo(rs.getString(3));
+//                    p.setCodigo(rs.getString(4));
+//                    return p;
+//                });
+//    }
 
 }
