@@ -1,0 +1,105 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Tesis Licenciatura
+
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'OPTIONS,GET,POST,PUT,DELETE'"
+      AllowHeaders: "'Content-Type,Authorization'"
+      AllowOrigin: "'*'"
+
+Resources:
+
+  ServerlessTercerosApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: servicios-ficticios-terceros
+      StageName: dev
+      DefinitionBody:
+        swagger: '2.0'
+        paths:
+          /eafg/consulta/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsulta.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /eafg/pago/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgPago.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /etfg/consulta/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgConsulta.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /etfg/pago/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgPago.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /eefg/consulta/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgConsulta.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
+          /eefg/pago/:
+            post:
+              produces:
+                - application/json
+              responses:
+                '200':
+                  description: 200 response
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgPago.Arn}/invocations'
+                responses:
+                  default:
+                    statusCode: "200"
