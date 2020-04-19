@@ -5,6 +5,7 @@ public class IdentificadorDTO {
     private Integer id;
     private String nombre;
     private String tipo;
+    private String codigo;
 
     public Integer getId() {
         return id;
@@ -28,5 +29,13 @@ public class IdentificadorDTO {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

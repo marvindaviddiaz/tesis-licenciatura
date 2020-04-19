@@ -31,7 +31,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     this.subscriptionRoute = this.route.params.subscribe((params: any) => {
       console.log(params);
         this.servicio = params.servicio ? +params.servicio : -1;
-        this.service.query(this.servicio).subscribe( (data: Identificador[]) => {
+        this.service.getIndentificadores(this.servicio).subscribe( (data: Identificador[]) => {
           this.identificadores = data;
           for (let i = 0; i < this.identificadores.length; i++) {
             (<FormArray>this.form.get('identificadores')).push(
@@ -52,9 +52,13 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.form.value);
-    // this.service.query(this.form.value.search).subscribe( (data: Servicio[]) => {
-    //   this.servicios = data;
-    // }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
+    const identificadores = {};
+    if (this.form.value.identificadores) {
+      this.form.value.identificadores.forEach( e => identificadores[e.codigo] = e.valor);
+    }
+    this.service.consulta(this.servicio, identificadores).subscribe( (data: any) => {
+      // this.servicios = data;
+    }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
   }
 
   ngOnDestroy(): void {

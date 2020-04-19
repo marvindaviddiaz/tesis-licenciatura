@@ -15,8 +15,8 @@
         <module>buscar-servicio</module>
         <module>listar-cuentas</module>
         <module>obtener-identificadores</module>
+        <module>consulta</module>
     </modules>
-
 
     <dependencies>
         <dependency>
@@ -39,12 +39,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.16</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
