@@ -100,14 +100,14 @@ Resources:
 
 Outputs:
   eafgConsulta:
-    Value: !GetAtt eafgConsulta.Arn
+    Value: !Ref eafgConsulta
   eafgPago:
-    Value: !GetAtt eafgPago.Arn
+    Value: !Ref eafgPago
   eefgConsulta:
-    Value: !GetAtt eefgConsulta.Arn
+    Value: !Ref eefgConsulta
   eefgPago:
-    Value: !GetAtt eefgPago.Arn
+    Value: !Ref eefgPago
   etfgConsulta:
-    Value: !GetAtt etfgConsulta.Arn
+    Value: !Ref etfgConsulta
   etfgPago:
-    Value: !GetAtt etfgPago.Arn
+    Value: !Ref etfgPago

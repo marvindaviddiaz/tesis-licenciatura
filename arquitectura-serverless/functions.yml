@@ -112,8 +112,8 @@ Resources:
 
 Outputs:
   buscarServicio:
-    Value: !GetAtt buscarServicio.Arn
+    Value: !Ref buscarServicio
   listarCuentas:
-    Value: !GetAtt listarCuentas.Arn
+    Value: !Ref listarCuentas
   obtenerIdentificadores:
-    Value: !GetAtt obtenerIdentificadores.Arn
+    Value: !Ref obtenerIdentificadores
