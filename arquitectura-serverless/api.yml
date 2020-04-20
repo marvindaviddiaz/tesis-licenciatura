@@ -18,96 +18,90 @@ Globals:
       AllowHeaders: "'Content-Type,Authorization'"
       AllowOrigin: "'*'"
 
-Resources:
-  ServerlessTercerosApi:
+  ServerlessApi:
     Type: AWS::Serverless::Api
     Properties:
-      Name: servicios-ficticios-terceros
+      Name: arquitectura-serverless
       StageName: dev
       DefinitionBody:
         swagger: '2.0'
+        securityDefinitions:
+          cognitoUserPoolAuthorizer:
+            type: apiKey
+            name: Authorization
+            in: header
+            x-amazon-apigateway-authtype: cognito_user_pools
+            x-amazon-apigateway-authorizer:
+              type: cognito_user_pools
+              providerARNs:
+                - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
         paths:
-          /eafg/consulta/:
-            post:
+
+          /api/servicios/buscar/:
+            get:
+              parameters:
+                - name: Authorization
+                  in: header
+                  required: true
+                  type: string
+                - name: busqueda
+                  in: query
+                  required: true
+                  type: string
               produces:
                 - application/json
-              responses:
-                '200':
-                  description: 200 response
+              security:
+                - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
-                type: aws
+                type: aws_proxy
                 httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsulta.Arn}/invocations'
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicio.Arn}/invocations'
                 responses:
-                  default:
+                  default :
                     statusCode: "200"
-          /eafg/pago/:
-            post:
-              produces:
-                - application/json
               responses:
                 '200':
-                  description: 200 response
+                  description: Respuesta Ok
+
+          /api/servicios/{servicio}/identificadores/:
+            get:
+              parameters:
+                - name: Authorization
+                  in: header
+                  required: true
+                  type: string
+                - name: servicio
+                  in: path
+                  required: true
+                  type: integer
+              produces:
+                - application/json
+              security:
+                - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
-                type: aws
+                type: aws_proxy
                 httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgPago.Arn}/invocations'
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerIdentificadores.Arn}/invocations'
                 responses:
-                  default:
+                  default :
                     statusCode: "200"
-          /etfg/consulta/:
+              responses:
+                '200':
+                  description: Respuesta Ok
+
+          /api/cuentas/listar/:
             post:
               produces:
                 - application/json
               responses:
                 '200':
                   description: 200 response
+              security:
+                - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
-                type: aws
+                type: aws_proxy
                 httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgConsulta.Arn}/invocations'
-                responses:
-                  default:
-                    statusCode: "200"
-          /etfg/pago/:
-            post:
-              produces:
-                - application/json
-              responses:
-                '200':
-                  description: 200 response
-              x-amazon-apigateway-integration:
-                type: aws
-                httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgPago.Arn}/invocations'
-                responses:
-                  default:
-                    statusCode: "200"
-          /eefg/consulta/:
-            post:
-              produces:
-                - application/json
-              responses:
-                '200':
-                  description: 200 response
-              x-amazon-apigateway-integration:
-                type: aws
-                httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgConsulta.Arn}/invocations'
-                responses:
-                  default:
-                    statusCode: "200"
-          /eefg/pago/:
-            post:
-              produces:
-                - application/json
-              responses:
-                '200':
-                  description: 200 response
-              x-amazon-apigateway-integration:
-                type: aws
-                httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgPago.Arn}/invocations'
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentas.Arn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
