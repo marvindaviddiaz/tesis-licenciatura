@@ -3,19 +3,22 @@ Transform: AWS::Serverless-2016-10-31
 Description: Tesis Licenciatura
 
 Resources:
-  ApiStack:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: ./arquitectura-serverless/api.yml
+# SERVERLESS
   FunctionsStack:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: ./arquitectura-serverless/functions.yml
-  ApiSFTStack:
+  ApiStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./servicios-ficticios-terceros/api.yml
+      TemplateURL: ./arquitectura-serverless/api.yml
+# SFT
   FunctionsSFTStack:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: ./servicios-ficticios-terceros/functions.yml
+  ApiSFTStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./servicios-ficticios-terceros/api.yml
+
