@@ -110,30 +110,10 @@ Resources:
           - subnet-73dbc135
           - subnet-84e018f3
 
-  #################
-  ######## PERMISSIONS
-  #################
-
-  buscarServicioPermission:
-    Type: "AWS::Lambda::Permission"
-    Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !GetAtt buscarServicio.Arn
-      Principal: "apigateway.amazonaws.com"
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
-
-  listarCuentasPermission:
-    Type: "AWS::Lambda::Permission"
-    Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !GetAtt listarCuentas.Arn
-      Principal: "apigateway.amazonaws.com"
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
-
-  obtenerIdentificadoresPermission:
-    Type: "AWS::Lambda::Permission"
-    Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !GetAtt obtenerIdentificadores.Arn
-      Principal: "apigateway.amazonaws.com"
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+Outputs:
+  buscarServicio:
+    Value: !GetAtt buscarServicio.Arn
+  listarCuentas:
+    Value: !GetAtt listarCuentas.Arn
+  obtenerIdentificadores:
+    Value: !GetAtt obtenerIdentificadores.Arn
