@@ -103,29 +103,29 @@ Resources:
       Role: !GetAtt RoleForLambdasSFT.Arn
 
 
-#Outputs:
-#  eafgConsultaArn:
-#    Value: !GetAtt eafgConsulta.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-eafgConsultaArn"
-#  eafgPagoArn:
-#    Value: !GetAtt eafgPago.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-eafgPagoArn"
-#  eefgConsultaArn:
-#    Value: !GetAtt eefgConsulta.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-eefgConsultaArn"
-#  eefgPagoArn:
-#    Value: !GetAtt eefgPago.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-eefgPagoArn"
-#  etfgConsultaArn:
-#    Value: !GetAtt etfgConsulta.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-etfgConsultaArn"
-#  etfgPagoArn:
-#    Value: !GetAtt etfgPago.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-etfgPagoArn"
-#
+Outputs:
+  eafgConsultaArn:
+    Value: !GetAtt eafgConsulta.Arn
+    Export:
+      Name: !Sub "${Prefix}-eafgConsultaArn"
+  eafgPagoArn:
+    Value: !GetAtt eafgPago.Arn
+    Export:
+      Name: !Sub "${Prefix}-eafgPagoArn"
+  eefgConsultaArn:
+    Value: !GetAtt eefgConsulta.Arn
+    Export:
+      Name: !Sub "${Prefix}-eefgConsultaArn"
+  eefgPagoArn:
+    Value: !GetAtt eefgPago.Arn
+    Export:
+      Name: !Sub "${Prefix}-eefgPagoArn"
+  etfgConsultaArn:
+    Value: !GetAtt etfgConsulta.Arn
+    Export:
+      Name: !Sub "${Prefix}-etfgConsultaArn"
+  etfgPagoArn:
+    Value: !GetAtt etfgPago.Arn
+    Export:
+      Name: !Sub "${Prefix}-etfgPagoArn"
+

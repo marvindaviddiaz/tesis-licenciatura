@@ -118,13 +118,13 @@ Resources:
 Outputs:
   buscarServicioArn:
     Value: !GetAtt buscarServicio.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-buscarServicioArn"
+    Export:
+      Name: !Sub "${Prefix}-buscarServicioArn"
   listarCuentasArn:
     Value: !GetAtt listarCuentas.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-listarCuentasArn"
+    Export:
+      Name: !Sub "${Prefix}-listarCuentasArn"
   obtenerIdentificadoresArn:
     Value: !GetAtt obtenerIdentificadores.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-obtenerIdentificadoresArn"
+    Export:
+      Name: !Sub "${Prefix}-obtenerIdentificadoresArn"
