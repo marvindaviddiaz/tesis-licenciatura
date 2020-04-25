@@ -16,6 +16,8 @@ Resources:
       TemplateURL: arquitectura-serverless/api.yml
       Parameters:
         Prefix: !Sub "${AWS::StackName}"
+      DependsOn:
+        - FunctionsStack
 
 # SFT
   FunctionsSFTStack:
@@ -30,3 +32,5 @@ Resources:
       TemplateURL: servicios-ficticios-terceros/api.yml
       Parameters:
         Prefix: !Sub "${AWS::StackName}"
+      DependsOn:
+        - FunctionsSFTStack
