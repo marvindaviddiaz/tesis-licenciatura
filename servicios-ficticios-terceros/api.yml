@@ -6,6 +6,18 @@ Parameters:
   Prefix:
     Description: Prefix (without spaces)
     Type: String
+  eafgConsultaArn:
+    Type: String
+  eafgPagoArn:
+    Type: String
+  eefgConsultaArn:
+    Type: String
+  eefgPagoArn:
+    Type: String
+  etfgConsultaArn:
+    Type: String
+  etfgPagoArn:
+    Type: String
 
 Globals:
   Api:
@@ -34,12 +46,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-eafgConsultaArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsultaArn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
@@ -53,12 +60,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-eafgPagoArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgPagoArn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
@@ -72,12 +74,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-etfgConsultaArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgConsultaArn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
@@ -91,12 +88,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-etfgPagoArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgPagoArn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
@@ -110,12 +102,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-eefgConsultaArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgConsultaArn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
@@ -129,12 +116,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-eefgPagoArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgPagoArn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
@@ -148,9 +130,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-eafgConsultaArn"
+      FunctionName: !Sub ${eafgConsultaArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -158,9 +138,7 @@ Resources:
     Type: "AWS::Lambda::Permission"
     Properties:
       Action: "lambda:InvokeFunction"
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-eafgPagoArn"
+      FunctionName: !Sub ${eafgPagoArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -168,9 +146,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-eefgConsultaArn"
+      FunctionName: !Sub ${eefgConsultaArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -178,9 +154,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-eefgPagoArn"
+      FunctionName: !Sub ${eefgPagoArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -188,9 +162,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-etfgConsultaArn"
+      FunctionName: !Sub ${etfgConsultaArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -198,8 +170,6 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-etfgPagoArn"
+      FunctionName: !Sub ${etfgPagoArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"

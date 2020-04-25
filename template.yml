@@ -34,3 +34,9 @@ Resources:
       TemplateURL: servicios-ficticios-terceros/api.yml
       Parameters:
         Prefix: !Sub "${AWS::StackName}"
+        eafgConsultaArn: !GetAtt FunctionsSFTStack.Outputs.eafgConsultaArn
+        eafgPagoArn: !GetAtt FunctionsSFTStack.Outputs.eafgPagoArn
+        eefgConsultaArn: !GetAtt FunctionsSFTStack.Outputs.eefgConsultaArn
+        eefgPagoArn: !GetAtt FunctionsSFTStack.Outputs.eefgPagoArn
+        etfgConsultaArn: !GetAtt FunctionsSFTStack.Outputs.etfgConsultaArn
+        etfgPagoArn: !GetAtt FunctionsSFTStack.Outputs.etfgPagoArn
