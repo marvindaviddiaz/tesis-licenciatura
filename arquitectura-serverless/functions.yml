@@ -115,16 +115,16 @@ Resources:
           - subnet-73dbc135
           - subnet-84e018f3
 
-Outputs:
-  buscarServicioArn:
-    Value: !GetAtt buscarServicio.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-buscarServicioArn"
-  listarCuentasArn:
-    Value: !GetAtt listarCuentas.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-listarCuentasArn"
-  obtenerIdentificadoresArn:
-    Value: !GetAtt obtenerIdentificadores.Arn
-#    Export:
-#      Name: !Sub "${Prefix}-obtenerIdentificadoresArn"
+#Outputs:
+#  buscarServicioArn:
+#    Value: !GetAtt buscarServicio.Arn
+##    Export:
+##      Name: !Sub "${Prefix}-buscarServicioArn"
+#  listarCuentasArn:
+#    Value: !GetAtt listarCuentas.Arn
+##    Export:
+##      Name: !Sub "${Prefix}-listarCuentasArn"
+#  obtenerIdentificadoresArn:
+#    Value: !GetAtt obtenerIdentificadores.Arn
+##    Export:
+##      Name: !Sub "${Prefix}-obtenerIdentificadoresArn"
