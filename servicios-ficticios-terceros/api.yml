@@ -148,9 +148,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-eafgConsultaArn"
+      FunctionName: !GetAtt FunctionsSFTStack.Outputs.eafgConsultaArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -158,9 +156,7 @@ Resources:
     Type: "AWS::Lambda::Permission"
     Properties:
       Action: "lambda:InvokeFunction"
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-eafgPagoArn"
+      FunctionName: !GetAtt FunctionsSFTStack.Outputs.eafgPagoArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -168,9 +164,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-eefgConsultaArn"
+      FunctionName: !GetAtt FunctionsSFTStack.Outputs.eefgConsultaArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -178,9 +172,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-eefgPagoArn"
+      FunctionName: !GetAtt FunctionsSFTStack.Outputs.eefgPagoArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -188,9 +180,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-etfgConsultaArn"
+      FunctionName: !GetAtt FunctionsSFTStack.Outputs.etfgConsultaArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"
 
@@ -198,8 +188,6 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-etfgPagoArn"
+      FunctionName: !GetAtt FunctionsSFTStack.Outputs.etfgPagoArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessTercerosApi}/*/*/*"

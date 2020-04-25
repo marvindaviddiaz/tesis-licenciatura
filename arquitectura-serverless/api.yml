@@ -127,9 +127,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-buscarServicioArn"
+      FunctionName: !GetAtt FunctionsStack.Outputs.buscarServicioArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
 
@@ -137,9 +135,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-listarCuentasArn"
+      FunctionName: !GetAtt FunctionsStack.Outputs.listarCuentasArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
 
@@ -147,8 +143,6 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        - Fn::ImportValue:
-            !Sub "${Prefix}-obtenerIdentificadoresArn"
+      FunctionName: !GetAtt FunctionsStack.Outputs.obtenerIdentificadoresArn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"

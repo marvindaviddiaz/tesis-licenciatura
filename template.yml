@@ -34,11 +34,3 @@ Resources:
       TemplateURL: servicios-ficticios-terceros/api.yml
       Parameters:
         Prefix: !Sub "${AWS::StackName}"
-
-Outputs:
-  listarCuentasArn:
-    Value: !GetAtt FunctionsStack.listarCuentas.Arn
-    Export:
-      Name: !Sub "${AWS::StackName}-listarCuentasArn"
-
-
