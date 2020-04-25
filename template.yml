@@ -24,9 +24,9 @@ Resources:
       TemplateURL: servicios-ficticios-terceros/functions.yml
       Parameters:
         Prefix: !Sub "${AWS::StackName}"
-#  ApiSFTStack:
-#    Type: AWS::CloudFormation::Stack
-#    Properties:
-#      TemplateURL: servicios-ficticios-terceros/api.yml
-#      Parameters:
-#        Prefix: !Sub "${AWS::StackName}"
+  ApiSFTStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: servicios-ficticios-terceros/api.yml
+      Parameters:
+        Prefix: !Sub "${AWS::StackName}"
