@@ -2,6 +2,11 @@ AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Tesis Licenciatura
 
+Parameters:
+  Prefix:
+    Description: Prefix (without spaces)
+    Type: String
+
 Globals:
   Function:
     Runtime: java11
@@ -111,9 +116,15 @@ Resources:
           - subnet-84e018f3
 
 Outputs:
-  buscarServicio:
-    Value: !Ref buscarServicio
-  listarCuentas:
-    Value: !Ref listarCuentas
-  obtenerIdentificadores:
-    Value: !Ref obtenerIdentificadores
+  buscarServicioArn:
+    Value: !GetAtt buscarServicio.Arn
+    Export:
+      Name: !Sub "${Prefix}-buscarServicio"
+  listarCuentasArn:
+    Value: !GetAtt listarCuentas.Arn
+    Export:
+      Name: !Sub "${Prefix}-listarCuentas"
+  obtenerIdentificadoresArn:
+    Value: !GetAtt obtenerIdentificadores.Arn
+    Export:
+      Name: !Sub "${Prefix}-obtenerIdentificadores"

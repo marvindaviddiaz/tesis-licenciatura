@@ -7,18 +7,31 @@ Resources:
   FunctionsStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./arquitectura-serverless/functions.yml
+#      TemplateURL: https://tesis-licenciatura-artifacts/arquitectura-serverless-functions.yml
+      TemplateURL: arquitectura-serverless/functions.yml
+      Parameters:
+        Prefix: ${AWS::StackName}
   ApiStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./arquitectura-serverless/api.yml
+#      TemplateURL: https://tesis-licenciatura-artifacts/arquitectura-serverless-api.yml
+      TemplateURL: arquitectura-serverless/api.yml
+      Parameters:
+        Prefix: ${AWS::StackName}
+
 # SFT
   FunctionsSFTStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./servicios-ficticios-terceros/functions.yml
+#      TemplateURL: https://tesis-licenciatura-artifacts/servicios-ficticios-terceros-functions.yml
+      TemplateURL: servicios-ficticios-terceros/functions.yml
+      Parameters:
+        Prefix: ${AWS::StackName}
   ApiSFTStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./servicios-ficticios-terceros/api.yml
+#      TemplateURL: https://tesis-licenciatura-artifacts/servicios-ficticios-terceros-api.yml
+      TemplateURL: servicios-ficticios-terceros/api.yml
+      Parameters:
+        Prefix: ${AWS::StackName}
 

@@ -2,6 +2,11 @@ AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Tesis Licenciatura
 
+Parameters:
+  Prefix:
+    Description: Prefix (without spaces)
+    Type: String
+
 Globals:
   Function:
     Runtime: java11
@@ -99,15 +104,28 @@ Resources:
 
 
 Outputs:
-  eafgConsulta:
-    Value: !Ref eafgConsulta
-  eafgPago:
-    Value: !Ref eafgPago
-  eefgConsulta:
-    Value: !Ref eefgConsulta
-  eefgPago:
-    Value: !Ref eefgPago
-  etfgConsulta:
-    Value: !Ref etfgConsulta
-  etfgPago:
-    Value: !Ref etfgPago
+  eafgConsultaArn:
+    Value: !GetAtt eafgConsulta.Arn
+    Export:
+      Name: !Sub "${Prefix}-eafgConsulta"
+  eafgPagoArn:
+    Value: !GetAtt eafgPago.Arn
+    Export:
+      Name: !Sub "${Prefix}-eafgPago"
+  eefgConsultaArn:
+    Value: !GetAtt eefgConsulta.Arn
+    Export:
+      Name: !Sub "${Prefix}-eefgConsulta"
+  eefgPagoArn:
+    Value: !GetAtt eefgPago.Arn
+    Export:
+      Name: !Sub "${Prefix}-eefgPago"
+  etfgConsultaArn:
+    Value: !GetAtt etfgConsulta.Arn
+    Export:
+      Name: !Sub "${Prefix}-etfgConsulta"
+  etfgPagoArn:
+    Value: !GetAtt etfgPago.Arn
+    Export:
+      Name: !Sub "${Prefix}-etfgPago"
+

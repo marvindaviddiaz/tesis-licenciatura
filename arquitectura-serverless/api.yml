@@ -2,13 +2,10 @@ AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Tesis Licenciatura
 
-#Parameters:
-#  buscarServicio:
-#    Type: AWS::Serverless::Function
-#  listarCuentas:
-#    Type: AWS::Serverless::Function
-#  obtenerIdentificadores:
-#    Type: AWS::Serverless::Function
+Parameters:
+  Prefix:
+    Description: Prefix (without spaces)
+    Type: String
 
 Globals:
   Api:
@@ -54,7 +51,12 @@ Globals:
               x-amazon-apigateway-integration:
                 type: aws_proxy
                 httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicio.Arn}/invocations'
+                uri:
+                  Fn::Sub:
+                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
+                    - functionArn:
+                        Fn::ImportValue:
+                          !Sub "${Prefix}-buscarServicioArn"
                 responses:
                   default :
                     statusCode: "200"
@@ -80,7 +82,12 @@ Globals:
               x-amazon-apigateway-integration:
                 type: aws_proxy
                 httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerIdentificadores.Arn}/invocations'
+                uri:
+                  Fn::Sub:
+                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
+                    - functionArn:
+                        Fn::ImportValue:
+                          !Sub "${Prefix}-obtenerIdentificadoresArn"
                 responses:
                   default :
                     statusCode: "200"
@@ -100,7 +107,12 @@ Globals:
               x-amazon-apigateway-integration:
                 type: aws_proxy
                 httpMethod: post
-                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentas.Arn}/invocations'
+                uri:
+                  Fn::Sub:
+                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
+                    - functionArn:
+                        Fn::ImportValue:
+                          !Sub "${Prefix}-listarCuentasArn"
                 responses:
                   default:
                     statusCode: "200"
@@ -110,25 +122,31 @@ Globals:
   #################
 
   buscarServicioPermission:
-    Type: "AWS::Lambda::Permission"
+    Type: AWS::Lambda::Permission
     Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !GetAtt buscarServicio.Arn
-      Principal: "apigateway.amazonaws.com"
+      Action: lambda:InvokeFunction
+      FunctionName:
+        - Fn::ImportValue:
+            !Sub "${Prefix}-buscarServicioArn"
+      Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
 
   listarCuentasPermission:
-    Type: "AWS::Lambda::Permission"
+    Type: AWS::Lambda::Permission
     Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !GetAtt listarCuentas.Arn
-      Principal: "apigateway.amazonaws.com"
+      Action: lambda:InvokeFunction
+      FunctionName:
+        - Fn::ImportValue:
+            !Sub "${Prefix}-listarCuentasArn"
+      Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
 
   obtenerIdentificadoresPermission:
-    Type: "AWS::Lambda::Permission"
+    Type: AWS::Lambda::Permission
     Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !GetAtt obtenerIdentificadores.Arn
-      Principal: "apigateway.amazonaws.com"
+      Action: lambda:InvokeFunction
+      FunctionName:
+        - Fn::ImportValue:
+            !Sub "${Prefix}-obtenerIdentificadoresArn"
+      Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
