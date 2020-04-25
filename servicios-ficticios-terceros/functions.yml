@@ -107,25 +107,25 @@ Outputs:
   eafgConsultaArn:
     Value: !GetAtt eafgConsulta.Arn
     Export:
-      Name: !Sub "${Prefix}-eafgConsulta"
+      Name: !Sub "${Prefix}-eafgConsultaArn"
   eafgPagoArn:
     Value: !GetAtt eafgPago.Arn
     Export:
-      Name: !Sub "${Prefix}-eafgPago"
+      Name: !Sub "${Prefix}-eafgPagoArn"
   eefgConsultaArn:
     Value: !GetAtt eefgConsulta.Arn
     Export:
-      Name: !Sub "${Prefix}-eefgConsulta"
+      Name: !Sub "${Prefix}-eefgConsultaArn"
   eefgPagoArn:
     Value: !GetAtt eefgPago.Arn
     Export:
-      Name: !Sub "${Prefix}-eefgPago"
+      Name: !Sub "${Prefix}-eefgPagoArn"
   etfgConsultaArn:
     Value: !GetAtt etfgConsulta.Arn
     Export:
-      Name: !Sub "${Prefix}-etfgConsulta"
+      Name: !Sub "${Prefix}-etfgConsultaArn"
   etfgPagoArn:
     Value: !GetAtt etfgPago.Arn
     Export:
-      Name: !Sub "${Prefix}-etfgPago"
+      Name: !Sub "${Prefix}-etfgPagoArn"
 

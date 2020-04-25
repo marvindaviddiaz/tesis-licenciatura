@@ -14,6 +14,8 @@ Globals:
       AllowHeaders: "'Content-Type,Authorization'"
       AllowOrigin: "'*'"
 
+Resources:
+
   ServerlessApi:
     Type: AWS::Serverless::Api
     Properties:

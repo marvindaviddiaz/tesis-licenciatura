@@ -119,12 +119,12 @@ Outputs:
   buscarServicioArn:
     Value: !GetAtt buscarServicio.Arn
     Export:
-      Name: !Sub "${Prefix}-buscarServicio"
+      Name: !Sub "${Prefix}-buscarServicioArn"
   listarCuentasArn:
     Value: !GetAtt listarCuentas.Arn
     Export:
-      Name: !Sub "${Prefix}-listarCuentas"
+      Name: !Sub "${Prefix}-listarCuentasArn"
   obtenerIdentificadoresArn:
     Value: !GetAtt obtenerIdentificadores.Arn
     Export:
-      Name: !Sub "${Prefix}-obtenerIdentificadores"
+      Name: !Sub "${Prefix}-obtenerIdentificadoresArn"
