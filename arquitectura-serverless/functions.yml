@@ -21,6 +21,13 @@ Globals:
         RDS_DB_NAME: /Tesis/BD/name
         RDS_USERNAME: /Tesis/BD/user
         RDS_PASSWORD: /Tesis/BD/password
+#    VpcConfig:
+#      SecurityGroupIds:
+#        - sg-0b2c9b4bfdded5eaf
+#      SubnetIds:
+#        - subnet-73dbc135
+#        - subnet-84e018f3
+
 
 Resources:
   RoleForLambdas:
@@ -77,12 +84,6 @@ Resources:
       CodeUri: ./buscar-servicio/target/buscar-servicio-1.0-SNAPSHOT.jar
       Description: Buscar Servicio
       Role: !GetAtt RoleForLambdas.Arn
-      VpcConfig:
-        SecurityGroupIds:
-          - sg-0b2c9b4bfdded5eaf
-        SubnetIds:
-          - subnet-73dbc135
-          - subnet-84e018f3
 
   listarCuentas:
     Type: AWS::Serverless::Function
@@ -92,13 +93,6 @@ Resources:
       CodeUri: ./listar-cuentas/target/listar-cuentas-1.0-SNAPSHOT.jar
       Description: Listar Cuentas
       Role: !GetAtt RoleForLambdas.Arn
-      VpcConfig:
-        SecurityGroupIds:
-          - sg-0b2c9b4bfdded5eaf
-        SubnetIds:
-          - subnet-73dbc135
-          - subnet-84e018f3
-
 
   obtenerIdentificadores:
     Type: AWS::Serverless::Function
@@ -108,12 +102,6 @@ Resources:
       CodeUri: ./obtener-identificadores/target/obtener-identificadores-1.0-SNAPSHOT.jar
       Description: Obtener Identificadores
       Role: !GetAtt RoleForLambdas.Arn
-      VpcConfig:
-        SecurityGroupIds:
-          - sg-0b2c9b4bfdded5eaf
-        SubnetIds:
-          - subnet-73dbc135
-          - subnet-84e018f3
 
 Outputs:
   buscarServicioArn:
