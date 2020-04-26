@@ -6,6 +6,12 @@ Parameters:
   Prefix:
     Description: Prefix (without spaces)
     Type: String
+  buscarServicioArn:
+    Type: String
+  listarCuentasArn:
+    Type: String
+  obtenerIdentificadoresArn:
+    Type: String
 
 Globals:
   Api:
@@ -53,12 +59,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws_proxy
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-buscarServicioArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicioArn}/invocations'
                 responses:
                   default :
                     statusCode: "200"
@@ -84,12 +85,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws_proxy
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-obtenerIdentificadoresArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerIdentificadoresArn}/invocations'
                 responses:
                   default :
                     statusCode: "200"
@@ -109,12 +105,7 @@ Resources:
               x-amazon-apigateway-integration:
                 type: aws_proxy
                 httpMethod: post
-                uri:
-                  Fn::Sub:
-                    - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${functionArn}/invocations'
-                    - functionArn:
-                        Fn::ImportValue:
-                          !Sub "${Prefix}-listarCuentasArn"
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentasArn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
@@ -127,9 +118,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-buscarServicioArn"
+      FunctionName: !Sub ${buscarServicioArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
 
@@ -137,9 +126,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-listarCuentasArn"
+      FunctionName: !Sub ${listarCuentasArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
 
@@ -147,8 +134,6 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::ImportValue:
-          !Sub "${Prefix}-obtenerIdentificadoresArn"
+      FunctionName: !Sub ${obtenerIdentificadoresArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
