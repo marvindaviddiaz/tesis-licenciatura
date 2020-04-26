@@ -19,6 +19,7 @@ Resources:
         buscarServicioArn: !GetAtt FunctionsStack.Outputs.buscarServicioArn
         listarCuentasArn: !GetAtt FunctionsStack.Outputs.listarCuentasArn
         obtenerIdentificadoresArn: !GetAtt FunctionsStack.Outputs.obtenerIdentificadoresArn
+        consultaArn: !GetAtt FunctionsStack.Outputs.consultaArn
 
 
 # SFT

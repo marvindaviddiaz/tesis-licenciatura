@@ -12,6 +12,8 @@ Parameters:
     Type: String
   obtenerIdentificadoresArn:
     Type: String
+  consultaArn:
+    Type: String
 
 Globals:
   Api:
@@ -41,7 +43,7 @@ Resources:
                 - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
         paths:
 
-          /api/servicios/buscar/:
+          /api/servicios/:
             get:
               parameters:
                 - name: Authorization
@@ -93,6 +95,32 @@ Resources:
                 '200':
                   description: Respuesta Ok
 
+          /api/consulta/{servicio}/:
+            get:
+              parameters:
+                - name: Authorization
+                  in: header
+                  required: true
+                  type: string
+                - name: servicio
+                  in: path
+                  required: true
+                  type: integer
+              produces:
+                - application/json
+              security:
+                - cognitoUserPoolAuthorizer: []
+              x-amazon-apigateway-integration:
+                type: aws_proxy
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${consultaArn}/invocations'
+                responses:
+                  default :
+                    statusCode: "200"
+              responses:
+                '200':
+                  description: Respuesta Ok
+
           /api/cuentas/listar/:
             post:
               produces:
@@ -135,5 +163,13 @@ Resources:
     Properties:
       Action: lambda:InvokeFunction
       FunctionName: !Sub ${obtenerIdentificadoresArn}
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+
+  consultaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Sub ${consultaArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"

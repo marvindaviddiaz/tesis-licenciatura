@@ -102,6 +102,15 @@ Resources:
       Description: Obtener Identificadores
       Role: !GetAtt RoleForLambdas.Arn
 
+  consulta:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: consulta
+      Handler: com.github.marvindaviddiaz.ConsultaService
+      CodeUri: ./consulta/target/consulta-1.0-SNAPSHOT.jar
+      Description: Consulta
+      Role: !GetAtt RoleForLambdas.Arn
+
 Outputs:
   buscarServicioArn:
     Value: !GetAtt buscarServicio.Arn
@@ -115,3 +124,7 @@ Outputs:
     Value: !GetAtt obtenerIdentificadores.Arn
     Export:
       Name: !Sub "${Prefix}-obtenerIdentificadoresArn"
+  consultaArn:
+    Value: !GetAtt consulta.Arn
+    Export:
+      Name: !Sub "${Prefix}-consultaArn"

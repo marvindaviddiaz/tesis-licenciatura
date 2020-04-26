@@ -39,6 +39,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
                 'id': new FormControl(this.identificadores[i].id),
                 'nombre': new FormControl(this.identificadores[i].nombre),
                 'tipo': new FormControl(this.identificadores[i].tipo),
+                'codigo': new FormControl(this.identificadores[i].codigo),
                 'valor': new FormControl('', [Validators.required]),
               }));
 
