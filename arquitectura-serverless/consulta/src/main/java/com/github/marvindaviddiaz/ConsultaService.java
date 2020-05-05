@@ -40,16 +40,18 @@ public class ConsultaService implements RequestHandler<APIGatewayProxyRequestEve
         logger.log(Level.INFO, mensaje);
 
         if ("REST".equals(interfaz.getProtocolo())) {
-            // TODO
             try{
                 URL url = new URL(interfaz.getUrl());
                 HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
                 httpConnection.setRequestMethod(interfaz.getMetodo());
+                httpConnection.setReadTimeout(interfaz.getTimeout());
+                httpConnection.setConnectTimeout(interfaz.getTimeout());
                 InputStream is = httpConnection.getInputStream();
                 String respuesta = new String(is.readAllBytes(), StandardCharsets.UTF_8);
                 logger.log(Level.INFO, "Respuesta {0}, {1}", new Object[]{httpConnection.getResponseCode(), respuesta});
             } catch (Exception e) {
                 // TODO: RETURN ERROR
+                // TODO: REINTENTOS
                 e.printStackTrace();
             }
         }

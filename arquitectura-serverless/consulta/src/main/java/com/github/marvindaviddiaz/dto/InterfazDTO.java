@@ -6,6 +6,8 @@ public class InterfazDTO {
     private String protocolo;
     private String metodo;
     private String mensaje;
+    private Integer reintentos;
+    private Integer timeout;
 
     public String getUrl() {
         return url;
@@ -37,5 +39,21 @@ public class InterfazDTO {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public Integer getReintentos() {
+        return reintentos;
+    }
+
+    public void setReintentos(Integer reintentos) {
+        this.reintentos = reintentos;
+    }
+
+    public Integer getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
     }
 }

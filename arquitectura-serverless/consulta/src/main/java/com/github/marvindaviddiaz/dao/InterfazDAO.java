@@ -24,7 +24,7 @@ public class InterfazDAO {
                     getParameter(System.getenv("RDS_USERNAME"), false),
                     getParameter(System.getenv("RDS_PASSWORD"), true)));
 
-    private static final String QUERY = "select obj.url, obj.protocolo, obj.metodo, obj.mensaje " +
+    private static final String QUERY = "select obj.url, obj.protocolo, obj.metodo, obj.mensaje, obj.reintentos, obj.timeout " +
             "from interfaz obj " +
             "where obj.servicio = :servicio and tipo_operacion = :tipoOperacion";
 
@@ -47,6 +47,8 @@ public class InterfazDAO {
                     p.setProtocolo(rs.getString(2));
                     p.setMetodo(rs.getString(3));
                     p.setMensaje(rs.getString(4));
+                    p.setReintentos(rs.getInt(5));
+                    p.setTimeout(rs.getInt(6));
                     return p;
                 });
     }
