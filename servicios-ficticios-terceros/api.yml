@@ -41,8 +41,6 @@ Resources:
         }]
       }'
       PrivateDnsEnabled: true
-#      RouteTableIds:
-#        - String
       SecurityGroupIds:
         - sg-877d0ee2
       ServiceName: com.amazonaws.us-east-1.execute-api
@@ -53,7 +51,7 @@ Resources:
 #      VpcId: String
 
   ServerlessTercerosApi:
-    Type: AWS::Serverless::Api
+    Type: AWS::ApiGateway::RestApi
     Properties:
       Name: servicios-ficticios-terceros
       EndpointConfiguration:
@@ -61,8 +59,8 @@ Resources:
           - PRIVATE
         VpcEndpointIds:
           - !Ref VpcEndpointTercerosApi
-      StageName: dev
-      DefinitionBody:
+#      StageName: dev
+      Body:
         swagger: '2.0'
         paths:
           /eafg/consulta/:
