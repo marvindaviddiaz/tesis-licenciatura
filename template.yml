@@ -3,23 +3,23 @@ Transform: AWS::Serverless-2016-10-31
 Description: Tesis Licenciatura
 
 Resources:
-# SERVERLESS
-  FunctionsStack:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: arquitectura-serverless/functions.yml
-      Parameters:
-        Prefix: !Sub "${AWS::StackName}"
-  ApiStack:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: arquitectura-serverless/api.yml
-      Parameters:
-        Prefix: !Sub "${AWS::StackName}"
-        buscarServicioArn: !GetAtt FunctionsStack.Outputs.buscarServicioArn
-        listarCuentasArn: !GetAtt FunctionsStack.Outputs.listarCuentasArn
-        obtenerIdentificadoresArn: !GetAtt FunctionsStack.Outputs.obtenerIdentificadoresArn
-        consultaArn: !GetAtt FunctionsStack.Outputs.consultaArn
+## SERVERLESS
+#  FunctionsStack:
+#    Type: AWS::CloudFormation::Stack
+#    Properties:
+#      TemplateURL: arquitectura-serverless/functions.yml
+#      Parameters:
+#        Prefix: !Sub "${AWS::StackName}"
+#  ApiStack:
+#    Type: AWS::CloudFormation::Stack
+#    Properties:
+#      TemplateURL: arquitectura-serverless/api.yml
+#      Parameters:
+#        Prefix: !Sub "${AWS::StackName}"
+#        buscarServicioArn: !GetAtt FunctionsStack.Outputs.buscarServicioArn
+#        listarCuentasArn: !GetAtt FunctionsStack.Outputs.listarCuentasArn
+#        obtenerIdentificadoresArn: !GetAtt FunctionsStack.Outputs.obtenerIdentificadoresArn
+#        consultaArn: !GetAtt FunctionsStack.Outputs.consultaArn
 
 
 # SFT
