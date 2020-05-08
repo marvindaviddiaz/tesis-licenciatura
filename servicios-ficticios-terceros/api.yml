@@ -48,7 +48,7 @@ Resources:
         - subnet-a30268c6
         - subnet-fad6ecd2
       VpcEndpointType: Interface
-#      VpcId: String
+      VpcId: vpc-952bf3f0
 
   ServerlessTercerosApi:
     Type: AWS::ApiGateway::RestApi
