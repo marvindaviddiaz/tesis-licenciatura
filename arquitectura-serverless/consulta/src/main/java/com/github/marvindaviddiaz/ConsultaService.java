@@ -56,6 +56,7 @@ public class ConsultaService implements RequestHandler<APIGatewayProxyRequestEve
                 statusCode = response.statusCode();
             } catch (Exception e) {
                 // TODO: REINTENTOS
+                logger.log(Level.SEVERE, e.getMessage(), e);
                 responseJson = "{\"error\":\" " + e.getMessage() + "\"}";
             }
         }
