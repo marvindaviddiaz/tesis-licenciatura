@@ -6,16 +6,13 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.github.marvindaviddiaz.dao.InterfazDAO;
 import com.github.marvindaviddiaz.dto.InterfazDTO;
-import com.google.gson.Gson;
 import org.apache.commons.text.StringSubstitutor;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 import java.util.logging.Level;
@@ -25,6 +22,10 @@ public class ConsultaService implements RequestHandler<APIGatewayProxyRequestEve
 
     private static final Logger logger = Logger.getLogger(ConsultaService.class.getName());
     private InterfazDAO dao = new InterfazDAO();
+
+    private final HttpClient httpClient = HttpClient.newBuilder()
+            .version(HttpClient.Version.HTTP_2)
+            .build();
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {
@@ -39,26 +40,29 @@ public class ConsultaService implements RequestHandler<APIGatewayProxyRequestEve
         String mensaje = sub.replace(interfaz.getMensaje());
         logger.log(Level.INFO, mensaje);
 
+        String responseJson = "";
+        int statusCode = 500;
         if ("REST".equals(interfaz.getProtocolo())) {
             try{
-                URL url = new URL(interfaz.getUrl());
-                HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
-                httpConnection.setRequestMethod(interfaz.getMetodo());
-                httpConnection.setReadTimeout(interfaz.getTimeout());
-                httpConnection.setConnectTimeout(interfaz.getTimeout());
-                InputStream is = httpConnection.getInputStream();
-                String respuesta = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-                logger.log(Level.INFO, "Respuesta {0}, {1}", new Object[]{httpConnection.getResponseCode(), respuesta});
+                HttpRequest request = HttpRequest.newBuilder()
+                        .method(interfaz.getMetodo(), HttpRequest.BodyPublishers.ofString(mensaje))
+                        .uri(URI.create(interfaz.getUrl()))
+                        .setHeader("Content-Type", "application/json")
+                        .timeout(Duration.ofMillis(interfaz.getTimeout()))
+                        .build();
+                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                logger.log(Level.INFO, "Respuesta {0}, {1}", new Object[]{response.statusCode(), response.body()});
+                responseJson = response.body();
+                statusCode = response.statusCode();
             } catch (Exception e) {
-                // TODO: RETURN ERROR
                 // TODO: REINTENTOS
-                e.printStackTrace();
+                responseJson = "{\"error\":\" " + e.getMessage() + "\"}";
             }
         }
 
         return new APIGatewayProxyResponseEvent()
-                .withStatusCode(200)
+                .withStatusCode(statusCode)
                 .withHeaders(Collections.singletonMap("Access-Control-Allow-Origin", "*"))
-                .withBody(new Gson().toJson(""));
+                .withBody(responseJson);
     }
 }
