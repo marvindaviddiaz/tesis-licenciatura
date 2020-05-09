@@ -28,11 +28,34 @@ Globals:
 
 Resources:
 
+  VpcEndpointTercerosApi:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PolicyDocument: '{
+        "Version":"2012-10-17",
+        "Statement":[{
+        "Effect":"Allow",
+        "Principal": "*",
+        "Action":["*"],
+        "Resource":["*"]
+        }]
+      }'
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - sg-877d0ee2
+      ServiceName: com.amazonaws.us-east-1.execute-api
+      SubnetIds:
+        - subnet-a30268c6
+        - subnet-fad6ecd2
+      VpcEndpointType: Interface
+      VpcId: vpc-952bf3f0
+
   ServerlessTercerosApi:
     Type: AWS::Serverless::Api
     Properties:
       Name: servicios-ficticios-terceros
       StageName: dev
+      EndpointConfiguration: PRIVATE
       DefinitionBody:
         swagger: '2.0'
         paths:
