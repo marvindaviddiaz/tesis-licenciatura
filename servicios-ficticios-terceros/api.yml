@@ -157,13 +157,10 @@ Resources:
       Description: API Staging
       RestApiId: !Ref ServerlessTercerosApi
       DeploymentId: !Ref StagingDeployment
-      Variables:
-        lambdaAlias: staging
 
   StagingDeployment:
     Type: AWS::ApiGateway::Deployment
-    DependsOn:
-      - ServerlessTercerosApi
+    DependsOn: ServerlessTercerosApi
     Properties:
       RestApiId: !Ref ServerlessTercerosApi
 
