@@ -28,39 +28,12 @@ Globals:
 
 Resources:
 
-  VpcEndpointTercerosApi:
-    Type: AWS::EC2::VPCEndpoint
-    Properties:
-      PolicyDocument: '{
-        "Version":"2012-10-17",
-        "Statement":[{
-        "Effect":"Allow",
-        "Principal": "*",
-        "Action":["*"],
-        "Resource":["*"]
-        }]
-      }'
-      PrivateDnsEnabled: true
-      SecurityGroupIds:
-        - sg-877d0ee2
-      ServiceName: com.amazonaws.us-east-1.execute-api
-      SubnetIds:
-        - subnet-a30268c6
-        - subnet-fad6ecd2
-      VpcEndpointType: Interface
-      VpcId: vpc-952bf3f0
-
   ServerlessTercerosApi:
-    Type: AWS::ApiGateway::RestApi
+    Type: AWS::Serverless::Api
     Properties:
       Name: servicios-ficticios-terceros
-      EndpointConfiguration:
-        Types:
-          - PRIVATE
-        VpcEndpointIds:
-          - !Ref VpcEndpointTercerosApi
-#      StageName: dev
-      Body:
+      StageName: dev
+      DefinitionBody:
         swagger: '2.0'
         paths:
           /eafg/consulta/:
@@ -147,22 +120,6 @@ Resources:
                 responses:
                   default:
                     statusCode: "200"
-
-
-  Staging:
-    Type: 'AWS::ApiGateway::Stage'
-    DependsOn: ServerlessTercerosApi
-    Properties:
-      StageName: dev
-      Description: API Staging
-      RestApiId: !Ref ServerlessTercerosApi
-      DeploymentId: !Ref StagingDeployment
-
-  StagingDeployment:
-    Type: AWS::ApiGateway::Deployment
-    DependsOn: ServerlessTercerosApi
-    Properties:
-      RestApiId: !Ref ServerlessTercerosApi
 
 
   #################
