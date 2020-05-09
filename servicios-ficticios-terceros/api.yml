@@ -149,6 +149,25 @@ Resources:
                     statusCode: "200"
 
 
+  Staging:
+    Type: 'AWS::ApiGateway::Stage'
+    DependsOn: ServerlessTercerosApi
+    Properties:
+      StageName: dev
+      Description: API Staging
+      RestApiId: !Ref ServerlessTercerosApi
+      DeploymentId: !Ref StagingDeployment
+      Variables:
+        lambdaAlias: staging
+
+  StagingDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+      - ServerlessTercerosApi
+    Properties:
+      RestApiId: !Ref ServerlessTercerosApi
+
+
   #################
   ######## PERMISSIONS
   #################
