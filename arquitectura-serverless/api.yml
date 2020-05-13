@@ -137,11 +137,13 @@ Resources:
                 - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
                 type: aws_proxy
-                httpMethod: get
+                httpMethod: post
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentasArn}/invocations'
                 responses:
                   default:
                     statusCode: "200"
+
+
 
   #################
   ######## PERMISSIONS

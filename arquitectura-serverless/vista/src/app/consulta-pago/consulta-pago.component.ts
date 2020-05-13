@@ -7,6 +7,8 @@ import {HttpUtilService} from '../shared/util/http-util.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {Identificador} from '../dominio/Identificador';
+import {CuentaService} from '../cuenta/cuenta.service';
+import {Cuenta} from '../dominio/Cuenta';
 
 @Component({
   selector: 'app-consulta-pago',
@@ -20,8 +22,10 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
   private subscriptionRoute: Subscription;
   private servicio: number;
   private saldo: number;
+  private cuentas: Cuenta[];
 
   constructor(private service: ConsultaPagoService,
+              private cuentaService: CuentaService,
               private route: ActivatedRoute,
               private notifications: NotificationsService) { }
 
@@ -49,6 +53,9 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
       }
     );
 
+    this.cuentaService.obtenerCuentas().subscribe( (data: Cuenta[]) => {
+      this.cuentas = data;
+    }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
 
   }
 
