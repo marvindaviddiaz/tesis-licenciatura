@@ -19,6 +19,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
   identificadores: Identificador[] = [];
   private subscriptionRoute: Subscription;
   private servicio: number;
+  private saldo: number;
 
   constructor(private service: ConsultaPagoService,
               private route: ActivatedRoute,
@@ -58,7 +59,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
       this.form.value.identificadores.forEach( e => identificadores[e.codigo] = e.valor);
     }
     this.service.consulta(this.servicio, identificadores).subscribe( (data: any) => {
-      // this.servicios = data;
+      this.saldo = data.saldo;
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
   }
 

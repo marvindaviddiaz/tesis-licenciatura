@@ -121,8 +121,13 @@ Resources:
                 '200':
                   description: Respuesta Ok
 
-          /api/cuentas/listar/:
-            post:
+          /api/cuentas/:
+            get:
+              parameters:
+                - name: Authorization
+                  in: header
+                  required: true
+                  type: string
               produces:
                 - application/json
               responses:
@@ -132,7 +137,7 @@ Resources:
                 - cognitoUserPoolAuthorizer: []
               x-amazon-apigateway-integration:
                 type: aws_proxy
-                httpMethod: post
+                httpMethod: get
                 uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentasArn}/invocations'
                 responses:
                   default:
