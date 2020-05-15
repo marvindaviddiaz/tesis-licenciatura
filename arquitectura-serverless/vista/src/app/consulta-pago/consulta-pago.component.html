@@ -36,6 +36,17 @@
 
     <div class="col-md-6" *ngIf="saldo != null">
       <h2>Total a Pagar: Q. {{saldo}}</h2>
+
+      <h3>Seleccionar cuenta para realizar pago</h3>
+
+      <mat-form-field>
+        <mat-select placeholder="Cuenta" >
+          <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.numero">
+            {{cuenta.numero - cuenta.alias}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
     </div>
 
   </form>

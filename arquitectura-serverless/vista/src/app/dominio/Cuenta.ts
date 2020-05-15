@@ -1,8 +1,13 @@
 
 export class Cuenta {
   constructor(
-    public idTercero?: number,
-    public nombreTercero?: string
+    public numero?: number,
+    public usuario?: string,
+    public tipo?: string,
+    public alias?: string,
+    public estado?: string,
+    public saldoActual?: number,
+    public saldoDisponible?: number
   ) {
   }
 }

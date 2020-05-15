@@ -25,7 +25,7 @@ public class CuentaDAO {
                     getParameter(System.getenv("RDS_USERNAME"), false),
                     getParameter(System.getenv("RDS_PASSWORD"), true)));
 
-    private static final String LISTAR_CUENTAS_QUERY = "select numero, usuario, tipo, alias, estado, saldo_actual," +
+    private static final String LISTAR_CUENTAS_QUERY = "select numero, tipo, alias, estado, saldo_actual," +
             "saldo_disponible, moneda from cuenta where usuario = :usuario and estado = :estado and moneda = :moneda";
 
 
@@ -46,12 +46,11 @@ public class CuentaDAO {
                 (rs, rowNum) -> {
                     CuentaDTO p = new CuentaDTO();
                     p.setNumero(rs.getInt(1));
-                    p.setUsuario(rs.getInt(2));
-                    p.setTipo(rs.getString(3));
-                    p.setAlias(rs.getString(4));
-                    p.setEstado(rs.getString(5));
-                    p.setSaldoActual(rs.getBigDecimal(6));
-                    p.setSaldoDisponible(rs.getBigDecimal(7));
+                    p.setTipo(rs.getString(2));
+                    p.setAlias(rs.getString(3));
+                    p.setEstado(rs.getString(4));
+                    p.setSaldoActual(rs.getBigDecimal(5));
+                    p.setSaldoDisponible(rs.getBigDecimal(6));
                     return p;
                 });
     }

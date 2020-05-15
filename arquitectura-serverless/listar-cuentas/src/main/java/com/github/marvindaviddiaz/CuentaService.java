@@ -8,6 +8,7 @@ import com.github.marvindaviddiaz.dao.CuentaDAO;
 import com.github.marvindaviddiaz.dto.CuentaDTO;
 import com.google.gson.Gson;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ public class CuentaService implements RequestHandler<APIGatewayProxyRequestEvent
         logger.log(Level.INFO, "Result: {0}", cuentaDTOS);
         return new APIGatewayProxyResponseEvent()
                 .withStatusCode(200)
+                .withHeaders(Collections.singletonMap("Access-Control-Allow-Origin", "*"))
                 .withBody(new Gson().toJson(cuentaDTOS));
     }
 }

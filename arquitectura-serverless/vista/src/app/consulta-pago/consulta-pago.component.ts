@@ -53,9 +53,11 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.cuentaService.obtenerCuentas().subscribe( (data: Cuenta[]) => {
+    this.cuentaService.obtenerCuentas().subscribe( (data) => {
       this.cuentas = data;
-    }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
+    }, (error: HttpErrorResponse) => {
+      console.log(error);
+      this.notifications.error('Error', HttpUtilService.handleError(error))});
 
   }
 
