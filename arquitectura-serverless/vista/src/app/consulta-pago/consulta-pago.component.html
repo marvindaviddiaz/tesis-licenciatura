@@ -34,18 +34,33 @@
       </button>
     </div>
 
-    <div class="col-md-6" *ngIf="saldo != null">
+  </form>
+
+  <form  class="form-pay"
+         *ngIf="saldo != null"
+         (ngSubmit)="onSubmitPay()"
+         [formGroup]="formPay">
+
+    <div class="col-md-6">
       <h2>Total a Pagar: Q. {{saldo}}</h2>
 
       <h3>Seleccionar cuenta para realizar pago</h3>
 
       <mat-form-field>
-        <mat-select placeholder="Cuenta" >
+        <mat-select placeholder="Cuenta" formControlName="cuenta">
           <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.numero">
-            {{cuenta.numero - cuenta.alias}}
+            {{cuenta.numero + " - " + cuenta.alias}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <div>
+        <button
+          [disabled]="!formPay.valid"
+          type="submit"
+          mat-raised-button>Pagar
+        </button>
+      </div>
 
     </div>
 

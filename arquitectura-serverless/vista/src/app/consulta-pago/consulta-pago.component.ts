@@ -18,6 +18,7 @@ import {Cuenta} from '../dominio/Cuenta';
 export class ConsultaPagoComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
+  formPay: FormGroup;
   identificadores: Identificador[] = [];
   private subscriptionRoute: Subscription;
   private servicio: number;
@@ -53,11 +54,13 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.cuentaService.obtenerCuentas().subscribe( (data) => {
+    this.formPay = new FormGroup({
+      'cuenta': new FormControl('', [Validators.required]),
+    });
+
+    this.cuentaService.obtenerCuentas().subscribe( (data: Cuenta[]) => {
       this.cuentas = data;
-    }, (error: HttpErrorResponse) => {
-      console.log(error);
-      this.notifications.error('Error', HttpUtilService.handleError(error))});
+    }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
 
   }
 
@@ -70,6 +73,10 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     this.service.consulta(this.servicio, identificadores).subscribe( (data: any) => {
       this.saldo = data.saldo;
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
+  }
+
+  onSubmitPay() {
+    console.log(this.formPay.value);
   }
 
   ngOnDestroy(): void {
