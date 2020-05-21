@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './security/login/login.component';
@@ -24,6 +24,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BuscarServicioComponent} from './buscar-servicio/buscar-servicio.component';
 import {HistoricoComponent} from './historico/historico.component';
 import {ConsultaPagoComponent} from './consulta-pago/consulta-pago.component';
+import {ConfirmacionPagoDialogComponent} from './confirmacion-pago/confirmacion-pago';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {ConsultaPagoComponent} from './consulta-pago/consulta-pago.component';
     ControlMessagesComponent,
     BuscarServicioComponent,
     HistoricoComponent,
-    ConsultaPagoComponent
+    ConsultaPagoComponent,
+    ConfirmacionPagoDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -63,6 +65,7 @@ import {ConsultaPagoComponent} from './consulta-pago/consulta-pago.component';
     SecurityService,
     InactivityService,
   ],
+  entryComponents: [ConfirmacionPagoDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

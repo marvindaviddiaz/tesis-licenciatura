@@ -1,10 +1,10 @@
 <div>
   <form class="form-signin"
-        (ngSubmit)="onSubmit()"
+        (ngSubmit)="onSubmitSearch()"
         [formGroup]="form">
 
     <mat-toolbar>
-      <mat-toolbar-row color="primary"><span class="title">Consulta</span></mat-toolbar-row>
+      <mat-toolbar-row color="primary"><span class="title">{{title}}</span></mat-toolbar-row>
     </mat-toolbar>
 
 
@@ -57,7 +57,7 @@
       <div>
         <button
           [disabled]="!formPay.valid"
-          type="submit"
+          (click)="openConfirmationDialog()"
           mat-raised-button>Pagar
         </button>
       </div>

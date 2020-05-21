@@ -9,6 +9,8 @@ import {ActivatedRoute} from '@angular/router';
 import {Identificador} from '../dominio/Identificador';
 import {CuentaService} from '../cuenta/cuenta.service';
 import {Cuenta} from '../dominio/Cuenta';
+import {MatDialog} from '@angular/material';
+import {ConfirmacionPagoDialogComponent} from '../confirmacion-pago/confirmacion-pago';
 
 @Component({
   selector: 'app-consulta-pago',
@@ -22,18 +24,24 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
   identificadores: Identificador[] = [];
   private subscriptionRoute: Subscription;
   private servicio: number;
+  private title: string;
   private saldo: number;
   private cuentas: Cuenta[];
 
   constructor(private service: ConsultaPagoService,
               private cuentaService: CuentaService,
               private route: ActivatedRoute,
-              private notifications: NotificationsService) { }
+              private notifications: NotificationsService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.form = new FormGroup({
       'identificadores': new FormArray([])
     });
+    this.subscriptionRoute = this.route.queryParams.subscribe((params: any) => {
+      this.title = params.desc;
+    });
+
     this.subscriptionRoute = this.route.params.subscribe((params: any) => {
       console.log(params);
         this.servicio = params.servicio ? +params.servicio : -1;
@@ -64,7 +72,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
 
   }
 
-  onSubmit() {
+  onSubmitSearch() {
     console.log(this.form.value);
     const identificadores = {};
     if (this.form.value.identificadores) {
@@ -73,6 +81,21 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     this.service.consulta(this.servicio, identificadores).subscribe( (data: any) => {
       this.saldo = data.saldo;
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
+  }
+
+  openConfirmationDialog(): void {
+    const noCuenta = this.formPay.get('cuenta').value;
+    const cuenta = this.cuentas.find(f => f.numero === noCuenta);
+    const dialogRef = this.dialog.open(ConfirmacionPagoDialogComponent, {
+      width: '450px',
+      data: {titulo: this.title, valor: this.saldo, cuenta: cuenta.numero + ' - ' + cuenta.alias}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      // this.animal = result;
+    });
   }
 
   onSubmitPay() {

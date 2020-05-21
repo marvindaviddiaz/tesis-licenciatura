@@ -4,12 +4,12 @@
         [formGroup]="form">
 
     <mat-toolbar>
-      <mat-toolbar-row color="primary"><span class="title">Pagos de Servicios</span></mat-toolbar-row>
+      <mat-toolbar-row color="primary"><span class="title">Búsqueda de Servicios</span></mat-toolbar-row>
     </mat-toolbar>
 
     <mat-form-field>
       <input matInput
-             placeholder="Búsqueda de Servicios"
+             placeholder="Servicio ó palabra clave"
              required
              type="text"
              maxlength="80"
@@ -26,7 +26,7 @@
 
     <div class="div-card-servicios">
       <mat-card class="servicios-card" *ngFor="let entity of servicios">
-        <mat-card-header [routerLink]="['/consulta-pago/' + entity.idServicio]">
+        <mat-card-header [routerLink]="['/consulta-pago/' + entity.idServicio]" [queryParams]="{desc: entity.nombreServicio + ' - ' + entity.nombreTercero}">
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title>{{entity.nombreServicio}}</mat-card-title>
           <mat-card-subtitle>{{entity.nombreTercero}}</mat-card-subtitle>

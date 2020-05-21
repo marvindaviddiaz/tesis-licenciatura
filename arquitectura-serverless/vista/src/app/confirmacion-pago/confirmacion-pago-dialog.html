@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Confirmación {{data.titulo}}</h1>
+<div mat-dialog-content>
+  <p>Está seguro de realizar el pago?</p>
+  <mat-form-field>
+    <mat-label>Cuenta a debitar:</mat-label>
+    <input matInput [(ngModel)]="data.cuenta" [disabled]="true">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Total:</mat-label>
+    <input matInput [(ngModel)]="data.valor" [disabled]="true">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Confirmar</button>
+</div>
