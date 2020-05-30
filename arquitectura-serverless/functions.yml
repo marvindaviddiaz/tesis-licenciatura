@@ -21,12 +21,12 @@ Globals:
         RDS_DB_NAME: /Tesis/BD/name
         RDS_USERNAME: /Tesis/BD/user
         RDS_PASSWORD: /Tesis/BD/password
-    VpcConfig:
-      SecurityGroupIds:
-        - sg-877d0ee2
-      SubnetIds:
-        - subnet-a30268c6 # same for vpc endpoints
-        - subnet-fad6ecd2
+#    VpcConfig:
+#      SecurityGroupIds:
+#        - sg-877d0ee2
+#      SubnetIds:
+#        - subnet-a30268c6 # same for vpc endpoints
+#        - subnet-fad6ecd2
 
 Resources:
   RoleForLambdas:
