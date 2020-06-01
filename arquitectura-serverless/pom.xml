@@ -16,6 +16,7 @@
         <module>listar-cuentas</module>
         <module>obtener-identificadores</module>
         <module>consulta</module>
+        <module>pago</module>
     </modules>
 
     <dependencies>

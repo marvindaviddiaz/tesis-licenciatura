@@ -111,6 +111,15 @@ Resources:
       Description: Consulta
       Role: !GetAtt RoleForLambdas.Arn
 
+  pago:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pago
+      Handler: com.github.marvindaviddiaz.PagoService
+      CodeUri: ./pago/target/pago-1.0-SNAPSHOT.jar
+      Description: Pago
+      Role: !GetAtt RoleForLambdas.Arn
+
 Outputs:
   buscarServicioArn:
     Value: !GetAtt buscarServicio.Arn
@@ -128,3 +137,7 @@ Outputs:
     Value: !GetAtt consulta.Arn
     Export:
       Name: !Sub "${Prefix}-consultaArn"
+  pagoArn:
+    Value: !GetAtt pago.Arn
+    Export:
+      Name: !Sub "${Prefix}-pagoArn"

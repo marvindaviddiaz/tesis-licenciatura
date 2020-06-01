@@ -9,7 +9,7 @@ export const environment = {
   identityPoolId: 'us-east-1_Tw0ZEXi12',
   userPoolId: 'us-east-1_Tw0ZEXi12',
   clientId: '4sdeul4275sgkcvibed8lsb267',
-  apiUrl: 'https://qjet980eoj.execute-api.us-east-1.amazonaws.com/dev',
+  apiUrl: 'https://yfuvh8dgvd.execute-api.us-east-1.amazonaws.com/dev',
 };
 
 /*
