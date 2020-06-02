@@ -8,7 +8,6 @@ public class PeticionPagoDTO {
 
     private Integer servicio;
     Map<String, String> identificadores = new HashMap<>();
-    private BigDecimal monto;
     private Integer cuenta;
 
     public Integer getServicio() {
@@ -17,14 +16,6 @@ public class PeticionPagoDTO {
 
     public void setServicio(Integer servicio) {
         this.servicio = servicio;
-    }
-
-    public BigDecimal getMonto() {
-        return monto;
-    }
-
-    public void setMonto(BigDecimal monto) {
-        this.monto = monto;
     }
 
     public Integer getCuenta() {
@@ -48,7 +39,6 @@ public class PeticionPagoDTO {
         return "PeticionPagoDTO{" +
                 "servicio=" + servicio +
                 ", identificadores=" + identificadores +
-                ", monto=" + monto +
                 ", cuenta=" + cuenta +
                 '}';
     }

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class Peticion {
 
     private String telefono;
-    private BigDecimal saldo;
+    private BigDecimal valor;
 
     public String getTelefono() {
         return telefono;
@@ -15,11 +15,11 @@ public class Peticion {
         this.telefono = telefono;
     }
 
-    public BigDecimal getSaldo() {
-        return saldo;
+    public BigDecimal getValor() {
+        return valor;
     }
 
-    public void setSaldo(BigDecimal saldo) {
-        this.saldo = saldo;
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
     }
 }

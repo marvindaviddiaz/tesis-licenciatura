@@ -10,6 +10,7 @@ export class ConsultaPagoService {
 
   private apiUrl = `${environment.apiUrl}/api/servicios`;
   private consultaUrl = `${environment.apiUrl}/api/consulta`;
+  private pagoUrl = `${environment.apiUrl}/api/pago`;
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +20,10 @@ export class ConsultaPagoService {
 
   consulta(servicio: number, params: any): Observable<any> {
     return this.http.get(this.consultaUrl + `/${servicio}`, {params: params});
+  }
+
+  pago(body: any): Observable<any> {
+    return this.http.post(this.pagoUrl, body);
   }
 
 }

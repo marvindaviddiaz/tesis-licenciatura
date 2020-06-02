@@ -92,14 +92,29 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-      // this.animal = result;
+      if (result != null) {
+        console.log(result);
+        this.onSubmitPay();
+      }
     });
   }
 
   onSubmitPay() {
-    console.log(this.formPay.value);
+    const request = {
+      servicio: this.servicio,
+      cuenta: this.formPay.get('cuenta').value,
+      identificadores: {},
+    };
+
+    request.identificadores['VALOR'] = this.saldo;
+    console.log(request.identificadores);
+    if (this.form.value.identificadores) {
+      this.form.value.identificadores.forEach( e => request.identificadores[e.codigo] = e.valor);
+    }
+
+    this.service.pago(request).subscribe( (data: any) => {
+      this.notifications.success('Operación exitosa', 'Operación No.');
+    }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
   }
 
   ngOnDestroy(): void {
