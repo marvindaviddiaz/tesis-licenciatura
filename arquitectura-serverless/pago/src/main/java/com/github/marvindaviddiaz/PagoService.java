@@ -36,8 +36,10 @@ public class PagoService implements RequestHandler<APIGatewayProxyRequestEvent, 
         Gson gson = new Gson();
         PeticionPagoDTO peticion = gson.fromJson(event.getBody(), PeticionPagoDTO.class);
         logger.log(Level.INFO, "User: {0}, Petición:  {1}", new Object[]{usuario, peticion});
-        InterfazDTO interfaz = dao.obtenerInterfaz(peticion.getServicio(), "P");
 
+        // TODO: validar cuenta asociada a cliente, monto suficiente, simulación llamada a Core..
+
+        InterfazDTO interfaz = dao.obtenerInterfaz(peticion.getServicio(), "P");
         StringSubstitutor sub = new StringSubstitutor(peticion.getIdentificadores());
         String mensaje = sub.replace(interfaz.getMensaje());
         logger.log(Level.INFO, mensaje);

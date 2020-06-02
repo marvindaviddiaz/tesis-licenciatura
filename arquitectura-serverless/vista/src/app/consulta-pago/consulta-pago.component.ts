@@ -88,7 +88,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     const cuenta = this.cuentas.find(f => f.numero === noCuenta);
     const dialogRef = this.dialog.open(ConfirmacionPagoDialogComponent, {
       width: '450px',
-      data: {titulo: this.title, valor: this.saldo, cuenta: cuenta.numero + ' - ' + cuenta.alias}
+      data: {modo: 'confirm', titulo: this.title, valor: this.saldo, cuenta: cuenta.numero + ' - ' + cuenta.alias}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -114,7 +114,21 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
 
     this.service.pago(request).subscribe( (data: any) => {
       this.notifications.success('Operación exitosa', 'Operación No.');
+      this.openSuccessDialog(data);
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
+  }
+
+  openSuccessDialog(data): void {
+    const noCuenta = this.formPay.get('cuenta').value;
+    const cuenta = this.cuentas.find(f => f.numero === noCuenta);
+    const dialogRef = this.dialog.open(ConfirmacionPagoDialogComponent, {
+      width: '450px',
+      data: {modo: 'success', idPago: data.id, titulo: this.title, valor: this.saldo, cuenta: cuenta.numero + ' - ' + cuenta.alias}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.formPay.reset();
+      this.form.reset();
+    });
   }
 
   ngOnDestroy(): void {

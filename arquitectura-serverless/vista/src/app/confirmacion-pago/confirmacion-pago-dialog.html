@@ -1,17 +1,22 @@
-<h1 mat-dialog-title>Confirmación {{data.titulo}}</h1>
+<h1 mat-dialog-title *ngIf="data.modo != 'success'">Está seguro de realizar el pago?</h1>
+<h1 mat-dialog-title *ngIf="data.modo == 'success'">Pago realizado exitosamente!</h1>
 <div mat-dialog-content>
-  <p>Está seguro de realizar el pago?</p>
+  <p>{{data.titulo}}</p>
+  <mat-form-field *ngIf="data.modo == 'success'">
+    <mat-label>ID de Pago:</mat-label>
+    <input matInput [(ngModel)]="data.idPago" [disabled]="true">
+  </mat-form-field>
   <mat-form-field>
-    <mat-label>Cuenta a debitar:</mat-label>
+    <mat-label>Cuenta:</mat-label>
     <input matInput [(ngModel)]="data.cuenta" [disabled]="true">
   </mat-form-field>
-  <br>
   <mat-form-field>
     <mat-label>Total:</mat-label>
     <input matInput [(ngModel)]="data.valor" [disabled]="true">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Confirmar</button>
+  <button *ngIf="data.modo != 'success'" mat-button (click)="onNoClick()">Cancelar</button>
+  <button *ngIf="data.modo != 'success'" mat-button [mat-dialog-close]="data" cdkFocusInitial>Confirmar</button>
+  <button *ngIf="data.modo == 'success'" mat-button (click)="onNoClick()">Regresar</button>
 </div>
