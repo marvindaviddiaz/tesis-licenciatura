@@ -13,7 +13,7 @@ import {MenuComponent} from './menu/menu.component';
 import {AppMaterialModule} from './app.material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SimpleNotificationsModule} from 'angular2-notifications';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpRequest} from '@angular/common/http';
 import {ControlMessagesComponent} from './shared/control-messages/control-messages.component';
 import {SecurityService} from './security/security.service';
 import {InactivityService} from './shared/inactivity/inactivity.service';
@@ -25,6 +25,8 @@ import {BuscarServicioComponent} from './buscar-servicio/buscar-servicio.compone
 import {HistoricoComponent} from './historico/historico.component';
 import {ConsultaPagoComponent} from './consulta-pago/consulta-pago.component';
 import {ConfirmacionPagoDialogComponent} from './confirmacion-pago/confirmacion-pago';
+import {BlockUIHttpModule} from 'ng-block-ui/http';
+import {BlockUIModule} from 'ng-block-ui';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,13 @@ import {ConfirmacionPagoDialogComponent} from './confirmacion-pago/confirmacion-
     FormsModule,
     SimpleNotificationsModule,
     HttpClientModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    BlockUIModule.forRoot({
+      message: 'Cargando...',
+      delayStart: 150,
+      delayStop: 150
+    }),
+    BlockUIHttpModule.forRoot(),
   ],
   providers: [
     {

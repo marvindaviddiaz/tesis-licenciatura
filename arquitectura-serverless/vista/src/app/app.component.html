@@ -1,17 +1,19 @@
-<mat-sidenav-container class="app-container">
-  <mat-sidenav *ngIf="authorized" #sidenav mode="side" opened="true" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
-    <app-menu></app-menu>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div class="app-navigation-panel">
-      <div [ngClass]="{'left-panel-column-2' : authorized, 'left-panel-column-2-no-session' : !authorized}">
-        <router-outlet></router-outlet>
+<block-ui>
+  <mat-sidenav-container class="app-container">
+    <mat-sidenav *ngIf="authorized" #sidenav mode="side" opened="true" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
+      <app-menu></app-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="app-navigation-panel">
+        <div [ngClass]="{'left-panel-column-2' : authorized, 'left-panel-column-2-no-session' : !authorized}">
+          <router-outlet></router-outlet>
+        </div>
       </div>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
-<simple-notifications [options]="notificationOptions"></simple-notifications>
-<div>
-<!--  <app-footer></app-footer>-->
-</div>
+  <simple-notifications [options]="notificationOptions"></simple-notifications>
+  <div>
+    <!--  <app-footer></app-footer>-->
+  </div>
+</block-ui>

@@ -7,6 +7,7 @@ import {SecurityService} from './security/security.service';
 import {InactivityService} from './shared/inactivity/inactivity.service';
 import {Options} from 'angular2-notifications';
 import {DomSanitizer} from '@angular/platform-browser';
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,8 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
+
+  @BlockUI() blockUI: NgBlockUI;
 
   private subscription: Subscription;
   public authorized = false;

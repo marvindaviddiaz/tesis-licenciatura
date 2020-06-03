@@ -10,7 +10,6 @@ import {Identificador} from '../dominio/Identificador';
 import {CuentaService} from '../cuenta/cuenta.service';
 import {Cuenta} from '../dominio/Cuenta';
 import {MatDialog} from '@angular/material';
-import {ConfirmacionPagoDialogComponent} from '../confirmacion-pago/confirmacion-pago';
 
 @Component({
   selector: 'app-consulta-pago',
@@ -22,11 +21,14 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
   form: FormGroup;
   formPay: FormGroup;
   identificadores: Identificador[] = [];
-  private subscriptionRoute: Subscription;
-  private servicio: number;
-  private title: string;
-  private saldo: number;
-  private cuentas: Cuenta[];
+  subscriptionRoute: Subscription;
+  servicio: number;
+  title: string;
+  saldo: number;
+  cuentas: Cuenta[];
+  cuenta: Cuenta;
+  paso: number;
+  idPago: number;
 
   constructor(private service: ConsultaPagoService,
               private cuentaService: CuentaService,
@@ -35,6 +37,9 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
               private dialog: MatDialog) { }
 
   ngOnInit() {
+
+    this.paso = 1;
+
     this.form = new FormGroup({
       'identificadores': new FormArray([])
     });
@@ -43,7 +48,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptionRoute = this.route.params.subscribe((params: any) => {
-      console.log(params);
+        console.log(params);
         this.servicio = params.servicio ? +params.servicio : -1;
         this.service.getIndentificadores(this.servicio).subscribe( (data: Identificador[]) => {
           this.identificadores = data;
@@ -72,7 +77,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
 
   }
 
-  onSubmitSearch() {
+  consultar() {
     console.log(this.form.value);
     const identificadores = {};
     if (this.form.value.identificadores) {
@@ -80,59 +85,37 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     }
     this.service.consulta(this.servicio, identificadores).subscribe( (data: any) => {
       this.saldo = data.saldo;
+      this.paso = 2;
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
   }
 
-  openConfirmationDialog(): void {
+  pagar() {
     const noCuenta = this.formPay.get('cuenta').value;
-    const cuenta = this.cuentas.find(f => f.numero === noCuenta);
-    const dialogRef = this.dialog.open(ConfirmacionPagoDialogComponent, {
-      width: '450px',
-      data: {modo: 'confirm', titulo: this.title, valor: this.saldo, cuenta: cuenta.numero + ' - ' + cuenta.alias}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result != null) {
-        console.log(result);
-        this.onSubmitPay();
-      }
-    });
+    this.cuenta = this.cuentas.find(f => f.numero === noCuenta);
+    this.paso = 3;
   }
 
-  onSubmitPay() {
+  confirmarPago() {
     const request = {
       servicio: this.servicio,
       cuenta: this.formPay.get('cuenta').value,
       identificadores: {},
     };
-
     request.identificadores['VALOR'] = this.saldo;
     console.log(request.identificadores);
     if (this.form.value.identificadores) {
       this.form.value.identificadores.forEach( e => request.identificadores[e.codigo] = e.valor);
     }
-
     this.service.pago(request).subscribe( (data: any) => {
-      this.notifications.success('Operación exitosa', 'Operación No.');
-      this.openSuccessDialog(data);
+      this.paso = 4;
+      this.idPago = data.id;
+      this.notifications.success('Operación exitosa', 'Pago realizado exitosamente!');
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
   }
 
-  openSuccessDialog(data): void {
-    const noCuenta = this.formPay.get('cuenta').value;
-    const cuenta = this.cuentas.find(f => f.numero === noCuenta);
-    const dialogRef = this.dialog.open(ConfirmacionPagoDialogComponent, {
-      width: '450px',
-      data: {modo: 'success', idPago: data.id, titulo: this.title, valor: this.saldo, cuenta: cuenta.numero + ' - ' + cuenta.alias}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.formPay.reset();
-      this.form.reset();
-    });
-  }
+
 
   ngOnDestroy(): void {
     this.subscriptionRoute.unsubscribe();
   }
-
 }

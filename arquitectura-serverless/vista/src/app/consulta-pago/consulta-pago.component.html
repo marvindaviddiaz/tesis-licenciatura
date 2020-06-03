@@ -1,67 +1,86 @@
 <div>
-  <form class="form-signin"
-        (ngSubmit)="onSubmitSearch()"
-        [formGroup]="form">
 
-    <mat-toolbar>
-      <mat-toolbar-row color="primary"><span class="title">{{title}}</span></mat-toolbar-row>
-    </mat-toolbar>
+  <mat-toolbar>
+    <mat-toolbar-row color="primary"><span class="title">{{title}}</span></mat-toolbar-row>
+  </mat-toolbar>
 
+  <!--  Búsqueda -->
 
-    <div class="col-md-6">
-      <ul id="params" formArrayName="identificadores">
-        <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
-          <div formGroupName="{{i}}" class="form-group">
-            <!-- INPUT -->
-            <mat-form-field>
-              <input matInput
-                     placeholder="{{e.value.nombre}}"
-                     required
-                     type="text"
-                     maxlength="80"
-                     formControlName="valor">
-            </mat-form-field>
+  <div *ngIf="paso == 1">
+    <form (ngSubmit)="consultar()" [formGroup]="form">
+      <h1>Búsqueda</h1>
+      <div class="col-md-6">
+        <ul id="params" formArrayName="identificadores">
+          <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+            <div formGroupName="{{i}}" class="form-group">
+              <!-- INPUT -->
+              <mat-form-field>
+                <input matInput
+                       placeholder="{{e.value.nombre}}"
+                       required
+                       type="text"
+                       maxlength="80"
+                       formControlName="valor">
+              </mat-form-field>
+            </div>
           </div>
-        </div>
-      </ul>
-    </div>
-
-    <div>
-      <button
-        [disabled]="!form.valid"
-        type="submit"
-        mat-raised-button>Buscar
-      </button>
-    </div>
-
-  </form>
-
-  <form  class="form-pay"
-         *ngIf="saldo != null"
-         [formGroup]="formPay">
-
-    <div class="col-md-6">
-      <h2>Total a Pagar: Q. {{saldo}}</h2>
-
-      <h3>Seleccionar cuenta para realizar pago</h3>
-
-      <mat-form-field>
-        <mat-select placeholder="Cuenta" formControlName="cuenta">
-          <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.numero">
-            {{cuenta.numero + " - " + cuenta.alias}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
+        </ul>
+      </div>
       <div>
-        <button
-          [disabled]="!formPay.valid"
-          (click)="openConfirmationDialog()"
-          mat-raised-button>Pagar
+        <button [disabled]="!form.valid" type="submit" mat-raised-button>Buscar
         </button>
       </div>
+    </form>
+  </div>
 
-    </div>
+  <!--  Selección de Cuenta -->
 
-  </form>
+  <div *ngIf="paso == 2">
+    <form  (ngSubmit)="pagar()" [formGroup]="formPay">
+      <h1>Seleccionar cuenta para realizar pago</h1>
+      <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+        <h3> {{e.value.nombre}}: {{e.value.valor}}</h3>
+      </div>
+      <div class="col-md-6">
+        <h3>Total a Pagar: Q. {{saldo}}</h3>
+        <mat-form-field>
+          <mat-select placeholder="Cuenta" formControlName="cuenta">
+            <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.numero">
+              {{cuenta.numero + " - " + cuenta.alias}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button [disabled]="!formPay.valid" type="submit" mat-raised-button>Pagar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!--  Confirmación -->
+
+  <div *ngIf="paso == 3">
+    <form (ngSubmit)="confirmarPago()">
+      <h1>Está seguro de realizar el pago?</h1>
+      <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+        <h3> {{e.value.nombre}}: {{e.value.valor}}</h3>
+      </div>
+      <h3>Total a Pagar: {{saldo}}</h3>
+      <h3>Cuenta: {{cuenta.numero + ' - ' + cuenta.alias}}</h3>
+      <button [disabled]="!formPay.valid" type="submit" mat-raised-button>Confirmar Pago</button>
+    </form>
+  </div>
+
+  <div *ngIf="paso == 4">
+    <form (ngSubmit)="confirmarPago()">
+      <h1>Pago realizado exitosamente!</h1>
+      <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+        <h3> {{e.value.nombre}}: {{e.value.valor}}</h3>
+      </div>
+      <h3>Referencia de Pago: {{idPago}}</h3>
+      <h3>Cuenta: {{cuenta.numero + ' - ' + cuenta.alias}}</h3>
+      <h3>Total: {{saldo}}</h3>
+    </form>
+  </div>
+
 </div>

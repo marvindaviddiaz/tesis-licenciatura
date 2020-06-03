@@ -4,4 +4,4 @@ export const USER_DISABLED = 'User is disabled';
 
 export const LAST_ACTIVITY = 'last_activity';
 export const REMEMBER_ME = 'rememberMe';
-export const INACTIVITY_TIMEOUT = 10 * 60 * 1000;
+export const INACTIVITY_TIMEOUT = 60 * 60 * 1000;
