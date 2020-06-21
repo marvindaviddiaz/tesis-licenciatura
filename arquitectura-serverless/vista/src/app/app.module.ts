@@ -27,6 +27,7 @@ import {ConsultaPagoComponent} from './consulta-pago/consulta-pago.component';
 import {ConfirmacionPagoDialogComponent} from './confirmacion-pago/confirmacion-pago';
 import {BlockUIHttpModule} from 'ng-block-ui/http';
 import {BlockUIModule} from 'ng-block-ui';
+import {FavoritoComponent} from './favorito/favorito.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {BlockUIModule} from 'ng-block-ui';
     BuscarServicioComponent,
     HistoricoComponent,
     ConsultaPagoComponent,
-    ConfirmacionPagoDialogComponent
+    ConfirmacionPagoDialogComponent,
+    FavoritoComponent
   ],
   imports: [
     BrowserAnimationsModule,

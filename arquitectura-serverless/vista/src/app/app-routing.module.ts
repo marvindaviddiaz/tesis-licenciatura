@@ -11,6 +11,7 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {BuscarServicioComponent} from './buscar-servicio/buscar-servicio.component';
 import {HistoricoComponent} from './historico/historico.component';
 import {ConsultaPagoComponent} from './consulta-pago/consulta-pago.component';
+import {FavoritoComponent} from './favorito/favorito.component';
 
 const routes: Routes = [
 
@@ -26,6 +27,7 @@ const routes: Routes = [
   // app
   {path: 'buscar-servicio', component: BuscarServicioComponent, canActivate: [AuthGuardService]},
   {path: 'consulta-pago/:servicio', component: ConsultaPagoComponent, canActivate: [AuthGuardService]},
+  {path: 'favorito/:servicio', component: FavoritoComponent, canActivate: [AuthGuardService]},
   {path: 'historico', component: HistoricoComponent, canActivate: [AuthGuardService]},
 
   {path: '404', component: NotFoundComponent, pathMatch: 'full', canActivate: [AuthGuardService]}, // not found manually

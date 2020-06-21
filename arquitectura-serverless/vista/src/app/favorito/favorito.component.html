@@ -1,0 +1,44 @@
+<div>
+
+  <mat-toolbar>
+    <mat-toolbar-row color="primary"><span class="title">Guardar Favorito</span></mat-toolbar-row>
+  </mat-toolbar>
+
+  <div>
+    <form (ngSubmit)="guardar()" [formGroup]="form">
+      <h1>{{title}}</h1>
+      <div class="col-md-6">
+        <ul>
+          <mat-form-field>
+            <input matInput
+                   placeholder="Alias"
+                   required
+                   type="text"
+                   maxlength="80"
+                   formControlName="nombre">
+          </mat-form-field>
+        </ul>
+        <ul id="params" formArrayName="identificadores">
+          <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+            <div formGroupName="{{i}}" class="form-group">
+              <!-- INPUT -->
+              <mat-form-field>
+                <input matInput
+                       placeholder="{{e.value.nombre}}"
+                       required
+                       type="text"
+                       maxlength="80"
+                       formControlName="valor">
+              </mat-form-field>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <div>
+        <button [disabled]="!form.valid" type="submit" mat-raised-button>Buscar
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>

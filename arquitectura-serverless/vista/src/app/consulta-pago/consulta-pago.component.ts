@@ -10,6 +10,7 @@ import {Identificador} from '../dominio/Identificador';
 import {CuentaService} from '../cuenta/cuenta.service';
 import {Cuenta} from '../dominio/Cuenta';
 import {MatDialog} from '@angular/material';
+import {ServicioService} from '../servicio/servicio.service';
 
 @Component({
   selector: 'app-consulta-pago',
@@ -29,8 +30,10 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
   cuenta: Cuenta;
   paso: number;
   idPago: number;
+  identificadoresUsados = {};
 
   constructor(private service: ConsultaPagoService,
+              private servicioService: ServicioService,
               private cuentaService: CuentaService,
               private route: ActivatedRoute,
               private notifications: NotificationsService,
@@ -50,7 +53,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     this.subscriptionRoute = this.route.params.subscribe((params: any) => {
         console.log(params);
         this.servicio = params.servicio ? +params.servicio : -1;
-        this.service.getIndentificadores(this.servicio).subscribe( (data: Identificador[]) => {
+        this.servicioService.getIndentificadores(this.servicio).subscribe( (data: Identificador[]) => {
           this.identificadores = data;
           for (let i = 0; i < this.identificadores.length; i++) {
             (<FormArray>this.form.get('identificadores')).push(
@@ -102,9 +105,12 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
       identificadores: {},
     };
     request.identificadores['VALOR'] = this.saldo;
-    console.log(request.identificadores);
+    this.identificadoresUsados['desc'] = this.title;
     if (this.form.value.identificadores) {
-      this.form.value.identificadores.forEach( e => request.identificadores[e.codigo] = e.valor);
+      this.form.value.identificadores.forEach( e => {
+        request.identificadores[e.codigo] = e.valor;
+        this.identificadoresUsados[e.codigo] = e.valor; // para configurar favorito
+      });
     }
     this.service.pago(request).subscribe( (data: any) => {
       this.paso = 4;
