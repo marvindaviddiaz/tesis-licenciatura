@@ -125,7 +125,7 @@ Resources:
     Properties:
       FunctionName: guardar-favorito
       Handler: com.github.marvindaviddiaz.GuardarFavoritoService
-      CodeUri: ./pago/target/guardar-favorito-1.0-SNAPSHOT.jar
+      CodeUri: ./guardar-favorito/target/guardar-favorito-1.0-SNAPSHOT.jar
       Description: Guardar Favorito
       Role: !GetAtt RoleForLambdas.Arn
 
