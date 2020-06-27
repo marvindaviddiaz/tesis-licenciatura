@@ -129,6 +129,15 @@ Resources:
       Description: Guardar Favorito
       Role: !GetAtt RoleForLambdas.Arn
 
+  obtenerFavoritos:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: obtener-favoritos
+      Handler: com.github.marvindaviddiaz.ObtenerFavoritoService
+      CodeUri: ./obtener-favoritos/target/obtener-favoritos-1.0-SNAPSHOT.jar
+      Description: Obtener Favoritos
+      Role: !GetAtt RoleForLambdas.Arn
+
 Outputs:
   buscarServicioArn:
     Value: !GetAtt buscarServicio.Arn
@@ -154,3 +163,7 @@ Outputs:
     Value: !GetAtt guardarFavorito.Arn
     Export:
       Name: !Sub "${Prefix}-guardarFavoritoArn"
+  obtenerFavoritosArn:
+    Value: !GetAtt obtenerFavoritos.Arn
+    Export:
+      Name: !Sub "${Prefix}-obtenerFavoritosArn"

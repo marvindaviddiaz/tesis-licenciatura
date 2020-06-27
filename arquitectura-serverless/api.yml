@@ -18,6 +18,8 @@ Parameters:
     Type: String
   guardarFavoritoArn:
     Type: String
+  obtenerFavoritosArn:
+    Type: String
 
 Globals:
   Api:
@@ -199,6 +201,27 @@ Resources:
                 '200':
                   description: Respuesta Ok
 
+            get:
+              parameters:
+                - name: Authorization
+                  in: header
+                  required: true
+                  type: string
+              produces:
+                - application/json
+              security:
+                - cognitoUserPoolAuthorizer: []
+              x-amazon-apigateway-integration:
+                type: aws_proxy
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerFavoritosArn}/invocations'
+                responses:
+                  default :
+                    statusCode: "200"
+              responses:
+                '200':
+                  description: Respuesta Ok
+
 
   #################
   ######## PERMISSIONS
@@ -249,5 +272,13 @@ Resources:
     Properties:
       Action: lambda:InvokeFunction
       FunctionName: !Sub ${guardarFavoritoArn}
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+
+  obtenerFavoritosPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Sub ${obtenerFavoritosArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"

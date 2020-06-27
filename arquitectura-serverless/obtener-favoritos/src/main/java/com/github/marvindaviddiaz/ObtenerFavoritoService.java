@@ -5,17 +5,18 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.github.marvindaviddiaz.dao.FavoritoDAO;
-import com.github.marvindaviddiaz.dto.PeticionDTO;
+import com.github.marvindaviddiaz.dto.FavoritoDTO;
 import com.google.gson.Gson;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GuardarFavoritoService implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+public class ObtenerFavoritoService implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
-    private static final Logger logger = Logger.getLogger(GuardarFavoritoService.class.getName());
+    private static final Logger logger = Logger.getLogger(ObtenerFavoritoService.class.getName());
     private final FavoritoDAO dao = new FavoritoDAO();
 
     @Override
@@ -23,13 +24,13 @@ public class GuardarFavoritoService implements RequestHandler<APIGatewayProxyReq
         logger.log(Level.INFO, "Authorizer:  {0}", event.getRequestContext().getAuthorizer());
         String usuario = (String) ((Map)event.getRequestContext().getAuthorizer().get("claims")).get("cognito:username");
         Gson gson = new Gson();
-        PeticionDTO peticion = gson.fromJson(event.getBody(), PeticionDTO.class);
-        logger.log(Level.INFO, "User: {0}, Petición:  {1}", new Object[]{usuario, peticion});
+        logger.log(Level.INFO, "User: {0}, Petición", new Object[]{usuario});
 
-        String responseJson = "{}";
+        String responseJson;
         int statusCode = 201;
         try {
-            dao.guardarFavorito(Integer.parseInt(usuario), peticion);
+            List<FavoritoDTO> list = dao.obtenerIdentificadores(Integer.parseInt(usuario));
+            responseJson = gson.toJson(list);
         } catch (NumberFormatException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
             responseJson = "{\"error\":\" " + e.getMessage() + "\"}";

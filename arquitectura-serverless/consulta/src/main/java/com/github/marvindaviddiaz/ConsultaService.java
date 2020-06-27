@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class ConsultaService implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     private static final Logger logger = Logger.getLogger(ConsultaService.class.getName());
-    private InterfazDAO dao = new InterfazDAO();
+    private final InterfazDAO dao = new InterfazDAO();
 
     private final HttpClient httpClient = HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_2)

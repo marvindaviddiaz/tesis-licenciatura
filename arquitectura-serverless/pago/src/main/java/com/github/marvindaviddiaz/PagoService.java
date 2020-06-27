@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class PagoService implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     private static final Logger logger = Logger.getLogger(PagoService.class.getName());
-    private InterfazDAO dao = new InterfazDAO();
+    private final InterfazDAO dao = new InterfazDAO();
 
     private final HttpClient httpClient = HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_2)

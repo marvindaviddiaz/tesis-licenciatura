@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class IdentificadorService implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     private static final Logger logger = Logger.getLogger(IdentificadorService.class.getName());
-    private IdentificadorDAO dao = new IdentificadorDAO();
+    private final IdentificadorDAO dao = new IdentificadorDAO();
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {

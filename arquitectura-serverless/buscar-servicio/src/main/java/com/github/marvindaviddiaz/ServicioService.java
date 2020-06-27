@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class ServicioService implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     private static final Logger logger = Logger.getLogger(ServicioService.class.getName());
-    private ServicioDAO servicioDAO = new ServicioDAO();
+    private final ServicioDAO servicioDAO = new ServicioDAO();
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {

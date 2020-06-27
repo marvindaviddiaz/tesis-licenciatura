@@ -18,6 +18,7 @@
         <module>consulta</module>
         <module>pago</module>
         <module>guardar-favorito</module>
+        <module>obtener-favoritos</module>
     </modules>
 
     <dependencies>

@@ -3,7 +3,7 @@ import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FavoritoService} from './favorito.service';
 import {NotificationsService} from 'angular2-notifications';
 import {Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Identificador} from '../dominio/Identificador';
 import {CuentaService} from '../cuenta/cuenta.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -27,6 +27,7 @@ export class FavoritoComponent implements OnInit, OnDestroy {
               private servicioService: ServicioService,
               private cuentaService: CuentaService,
               private route: ActivatedRoute,
+              private router: Router,
               private notifications: NotificationsService) { }
 
   ngOnInit() {
@@ -81,6 +82,7 @@ export class FavoritoComponent implements OnInit, OnDestroy {
     }
     this.service.guardar(request).subscribe( (data: any) => {
       this.notifications.success('Operación exitosa', 'Favorito guardado exitosamente!');
+      this.router.navigate(['/home']);
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
   }
 
