@@ -77,7 +77,7 @@ export class FavoritoComponent implements OnInit, OnDestroy {
     };
 
     if (this.form.value.identificadores) {
-      this.form.value.identificadores.forEach( e => request.identificadores[e.codigo] = e.valor);
+      this.form.value.identificadores.forEach( e => request.identificadores[e.id] = e.valor);
     }
     this.service.guardar(request).subscribe( (data: any) => {
       this.notifications.success('Operación exitosa', 'Favorito guardado exitosamente!');

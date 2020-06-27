@@ -17,6 +17,7 @@
         <module>obtener-identificadores</module>
         <module>consulta</module>
         <module>pago</module>
+        <module>guardar-favorito</module>
     </modules>
 
     <dependencies>
