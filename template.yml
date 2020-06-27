@@ -21,6 +21,7 @@ Resources:
         obtenerIdentificadoresArn: !GetAtt FunctionsStack.Outputs.obtenerIdentificadoresArn
         consultaArn: !GetAtt FunctionsStack.Outputs.consultaArn
         pagoArn: !GetAtt FunctionsStack.Outputs.pagoArn
+        guardarFavoritoArn: !GetAtt FunctionsStack.Outputs.guardarFavoritoArn
 
 # SFT
   FunctionsSFTStack:
