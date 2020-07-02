@@ -46,7 +46,7 @@ public class FavoritoDAO {
         String query = OBTENER_FAVORITOS;
         if (filtro != null) {
             query += " and f.id = :filtro";
-            namedParameters.addValue("filtro", filtro);
+            namedParameters = namedParameters.addValue("filtro", filtro);
         }
         jdbcTemplate.query(query, namedParameters,
                 (rs, rowNum) -> {
