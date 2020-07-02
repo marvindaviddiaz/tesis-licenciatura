@@ -24,13 +24,15 @@ public class ObtenerFavoritoService implements RequestHandler<APIGatewayProxyReq
         logger.log(Level.INFO, "Authorizer:  {0}", event.getRequestContext().getAuthorizer());
         String usuario = (String) ((Map)event.getRequestContext().getAuthorizer().get("claims")).get("cognito:username");
         Gson gson = new Gson();
-        logger.log(Level.INFO, "User: {0}, Petición", new Object[]{usuario});
-
-        String f = event.getQueryStringParameters().getOrDefault("filtro", null);
         Integer filtro = null;
-        if (f != null) {
-            filtro = Integer.parseInt(f);
+        if (event.getQueryStringParameters() != null) {
+            String f = event.getQueryStringParameters().getOrDefault("filtro", null);
+            if (f != null) {
+                filtro = Integer.parseInt(f);
+            }
         }
+        logger.log(Level.INFO, "User: {0}, Filtro={1} Petición", new Object[]{usuario, filtro});
+
         String responseJson;
         int statusCode = 201;
         try {
