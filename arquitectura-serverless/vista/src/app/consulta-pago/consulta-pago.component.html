@@ -81,7 +81,7 @@
       <h3>Cuenta: {{cuenta.numero + ' - ' + cuenta.alias}}</h3>
       <h3>Total: {{saldo}}</h3>
 
-      <button [routerLink]="['/favorito/' + servicio]" [queryParams]="identificadoresUsados" mat-raised-button>Guardar Favorito</button>
+      <button [routerLink]="['/favorito/' + servicio]" [queryParams]="identificadoresUsados" *ngIf="!this.favorito" mat-raised-button>Guardar Favorito</button>
       <button [routerLink]="['/']" mat-raised-button>Continuar</button>
     </form>
   </div>

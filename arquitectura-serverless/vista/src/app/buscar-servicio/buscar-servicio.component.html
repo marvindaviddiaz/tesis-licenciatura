@@ -34,5 +34,16 @@
       </mat-card>
     </div>
 
+    <div class="div-card-favoritos" *ngIf="favoritos.length > 0">
+      <h3>Favoritos</h3>
+      <mat-card class="favoritos-card" *ngFor="let entity of favoritos">
+        <mat-card-header [routerLink]="['/consulta-pago/' + entity.servicioId]" [queryParams]="{favorito: entity.id}" >
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{entity.alias}}</mat-card-title>
+          <mat-card-subtitle>{{entity.servicio}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+
   </form>
 </div>

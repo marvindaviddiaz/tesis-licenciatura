@@ -11,6 +11,8 @@ import {CuentaService} from '../cuenta/cuenta.service';
 import {Cuenta} from '../dominio/Cuenta';
 import {MatDialog} from '@angular/material';
 import {ServicioService} from '../servicio/servicio.service';
+import {FavoritoService} from '../favorito/favorito.service';
+import {Favorito} from '../dominio/Favorito';
 
 @Component({
   selector: 'app-consulta-pago',
@@ -31,10 +33,12 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
   paso: number;
   idPago: number;
   identificadoresUsados = {};
+  favorito: number;
 
   constructor(private service: ConsultaPagoService,
               private servicioService: ServicioService,
               private cuentaService: CuentaService,
+              private favoritoService: FavoritoService,
               private route: ActivatedRoute,
               private notifications: NotificationsService,
               private dialog: MatDialog) { }
@@ -48,6 +52,7 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
     });
     this.subscriptionRoute = this.route.queryParams.subscribe((params: any) => {
       this.title = params.desc;
+      this.favorito = params.favorito;
     });
 
     this.subscriptionRoute = this.route.params.subscribe((params: any) => {
@@ -64,8 +69,32 @@ export class ConsultaPagoComponent implements OnInit, OnDestroy {
                 'codigo': new FormControl(this.identificadores[i].codigo),
                 'valor': new FormControl('', [Validators.required]),
               }));
-
           }
+
+          if (this.favorito) {
+            // setear valores favoritos
+            this.favoritoService.obtenerFavoritos(this.favorito).subscribe( (favoritos: Favorito[]) => {
+              if (favoritos.length > 0) {
+                const fav = favoritos[0];
+                this.title = fav.servicio + ' - ' + fav.alias;
+                for (const guardado of fav.identificadores) {
+                  console.log(guardado);
+                  for (const control of (<FormArray>this.form.get('identificadores')).controls) {
+                    if (control.get('id').value === guardado.id) {
+                      control.get('valor').setValue(guardado.valor);
+                    }
+                  }
+                }
+              }
+
+              // validar si todos los valores se setearon y hacer la consulta
+              if (this.form.valid) {
+                this.consultar();
+              }
+
+            }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
+          }
+
         }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
       }
     );

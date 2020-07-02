@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -14,6 +14,14 @@ export class FavoritoService {
 
   guardar(identificadores: any): Observable<any> {
     return this.http.post(this.apiUrl, identificadores);
+  }
+
+  obtenerFavoritos(filtro?: number): Observable<any> {
+    let httpParams = new HttpParams();
+    if (filtro) {
+      httpParams = httpParams.append('filtro', filtro.toString());
+    }
+    return this.http.get(this.apiUrl, {params: httpParams});
   }
 
 }
