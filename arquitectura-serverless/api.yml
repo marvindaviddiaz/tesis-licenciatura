@@ -207,6 +207,10 @@ Resources:
                   in: header
                   required: true
                   type: string
+                - name: filtro
+                  in: query
+                  required: false
+                  type: integer
               produces:
                 - application/json
               security:
