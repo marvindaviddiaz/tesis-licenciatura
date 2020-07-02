@@ -7,7 +7,6 @@ import com.github.marvindaviddiaz.dto.FavoritoDTO;
 import com.github.marvindaviddiaz.dto.IdentificadorDTO;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.util.ArrayList;
@@ -41,10 +40,15 @@ public class FavoritoDAO {
         ).getParameter().getValue();
     }
 
-    public List<FavoritoDTO> obtenerIdentificadores(Integer usuario) {
+    public List<FavoritoDTO> obtenerIdentificadores(Integer usuario, Integer filtro) {
         List<FavoritoDTO> list = new ArrayList<>();
-        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("usuario", usuario);
-        jdbcTemplate.query(OBTENER_FAVORITOS, namedParameters,
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource().addValue("usuario", usuario);
+        String query = OBTENER_FAVORITOS;
+        if (filtro != null) {
+            query += " and f.id = :filtro";
+            namedParameters.addValue("filtro", filtro);
+        }
+        jdbcTemplate.query(query, namedParameters,
                 (rs, rowNum) -> {
                     FavoritoDTO dto = new FavoritoDTO();
                     dto.setId(rs.getInt(1));

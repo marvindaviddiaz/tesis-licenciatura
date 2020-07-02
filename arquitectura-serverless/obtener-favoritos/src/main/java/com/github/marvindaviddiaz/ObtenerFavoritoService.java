@@ -26,10 +26,15 @@ public class ObtenerFavoritoService implements RequestHandler<APIGatewayProxyReq
         Gson gson = new Gson();
         logger.log(Level.INFO, "User: {0}, Petición", new Object[]{usuario});
 
+        String f = event.getQueryStringParameters().getOrDefault("filtro", null);
+        Integer filtro = null;
+        if (f != null) {
+            filtro = Integer.parseInt(f);
+        }
         String responseJson;
         int statusCode = 201;
         try {
-            List<FavoritoDTO> list = dao.obtenerIdentificadores(Integer.parseInt(usuario));
+            List<FavoritoDTO> list = dao.obtenerIdentificadores(Integer.parseInt(usuario), filtro);
             responseJson = gson.toJson(list);
         } catch (NumberFormatException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
