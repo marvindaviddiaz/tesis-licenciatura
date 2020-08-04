@@ -119,6 +119,7 @@ Resources:
       CodeUri: ./pago/target/pago-1.0-SNAPSHOT.jar
       Description: Pago
       Role: !GetAtt RoleForLambdas.Arn
+      MemorySize: 512
 
   guardarFavorito:
     Type: AWS::Serverless::Function
