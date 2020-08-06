@@ -19,13 +19,6 @@ Parameters:
   etfgPagoArn:
     Type: String
 
-Globals:
-  Api:
-    Cors:
-      AllowMethods: "'OPTIONS,GET,POST,PUT,DELETE'"
-      AllowHeaders: "'Content-Type,Authorization'"
-      AllowOrigin: "'*'"
-
 Resources:
 
 #  VpcEndpointTercerosApi:
