@@ -147,6 +147,7 @@ Resources:
       CodeUri: ./consulta-historico/target/consulta-historico-1.0-SNAPSHOT.jar
       Description: Consulta Histórico
       Role: !GetAtt RoleForLambdas.Arn
+      MemorySize: 512
 
 Outputs:
   buscarServicioArn:
