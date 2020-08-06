@@ -6,6 +6,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.github.marvindaviddiaz.dao.BitacoraDAO;
 import com.github.marvindaviddiaz.dto.BitacoraDTO;
+import com.github.marvindaviddiaz.dto.PageDTO;
 import com.google.gson.Gson;
 
 import java.text.ParseException;
@@ -41,8 +42,8 @@ public class ConsultaHistoricoService implements RequestHandler<APIGatewayProxyR
             filtro = event.getQueryStringParameters().getOrDefault("filtro", null);
             logger.log(Level.INFO, "User: {0}, Fechas: {1} {2}, Filtro: {3} Pagina: {4}", new Object[]{usuario, fechaInicio, fechaFin, filtro, pagina});
 
-            List<BitacoraDTO> list = dao.consulta(Integer.parseInt(usuario), fechaInicio, fechaFin, filtro, pagina);
-            responseJson = gson.toJson(list);
+            PageDTO<BitacoraDTO> page = dao.consulta(Integer.parseInt(usuario), fechaInicio, fechaFin, filtro, pagina);
+            responseJson = gson.toJson(page);
 
         } catch (ParseException e) {
             logger.log(Level.WARNING, e.getMessage(), e);

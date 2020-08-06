@@ -4,6 +4,7 @@ import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClientBuilder;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest;
 import com.github.marvindaviddiaz.dto.BitacoraDTO;
+import com.github.marvindaviddiaz.dto.PageDTO;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -26,8 +27,10 @@ public class BitacoraDAO {
                     getParameter(System.getenv("RDS_USERNAME"), false),
                     getParameter(System.getenv("RDS_PASSWORD"), true)));
 
+    private static final String BITACORA_COUNT = "select count (*) from (%s)";
     private static final String BITACORA = "select id, fecha, estado, tipo, tercero, servicio, cuenta, monto, mensaje_error " +
             " from bitacora where usuario = :usuario and fecha between :inicio and :fin";
+    private static final Integer MAX_ELEMENTS = 10;
 
     private static String getParameter(String parameterName, Boolean decryption) {
         logger.log(Level.INFO, "Getting param: {0}", parameterName);
@@ -37,8 +40,7 @@ public class BitacoraDAO {
         ).getParameter().getValue();
     }
 
-    public List<BitacoraDTO> consulta(Integer usuario, Date fechaInicio, Date fechaFin, String filtro, Integer pagina) {
-        List<BitacoraDTO> list = new ArrayList<>();
+    public PageDTO<BitacoraDTO> consulta(Integer usuario, Date fechaInicio, Date fechaFin, String filtro, Integer pagina) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("usuario", usuario)
                 .addValue("inicio", fechaInicio)
@@ -48,8 +50,11 @@ public class BitacoraDAO {
             query += " and (tercero = :filtro or servicio = :filtro)";
             namedParameters = namedParameters.addValue("filtro", filtro);
         }
-        query += " order by fecha desc limit " + (pagina * 10) + ", 10";
-        return jdbcTemplate.query(query, namedParameters,
+
+        String count = String.format(BITACORA_COUNT, BITACORA);
+        query += " order by fecha desc limit " + (pagina * MAX_ELEMENTS) + ", " + MAX_ELEMENTS;
+        Long total = jdbcTemplate.queryForObject(count, namedParameters, Long.class);
+        List<BitacoraDTO> content = jdbcTemplate.query(query, namedParameters,
                 (rs, rowNum) -> {
                     BitacoraDTO dto = new BitacoraDTO();
                     dto.setId(rs.getString(1));
@@ -63,6 +68,8 @@ public class BitacoraDAO {
                     dto.setError(rs.getString(9));
                     return dto;
                 });
+
+        return new PageDTO<>(content, total, pagina, MAX_ELEMENTS);
     }
 
 }
