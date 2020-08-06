@@ -24,11 +24,11 @@ Parameters:
     Type: String
 
 Globals:
-  Api:
-    Cors:
-      AllowMethods: "'OPTIONS,GET,POST,PUT,DELETE'"
-      AllowHeaders: "'Content-Type,Authorization'"
-      AllowOrigin: "'*'"
+#  Api:
+#    Cors:
+#      AllowMethods: "'OPTIONS,GET,POST,PUT,DELETE'"
+#      AllowHeaders: "'Content-Type,Authorization'"
+#      AllowOrigin: "'*'"
 
 Resources:
 
@@ -37,11 +37,7 @@ Resources:
     Properties:
       Name: arquitectura-serverless
       StageName: dev
-      DefinitionBody:
-        Fn::Transform:
-          Name: AWS::Include
-          Parameters:
-            Location: ./swagger.yml
+      DefinitionUri: ./swagger.yml
 
   #################
   ######## PERMISSIONS
