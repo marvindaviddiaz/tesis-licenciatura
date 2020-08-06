@@ -27,7 +27,7 @@ public class BitacoraDAO {
                     getParameter(System.getenv("RDS_USERNAME"), false),
                     getParameter(System.getenv("RDS_PASSWORD"), true)));
 
-    private static final String BITACORA_COUNT = "select count (*) from (%s)";
+    private static final String BITACORA_COUNT = "select count (0) from (%s) T";
     private static final String BITACORA = "select id, fecha, estado, tipo, tercero, servicio, cuenta, monto, mensaje_error " +
             " from bitacora where usuario = :usuario and fecha between :inicio and :fin";
     private static final Integer MAX_ELEMENTS = 10;
