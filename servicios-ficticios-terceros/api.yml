@@ -49,7 +49,11 @@ Resources:
       Name: servicios-ficticios-terceros
       StageName: dev
 #      EndpointConfiguration: PRIVATE
-      DefinitionUri: ./swagger.yml
+      DefinitionBody:
+        "Fn::Transform":
+          Name: "AWS::Include"
+          Parameters:
+            Location: ./swagger.yml
 
   #################
   ######## PERMISSIONS

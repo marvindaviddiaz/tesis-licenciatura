@@ -39,7 +39,12 @@ Resources:
       Name: arquitectura-serverless
       StageName: dev
       DefinitionUri: ./swagger.yml
-
+      DefinitionBody:
+        "Fn::Transform":
+          Name: "AWS::Include"
+          Parameters:
+            Location: ./swagger.yml
+            
   #################
   ######## PERMISSIONS
   #################
