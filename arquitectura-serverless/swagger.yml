@@ -1,0 +1,233 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: arquitectura-serverless
+  description: arquitectura-serverless
+
+securityDefinitions:
+  cognitoUserPoolAuthorizer:
+    type: apiKey
+    name: Authorization
+    in: header
+    x-amazon-apigateway-authtype: cognito_user_pools
+    x-amazon-apigateway-authorizer:
+      type: cognito_user_pools
+      providerARNs:
+        - arn:aws:cognito-idp:us-east-1:214527516697:userpool/us-east-1_Tw0ZEXi12
+
+paths:
+  /api/servicios/:
+    get:
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+        - name: busqueda
+          in: query
+          required: true
+          type: string
+      produces:
+        - application/json
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: post
+        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicioArn}/invocations'
+        responses:
+          default :
+            statusCode: "200"
+      responses:
+        '200':
+          description: Respuesta Ok
+
+  /api/servicios/{servicio}/identificadores/:
+    get:
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+        - name: servicio
+          in: path
+          required: true
+          type: integer
+      produces:
+        - application/json
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: post
+        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerIdentificadoresArn}/invocations'
+        responses:
+          default :
+            statusCode: "200"
+      responses:
+        '200':
+          description: Respuesta Ok
+
+  /api/consulta/{servicio}/:
+    get:
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+        - name: servicio
+          in: path
+          required: true
+          type: integer
+      produces:
+        - application/json
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: post
+        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${consultaArn}/invocations'
+        responses:
+          default :
+            statusCode: "200"
+      responses:
+        '200':
+          description: Respuesta Ok
+
+  /api/cuentas/:
+    get:
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 200 response
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: post
+        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentasArn}/invocations'
+        responses:
+          default:
+            statusCode: "200"
+
+  /api/pago/:
+    post:
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+      #                - name: peticion TODO: define Body for doc.
+      #                  in: body
+      #                  required: true
+      #                  type: integer
+      produces:
+        - application/json
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: post
+        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${pagoArn}/invocations'
+        responses:
+          default :
+            statusCode: "200"
+      responses:
+        '200':
+          description: Respuesta Ok
+
+  /api/favoritos/:
+    post:
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+      #                - name: peticion TODO: define Body for doc.
+      #                  in: body
+      #                  required: true
+      #                  type: integer
+      produces:
+        - application/json
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: post
+        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${guardarFavoritoArn}/invocations'
+        responses:
+          default :
+            statusCode: "200"
+      responses:
+        '200':
+          description: Respuesta Ok
+
+    get:
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+        - name: filtro
+          in: query
+          required: false
+          type: integer
+      produces:
+        - application/json
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: post
+        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerFavoritosArn}/invocations'
+        responses:
+          default :
+            statusCode: "200"
+      responses:
+        '200':
+          description: Respuesta Ok
+
+  /api/bitacora/:
+    get:
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+        - name: pagina
+          in: query
+          required: true
+          type: integer
+        - name: fechaInicio
+          in: query
+          required: true
+          type: string
+        - name: fechaFin
+          in: query
+          required: true
+          type: string
+        - name: filtro
+          in: query
+          required: false
+          type: string
+
+      produces:
+        - application/json
+      security:
+        - cognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: post
+        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${consultaHistoricoArn}/invocations'
+        responses:
+          default :
+            statusCode: "200"
+      responses:
+        '200':
+          description: Respuesta Ok
