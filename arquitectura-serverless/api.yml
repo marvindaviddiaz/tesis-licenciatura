@@ -23,13 +23,12 @@ Parameters:
   consultaHistoricoArn:
     Type: String
 
-#Globals:
-#  Api:
-#    Cors:
-#      AllowMethods: "'OPTIONS,GET,POST,PUT,DELETE'"
-#      AllowHeaders: "'Content-Type,Authorization'"
-#      AllowOrigin: "'*'"
-
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'OPTIONS,GET,POST,PUT,DELETE'"
+      AllowHeaders: "'Content-Type,Authorization'"
+      AllowOrigin: "'*'"
 
 Resources:
 
