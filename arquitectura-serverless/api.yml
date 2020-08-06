@@ -30,6 +30,7 @@ Parameters:
 #      AllowHeaders: "'Content-Type,Authorization'"
 #      AllowOrigin: "'*'"
 
+
 Resources:
 
   ServerlessApi:
