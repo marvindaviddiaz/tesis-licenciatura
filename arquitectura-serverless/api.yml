@@ -23,7 +23,7 @@ Parameters:
   consultaHistoricoArn:
     Type: String
 
-Globals:
+#Globals:
 #  Api:
 #    Cors:
 #      AllowMethods: "'OPTIONS,GET,POST,PUT,DELETE'"
