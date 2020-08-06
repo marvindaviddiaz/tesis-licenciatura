@@ -48,7 +48,7 @@ public class BitacoraDAO {
             query += " and (tercero = :filtro or servicio = :filtro)";
             namedParameters = namedParameters.addValue("filtro", filtro);
         }
-        query += " order by fecha desc + " + (pagina * 10) + ", 10";
+        query += " order by fecha desc limit " + (pagina * 10) + ", 10";
         jdbcTemplate.query(query, namedParameters,
                 (rs, rowNum) -> {
                     BitacoraDTO dto = new BitacoraDTO();
