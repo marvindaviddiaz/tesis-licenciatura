@@ -19,6 +19,7 @@
         <module>pago</module>
         <module>guardar-favorito</module>
         <module>obtener-favoritos</module>
+        <module>consulta-historico</module>
     </modules>
 
     <dependencies>

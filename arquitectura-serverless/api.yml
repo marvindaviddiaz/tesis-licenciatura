@@ -20,6 +20,8 @@ Parameters:
     Type: String
   obtenerFavoritosArn:
     Type: String
+  consultaHistoricoArn:
+    Type: String
 
 Globals:
   Api:
@@ -226,6 +228,45 @@ Resources:
                 '200':
                   description: Respuesta Ok
 
+          /api/bitacora/:
+            get:
+              parameters:
+                - name: Authorization
+                  in: header
+                  required: true
+                  type: string
+                - name: pagina
+                  in: query
+                  required: true
+                  type: integer
+                - name: fechaInicio
+                  in: query
+                  required: true
+                  type: string
+                - name: fechaFin
+                  in: query
+                  required: true
+                  type: string
+                - name: filtro
+                  in: query
+                  required: false
+                  type: string
+
+              produces:
+                - application/json
+              security:
+                - cognitoUserPoolAuthorizer: []
+              x-amazon-apigateway-integration:
+                type: aws_proxy
+                httpMethod: post
+                uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${consultaHistoricoArn}/invocations'
+                responses:
+                  default :
+                    statusCode: "200"
+              responses:
+                '200':
+                  description: Respuesta Ok
+
 
   #################
   ######## PERMISSIONS
@@ -284,5 +325,13 @@ Resources:
     Properties:
       Action: lambda:InvokeFunction
       FunctionName: !Sub ${obtenerFavoritosArn}
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"
+
+  consultaHistoricoPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Sub ${consultaHistoricoArn}
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessApi}/*/*/*"

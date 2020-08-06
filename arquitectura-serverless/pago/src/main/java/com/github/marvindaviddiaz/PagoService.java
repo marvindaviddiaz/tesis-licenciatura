@@ -77,6 +77,6 @@ public class PagoService implements RequestHandler<APIGatewayProxyRequestEvent, 
         return new APIGatewayProxyResponseEvent()
                 .withStatusCode(statusCode)
                 .withHeaders(Collections.singletonMap("Access-Control-Allow-Origin", "*"))
-                .withBody("{\"uuid\": \" " + uuid + "\"}");
+                .withBody("{\"id\": \" " + uuid + "\"}");
     }
 }

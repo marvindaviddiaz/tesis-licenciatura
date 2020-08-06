@@ -3,20 +3,20 @@ package com.github.marvindaviddiaz.dao;
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement;
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClientBuilder;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParameterRequest;
-import com.github.marvindaviddiaz.dto.FavoritoDTO;
-import com.github.marvindaviddiaz.dto.IdentificadorDTO;
+import com.github.marvindaviddiaz.dto.BitacoraDTO;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FavoritoDAO {
+public class BitacoraDAO {
 
-    private static final Logger logger = Logger.getLogger(FavoritoDAO.class.getName());
+    private static final Logger logger = Logger.getLogger(BitacoraDAO.class.getName());
     private static final AWSSimpleSystemsManagement ssm = AWSSimpleSystemsManagementClientBuilder.standard().build();
     private static final NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(
             new DriverManagerDataSource(
@@ -26,11 +26,8 @@ public class FavoritoDAO {
                     getParameter(System.getenv("RDS_USERNAME"), false),
                     getParameter(System.getenv("RDS_PASSWORD"), true)));
 
-    private static final String OBTENER_FAVORITOS = "select f.id, f.servicio, s.nombre, f.alias, ifa.identificador, ide.codigo, ifa.valor  from favorito f " +
-            "    inner join identificador_favorito ifa on f.id = ifa.favorito " +
-            "    inner join servicio s on f.servicio = s.id " +
-            "    inner join identificador ide on ide.servicio = s.id " +
-            "where f.usuario = :usuario";
+    private static final String BITACORA = "select id, fecha, estado, tipo, tercero, servicio, cuenta, monto, mensaje_error " +
+            " from bitacora where usuario = :usuario and fecha between :inicio and :fin";
 
     private static String getParameter(String parameterName, Boolean decryption) {
         logger.log(Level.INFO, "Getting param: {0}", parameterName);
@@ -40,34 +37,30 @@ public class FavoritoDAO {
         ).getParameter().getValue();
     }
 
-    public List<FavoritoDTO> obtenerIdentificadores(Integer usuario, Integer filtro) {
-        List<FavoritoDTO> list = new ArrayList<>();
-        MapSqlParameterSource namedParameters = new MapSqlParameterSource().addValue("usuario", usuario);
-        String query = OBTENER_FAVORITOS;
+    public List<BitacoraDTO> consulta(Integer usuario, Date fechaInicio, Date fechaFin, String filtro, Integer pagina) {
+        List<BitacoraDTO> list = new ArrayList<>();
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("usuario", usuario)
+                .addValue("inicio", fechaInicio)
+                .addValue("fin", fechaFin);
+        String query = BITACORA;
         if (filtro != null) {
-            query += " and f.id = :filtro";
+            query += " and (tercero = :filtro or servicio = :filtro)";
             namedParameters = namedParameters.addValue("filtro", filtro);
         }
+        query += " order by fecha desc + " + (pagina * 10) + ", 10";
         jdbcTemplate.query(query, namedParameters,
                 (rs, rowNum) -> {
-                    FavoritoDTO dto = new FavoritoDTO();
-                    dto.setId(rs.getInt(1));
-                    dto.setServicioId(rs.getInt(2));
-                    dto.setServicio(rs.getString(3));
-                    dto.setAlias(rs.getString(4));
-                    int i = list.indexOf(dto);
-                    if (i != -1) {
-                        dto = list.get(i);
-                    } else {
-                        list.add(dto);
-                    }
-
-                    IdentificadorDTO identificador = new IdentificadorDTO();
-                    identificador.setId(rs.getInt(5));
-                    identificador.setCodigo(rs.getString(6));
-                    identificador.setValor(rs.getString(7));
-
-                    dto.getIdentificadores().add(identificador);
+                    BitacoraDTO dto = new BitacoraDTO();
+                    dto.setId(rs.getString(1));
+                    dto.setFecha(rs.getDate(2));
+                    dto.setEstado(rs.getString(3));
+                    dto.setTipo(rs.getString(4));
+                    dto.setTercero(rs.getString(5));
+                    dto.setServicio(rs.getString(6));
+                    dto.setCuenta(rs.getInt(7));
+                    dto.setMonto(rs.getBigDecimal(8));
+                    dto.setError(rs.getString(9));
                     return dto;
                 });
         return list;

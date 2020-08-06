@@ -23,6 +23,7 @@ Resources:
         pagoArn: !GetAtt FunctionsStack.Outputs.pagoArn
         guardarFavoritoArn: !GetAtt FunctionsStack.Outputs.guardarFavoritoArn
         obtenerFavoritosArn: !GetAtt FunctionsStack.Outputs.obtenerFavoritosArn
+        consultaHistoricoArn: !GetAtt FunctionsStack.Outputs.consultaHistoricoArn
 
 # SFT
   FunctionsSFTStack:

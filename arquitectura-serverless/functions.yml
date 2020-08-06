@@ -139,6 +139,15 @@ Resources:
       Description: Obtener Favoritos
       Role: !GetAtt RoleForLambdas.Arn
 
+  consultaHistorico:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: consulta-historico
+      Handler: com.github.marvindaviddiaz.ConsultaHistoricoService
+      CodeUri: ./consulta-historico/target/consulta-historico-1.0-SNAPSHOT.jar
+      Description: Consulta Histórico
+      Role: !GetAtt RoleForLambdas.Arn
+
 Outputs:
   buscarServicioArn:
     Value: !GetAtt buscarServicio.Arn
@@ -168,3 +177,7 @@ Outputs:
     Value: !GetAtt obtenerFavoritos.Arn
     Export:
       Name: !Sub "${Prefix}-obtenerFavoritosArn"
+  consultaHistoricoArn:
+    Value: !GetAtt consultaHistorico.Arn
+    Export:
+      Name: !Sub "${Prefix}-consultaHistoricoArn"
