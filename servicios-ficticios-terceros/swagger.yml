@@ -31,7 +31,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsultaArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgConsultaArn}/invocations'
         responses:
           default:
             statusCode: "200"
@@ -45,7 +46,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgPagoArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eafgPagoArn}/invocations'
         responses:
           default:
             statusCode: "200"
@@ -59,7 +61,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgConsultaArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgConsultaArn}/invocations'
         responses:
           default:
             statusCode: "200"
@@ -73,7 +76,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgPagoArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${etfgPagoArn}/invocations'
         responses:
           default:
             statusCode: "200"
@@ -87,7 +91,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgConsultaArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgConsultaArn}/invocations'
         responses:
           default:
             statusCode: "200"
@@ -101,7 +106,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgPagoArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${eefgPagoArn}/invocations'
         responses:
           default:
             statusCode: "200"

@@ -34,7 +34,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicioArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${buscarServicioArn}/invocations'
         responses:
           default :
             statusCode: "200"
@@ -60,7 +61,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerIdentificadoresArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerIdentificadoresArn}/invocations'
         responses:
           default :
             statusCode: "200"
@@ -86,7 +88,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${consultaArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${consultaArn}/invocations'
         responses:
           default :
             statusCode: "200"
@@ -111,7 +114,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentasArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${listarCuentasArn}/invocations'
         responses:
           default:
             statusCode: "200"
@@ -134,7 +138,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${pagoArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${pagoArn}/invocations'
         responses:
           default :
             statusCode: "200"
@@ -160,7 +165,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${guardarFavoritoArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${guardarFavoritoArn}/invocations'
         responses:
           default :
             statusCode: "200"
@@ -185,7 +191,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerFavoritosArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${obtenerFavoritosArn}/invocations'
         responses:
           default :
             statusCode: "200"
@@ -224,7 +231,8 @@ paths:
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: post
-        uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${consultaHistoricoArn}/invocations'
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${consultaHistoricoArn}/invocations'
         responses:
           default :
             statusCode: "200"
