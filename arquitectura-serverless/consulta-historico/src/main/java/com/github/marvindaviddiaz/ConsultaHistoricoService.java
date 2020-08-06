@@ -39,7 +39,7 @@ public class ConsultaHistoricoService implements RequestHandler<APIGatewayProxyR
             fechaFin = simpleDateFormat.parse(event.getQueryStringParameters().getOrDefault("fechaFin", null));
             pagina = Integer.valueOf(event.getQueryStringParameters().getOrDefault("pagina", null));
             filtro = event.getQueryStringParameters().getOrDefault("filtro", null);
-            logger.log(Level.INFO, "User: {0}, Fechas: {1} {2}, Filtro={3} Pagina{4}", new Object[]{usuario, fechaInicio, fechaFin, filtro, pagina});
+            logger.log(Level.INFO, "User: {0}, Fechas: {1} {2}, Filtro: {3} Pagina: {4}", new Object[]{usuario, fechaInicio, fechaFin, filtro, pagina});
 
             List<BitacoraDTO> list = dao.consulta(Integer.parseInt(usuario), fechaInicio, fechaFin, filtro, pagina);
             responseJson = gson.toJson(list);

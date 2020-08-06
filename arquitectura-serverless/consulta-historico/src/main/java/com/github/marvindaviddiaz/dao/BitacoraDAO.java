@@ -49,7 +49,7 @@ public class BitacoraDAO {
             namedParameters = namedParameters.addValue("filtro", filtro);
         }
         query += " order by fecha desc limit " + (pagina * 10) + ", 10";
-        jdbcTemplate.query(query, namedParameters,
+        return jdbcTemplate.query(query, namedParameters,
                 (rs, rowNum) -> {
                     BitacoraDTO dto = new BitacoraDTO();
                     dto.setId(rs.getString(1));
@@ -63,7 +63,6 @@ public class BitacoraDAO {
                     dto.setError(rs.getString(9));
                     return dto;
                 });
-        return list;
     }
 
 }
