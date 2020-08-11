@@ -1,3 +1,45 @@
-<p>
-  historico works!
-</p>
+<div>
+  <form class="form-signin"
+        (ngSubmit)="buscar()"
+        [formGroup]="form">
+
+    <mat-toolbar>
+      <mat-toolbar-row color="primary"><span class="title">Histórico de Servicios</span></mat-toolbar-row>
+    </mat-toolbar>
+
+
+    <mat-form-field>
+      <input matInput
+             placeholder="Fecha Inicio"
+             required
+             type="date"
+             formControlName="inicio">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             placeholder="Fecha Fin"
+             required
+             type="date"
+             formControlName="fin">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             placeholder="Búsqueda"
+             type="text"
+             maxlength="80"
+             formControlName="filtro">
+    </mat-form-field>
+
+    <div>
+      <button
+        [disabled]="!form.valid"
+        type="submit"
+        mat-raised-button>Buscar
+      </button>
+    </div>
+
+
+  </form>
+</div>

@@ -46,9 +46,9 @@ public class BitacoraDAO {
                 .addValue("inicio", fechaInicio)
                 .addValue("fin", fechaFin);
         String query = BITACORA;
-        if (filtro != null) {
+        if (filtro != null && !filtro.trim().isEmpty()) {
             query += " and (lower(tercero) like :filtro or lower(servicio) like :filtro)";
-            namedParameters = namedParameters.addValue("filtro", '%' + filtro + '%');
+            namedParameters = namedParameters.addValue("filtro", '%' + filtro.toLowerCase() + '%');
         }
 
         String count = String.format(BITACORA_COUNT, BITACORA);
