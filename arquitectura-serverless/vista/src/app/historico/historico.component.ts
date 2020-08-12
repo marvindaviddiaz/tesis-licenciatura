@@ -15,8 +15,7 @@ import {HistoricoService} from './historico.service';
 export class HistoricoComponent implements OnInit {
 
   form: FormGroup;
-  servicios: Servicio[] = [];
-  favoritos: Favorito[] = [];
+  list: any[] = [];
 
   constructor(private service: HistoricoService,
               private notifications: NotificationsService) { }
@@ -30,8 +29,8 @@ export class HistoricoComponent implements OnInit {
   }
 
   buscar() {
-    this.service.buscar(this.form.value.inicio, this.form.value.fin, '0', this.form.value.filtro).subscribe( (data: Servicio[]) => {
-      this.servicios = data;
+    this.service.buscar(this.form.value.inicio, this.form.value.fin, '0', this.form.value.filtro).subscribe( (data: any) => {
+      this.list = data.content;
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
   }
 

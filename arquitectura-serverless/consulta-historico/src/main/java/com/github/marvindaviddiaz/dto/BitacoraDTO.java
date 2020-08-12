@@ -8,7 +8,7 @@ import java.util.Objects;
 public class BitacoraDTO {
 
     private String id;
-    private Date fecha;
+    private String fecha;
     private String estado;
     private String tipo;
     private String tercero;
@@ -25,11 +25,11 @@ public class BitacoraDTO {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

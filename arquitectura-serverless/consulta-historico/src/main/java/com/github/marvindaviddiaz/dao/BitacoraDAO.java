@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,11 +55,12 @@ public class BitacoraDAO {
         String count = String.format(BITACORA_COUNT, BITACORA);
         query += " order by fecha desc limit " + (pagina * MAX_ELEMENTS) + ", " + MAX_ELEMENTS;
         Long total = jdbcTemplate.queryForObject(count, namedParameters, Long.class);
+        SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
         List<BitacoraDTO> content = jdbcTemplate.query(query, namedParameters,
                 (rs, rowNum) -> {
                     BitacoraDTO dto = new BitacoraDTO();
                     dto.setId(rs.getString(1));
-                    dto.setFecha(rs.getDate(2));
+                    dto.setFecha(fecha.format(rs.getDate(2)));
                     dto.setEstado(rs.getString(3));
                     dto.setTipo(rs.getString(4));
                     dto.setTercero(rs.getString(5));

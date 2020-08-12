@@ -40,6 +40,29 @@
       </button>
     </div>
 
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Tercero</th>
+        <th>Servicio</th>
+        <th>Cuenta</th>
+        <th>Monto</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let e of list">
+        <td>{{e.id}}</td>
+        <td>{{e.fecha}}</td>
+        <td>{{e.tercero}}</td>
+        <td>{{e.servicio}}</td>
+        <td>{{e.cuenta}}</td>
+        <td>{{e.monto}}</td>
+      </tr>
+      </tbody>
+    </table>
+
 
   </form>
 </div>

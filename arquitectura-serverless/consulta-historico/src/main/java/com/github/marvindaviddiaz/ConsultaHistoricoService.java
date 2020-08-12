@@ -34,7 +34,7 @@ public class ConsultaHistoricoService implements RequestHandler<APIGatewayProxyR
         Integer pagina = null;
         String filtro = null;
         String responseJson;
-        int statusCode = 201;
+        int statusCode = 200;
         try {
             fechaInicio = simpleDateFormat.parse(event.getQueryStringParameters().getOrDefault("fechaInicio", null));
             fechaFin = simpleDateFormat.parse(event.getQueryStringParameters().getOrDefault("fechaFin", null));
