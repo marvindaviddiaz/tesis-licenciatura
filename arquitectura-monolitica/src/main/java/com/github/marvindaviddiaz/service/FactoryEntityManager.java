@@ -14,19 +14,18 @@ public class FactoryEntityManager {
         entityManager = getEntityManager();
     }
 
+    public EntityManager getEntityManager(){
+        if(entityManager != null && entityManager.isOpen()){
+            return entityManager;
+        }
+        return entityManager = getEntityManagerFactory().createEntityManager();
+    }
 
     public EntityManagerFactory getEntityManagerFactory(){
         if(entityManagerFactory == null || ! entityManagerFactory.isOpen()){
             return entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
         }
         return entityManagerFactory;
-    }
-
-    public EntityManager getEntityManager(){
-        if(entityManager != null && entityManager.isOpen()){
-            return entityManager;
-        }
-        return entityManager = getEntityManagerFactory().createEntityManager();
     }
 
     public void closeConnection(){

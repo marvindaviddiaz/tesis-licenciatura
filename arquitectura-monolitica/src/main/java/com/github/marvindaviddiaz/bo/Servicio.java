@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "servicio")
-public class Servicio implements Serializable{
+public class Servicio implements Serializable {
 
     private static final long serialVersionUID = 5107982536144833949L;
 
@@ -13,8 +13,10 @@ public class Servicio implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column
-    private Integer tercero;
+
+    @ManyToOne
+    @JoinColumn(name = "tercero")
+    private Tercero tercero;
 
     @Column
     private String nombre;
@@ -39,11 +41,11 @@ public class Servicio implements Serializable{
         this.id = id;
     }
 
-    public Integer getTercero() {
+    public Tercero getTercero() {
         return tercero;
     }
 
-    public void setTercero(Integer tercero) {
+    public void setTercero(Tercero tercero) {
         this.tercero = tercero;
     }
 
