@@ -1,8 +1,11 @@
 package com.github.marvindaviddiaz.beans;
 
+import com.github.marvindaviddiaz.bo.Favorito;
 import com.github.marvindaviddiaz.bo.Servicio;
+import com.github.marvindaviddiaz.service.FavoritoService;
 import com.github.marvindaviddiaz.service.ServicioService;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,13 +17,21 @@ import java.util.List;
 public class BuscarServicioBean implements Serializable {
 
     @Inject
-    private ServicioService indexService;
+    private ServicioService servicioService;
+    @Inject
+    private FavoritoService favoritoService;
 
     private List<Servicio> listado;
+    private List<Favorito> favoritos;
+
+    @PostConstruct
+    public void init() {
+        favoritos = favoritoService.buscarServicio(36); // TODO: usuario
+    }
 
     public void buscarServicio(String busqueda) {
         if (busqueda != null && !busqueda.isEmpty()) {
-            listado = indexService.buscarServicio(busqueda);
+            listado = servicioService.buscarServicio(busqueda);
         }
     }
 
@@ -30,5 +41,13 @@ public class BuscarServicioBean implements Serializable {
 
     public void setListado(List<Servicio> listado) {
         this.listado = listado;
+    }
+
+    public List<Favorito> getFavoritos() {
+        return favoritos;
+    }
+
+    public void setFavoritos(List<Favorito> favoritos) {
+        this.favoritos = favoritos;
     }
 }

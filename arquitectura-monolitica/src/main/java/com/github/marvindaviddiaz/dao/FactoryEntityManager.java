@@ -1,4 +1,4 @@
-package com.github.marvindaviddiaz.service;
+package com.github.marvindaviddiaz.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

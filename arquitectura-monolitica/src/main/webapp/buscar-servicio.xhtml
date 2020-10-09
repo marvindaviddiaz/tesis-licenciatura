@@ -13,20 +13,36 @@
     <h1>Búsqueda de Servicios</h1>
 
     <h:form onsubmit="#{buscarServicioBean.buscarServicio(busqueda.value)}">
-        <h:inputText binding="#{busqueda}"></h:inputText>
+        <h:inputText binding="#{busqueda}" />
+        <h:commandButton label="Buscar" type="submit"/>
 
         <h:dataTable value = "#{buscarServicioBean.listado}" var = "servicio">
             <h:column>
                 <f:facet name = "header">Servicio</f:facet>
-                #{servicio.nombre}
+                <h:commandLink action="#{'consulta-pago?faces-redirect=true&amp;servicio='.concat(servicio.id)}"
+                               value="#{servicio.nombre}">
+                </h:commandLink>
             </h:column>
             <h:column>
                 <f:facet name = "header">Proveedor</f:facet>
                 #{servicio.tercero.nombre}
             </h:column>
         </h:dataTable>
-
     </h:form>
+
+    <h1>Favoritos</h1>
+
+    <h:dataTable value = "#{buscarServicioBean.favoritos}" var = "favorito">
+        <h:column>
+            <f:facet name = "header">Servicio</f:facet>
+            #{favorito.alias}
+        </h:column>
+        <h:column>
+            <f:facet name = "header">Proveedor</f:facet>
+            #{favorito.servicio.nombre}
+        </h:column>
+    </h:dataTable>
+
 </h:body>
 
 </html>
