@@ -1,9 +1,11 @@
 package com.github.marvindaviddiaz.beans;
 
+import com.github.marvindaviddiaz.bo.Cuenta;
 import com.github.marvindaviddiaz.bo.Servicio;
 import com.github.marvindaviddiaz.dto.ConsultaPagoDTO;
 import com.github.marvindaviddiaz.dto.IdentificadorDTO;
-import com.github.marvindaviddiaz.service.ConsultaService;
+import com.github.marvindaviddiaz.service.TerceroService;
+import com.github.marvindaviddiaz.service.CuentaService;
 import com.github.marvindaviddiaz.service.IdentificadorService;
 import com.github.marvindaviddiaz.service.ServicioService;
 
@@ -20,20 +22,27 @@ import java.util.List;
 public class ConsultaPagoBean implements Serializable {
 
     @Inject
-    private ServicioService servicioService;
+    private transient ServicioService servicioService;
     @Inject
-    private IdentificadorService identificadorService;
+    private transient IdentificadorService identificadorService;
     @Inject
-    private ConsultaService consultaService;
+    private transient TerceroService terceroService;
+    @Inject
+    private transient CuentaService cuentaService;
 
     private Servicio servicio;
     private Integer servicioId;
     private List<IdentificadorDTO> identificadores;
     private BigDecimal monto;
+    private List<Cuenta> cuentas;
+    private Integer numeroCuenta;
+    private Cuenta cuenta;
+    private String referenciaPago;
 
     private boolean paso1 = true;
     private boolean paso2 = false;
     private boolean paso3 = false;
+    private boolean paso4 = false;
 
 
     @PostConstruct
@@ -50,14 +59,36 @@ public class ConsultaPagoBean implements Serializable {
 
     public void consultar() {
         if (identificadores != null && identificadores.stream().anyMatch(i -> i.getValor() != null && !i.getValor().isEmpty())) {
-            System.out.println(identificadores);
-            ConsultaPagoDTO consultar = consultaService.consultar(servicio, identificadores);
+            // Consulta
+            ConsultaPagoDTO consultar = terceroService.consultar(servicio, identificadores);
             monto = consultar.getSaldo();
+            // Obtener Cuentas
+            cuentas = cuentaService.obtenerCuentas(36);// TODO
             paso2 = true;
             paso1 = false;
         }
     }
 
+    public void confirmar() {
+        if (numeroCuenta != null) {
+            this.cuenta = this.cuentas.stream().filter(f -> numeroCuenta.equals(f.getNumero())).findFirst().orElse(null);
+            paso2 = false;
+            paso3 = true;
+        }
+    }
+
+
+    public void pagar() {
+        if (cuenta != null) {
+            ConsultaPagoDTO pagoRespuesta = terceroService.pagar(servicio, identificadores, monto);
+            this.referenciaPago = pagoRespuesta.getId();
+            paso3 = false;
+            paso4 = true;
+        }
+    }
+
+    public void finalizar() {
+    }
 
     public Servicio getServicio() {
         return servicio;
@@ -115,5 +146,44 @@ public class ConsultaPagoBean implements Serializable {
         this.paso3 = paso3;
     }
 
+    public List<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+    }
+
+    public Integer getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public void setNumeroCuenta(Integer numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    public boolean isPaso4() {
+        return paso4;
+    }
+
+    public void setPaso4(boolean paso4) {
+        this.paso4 = paso4;
+    }
+
+    public String getReferenciaPago() {
+        return referenciaPago;
+    }
+
+    public void setReferenciaPago(String referenciaPago) {
+        this.referenciaPago = referenciaPago;
+    }
 
 }

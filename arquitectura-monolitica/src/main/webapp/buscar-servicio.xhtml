@@ -14,7 +14,7 @@
 
     <h:form onsubmit="#{buscarServicioBean.buscarServicio(busqueda.value)}">
         <h:inputText binding="#{busqueda}" />
-        <h:commandButton label="Buscar" type="submit"/>
+        <h:commandButton value="Buscar" type="submit"/>
 
         <h:dataTable value = "#{buscarServicioBean.listado}" var = "servicio">
             <h:column>

@@ -1,28 +1,20 @@
 package com.github.marvindaviddiaz.service;
 
-import com.github.marvindaviddiaz.bo.Identificador;
-import com.github.marvindaviddiaz.dao.FactoryEntityManager;
+import com.github.marvindaviddiaz.dao.IdentificadorDao;
 import com.github.marvindaviddiaz.dto.IdentificadorDTO;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class IdentificadorService extends FactoryEntityManager implements Serializable {
+@Singleton
+public class IdentificadorService implements Serializable {
 
-    public List<IdentificadorDTO> obtenerIdentificadores(Integer servicio) {
-        if (entityManager == null) {
-            return new ArrayList<>();
-        }
-        return entityManager.createQuery("select i " +
-                "from Identificador i " +
-                "where i.servicio.id = :servicio", Identificador.class)
-                .setParameter("servicio", servicio)
-                .getResultList()
-                .stream()
-                .map(IdentificadorDTO::new)
-                .collect(Collectors.toList());
+    @Inject
+    private IdentificadorDao dao;
 
+    public List<IdentificadorDTO> obtenerIdentificadores(Integer servicioId) {
+        return dao.obtenerIdentificadores(servicioId);
     }
 }

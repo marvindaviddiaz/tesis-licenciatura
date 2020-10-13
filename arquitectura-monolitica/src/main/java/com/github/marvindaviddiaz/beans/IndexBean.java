@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class IndexBean implements Serializable {
 
     @Inject
-    private ServicioService indexService;
+    private transient ServicioService indexService;
 
     private String title = "Hello!";
 

@@ -17,16 +17,16 @@ import java.util.List;
 public class BuscarServicioBean implements Serializable {
 
     @Inject
-    private ServicioService servicioService;
+    private transient ServicioService servicioService;
     @Inject
-    private FavoritoService favoritoService;
+    private transient FavoritoService favoritoService;
 
     private List<Servicio> listado;
     private List<Favorito> favoritos;
 
     @PostConstruct
     public void init() {
-        favoritos = favoritoService.buscarServicio(36); // TODO: usuario
+        favoritos = favoritoService.obtenerFavoritos(36); // TODO: usuario
     }
 
     public void buscarServicio(String busqueda) {

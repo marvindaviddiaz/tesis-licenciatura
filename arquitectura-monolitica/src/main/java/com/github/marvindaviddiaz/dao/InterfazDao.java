@@ -2,8 +2,10 @@ package com.github.marvindaviddiaz.dao;
 
 import com.github.marvindaviddiaz.bo.Interfaz;
 
+import javax.inject.Singleton;
 import java.io.Serializable;
 
+@Singleton
 public class InterfazDao extends FactoryEntityManager implements Serializable {
 
     public Interfaz obtenerInterfaz(Integer servicio, String tipoOperacion) {

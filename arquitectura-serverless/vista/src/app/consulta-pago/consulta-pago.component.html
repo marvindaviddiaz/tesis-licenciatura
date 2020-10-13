@@ -77,9 +77,9 @@
       <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
         <h3> {{e.value.nombre}}: {{e.value.valor}}</h3>
       </div>
-      <h3>Referencia de Pago: {{idPago}}</h3>
       <h3>Cuenta: {{cuenta.numero + ' - ' + cuenta.alias}}</h3>
       <h3>Total: {{saldo}}</h3>
+      <h3>Referencia de Pago: {{idPago}}</h3>
 
       <button [routerLink]="['/favorito/' + servicio]" [queryParams]="identificadoresUsados" *ngIf="!this.favorito" mat-raised-button>Guardar Favorito</button>
       <button [routerLink]="['/']" mat-raised-button>Continuar</button>
