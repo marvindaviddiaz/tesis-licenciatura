@@ -21,6 +21,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +38,9 @@ public class TerceroService extends FactoryEntityManager implements Serializable
 
     @Inject
     private InterfazDao interfazDao;
+    @Inject
+    private BitacoraService bitacoraService;
+
 
     public ConsultaPagoDTO consultar(Servicio servicio, List<IdentificadorDTO> identificadores) {
         Interfaz interfaz = interfazDao.obtenerInterfaz(servicio.getId(), "C");
@@ -70,9 +74,9 @@ public class TerceroService extends FactoryEntityManager implements Serializable
         return null;
     }
 
-    public ConsultaPagoDTO pagar(Servicio servicio, List<IdentificadorDTO> identificadores, BigDecimal monto) {
+    public String pagar(Integer usuario, Integer cuenta, Servicio servicio, List<IdentificadorDTO> identificadores, BigDecimal monto) {
         Interfaz interfaz = interfazDao.obtenerInterfaz(servicio.getId(), "P");
-
+        String idTrx = UUID.randomUUID().toString();
         Map<String, String> params = new HashMap<>();
         params.put("VALOR", monto.toString());
         for (IdentificadorDTO id : identificadores) {
@@ -83,6 +87,8 @@ public class TerceroService extends FactoryEntityManager implements Serializable
         String mensaje = sub.replace(interfaz.getMensaje());
         logger.log(Level.INFO, mensaje);
 
+        String exception = null;
+        String respuestaTercero = null;
         if ("REST".equals(interfaz.getProtocolo())) {
             try{
                 HttpRequest request = HttpRequest.newBuilder()
@@ -93,13 +99,15 @@ public class TerceroService extends FactoryEntityManager implements Serializable
                         .build();
                 HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
                 logger.log(Level.INFO, "Respuesta {0}, {1}", new Object[]{response.statusCode(), response.body()});
-                return mapper.readValue(response.body(), ConsultaPagoDTO.class);
-            } catch (Exception e) {
-                // TODO: REINTENTOS
+                respuestaTercero = response.body();
+            } catch (Exception e) { // TODO REINTENTOS
+                exception = e.getMessage();
                 logger.log(Level.SEVERE, e.getMessage(), e);
+            } finally {
+                bitacoraService.guardarBitacora(idTrx, usuario, servicio, cuenta, monto, respuestaTercero, exception, params);
             }
         }
 
-        return null;
+        return idTrx;
     }
 }

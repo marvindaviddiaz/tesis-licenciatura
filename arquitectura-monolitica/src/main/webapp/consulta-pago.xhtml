@@ -18,7 +18,7 @@
 
     <h1>#{consultaPagoBean.servicio.nombre} - #{consultaPagoBean.servicio.tercero.nombre}</h1>
 
-    <h:form onsubmit="#{consultaPagoBean.consultar()}">
+    <h:form>
         <h:panelGroup rendered="#{consultaPagoBean.paso1}">
             <h2>Búsqueda</h2>
             <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
@@ -27,12 +27,13 @@
                     <h:inputText value="#{i.valor}" pt:placeholder="#{i.nombre}"/>
                 </h:column>
             </h:dataTable>
-            <h:commandButton value="Consultar" type="submit" />
+            <h:commandButton value="Consultar" type="submit" action="#{consultaPagoBean.consultar()}">
+                <f:ajax execute="@form" render="@all" />
+            </h:commandButton>
         </h:panelGroup>
     </h:form>
 
-
-    <h:form onsubmit="#{consultaPagoBean.confirmar()}">
+    <h:form>
         <h:panelGroup rendered="#{consultaPagoBean.paso2}">
             <h2>Seleccionar cuenta para realizar pago</h2>
             <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
@@ -44,11 +45,13 @@
             <h:selectOneMenu value="#{consultaPagoBean.numeroCuenta}" >
                 <f:selectItems value="#{consultaPagoBean.cuentas}" var="c" itemValue="#{c.numero}" itemLabel="#{c.numero} - #{c.alias}"/>
             </h:selectOneMenu>
-            <h:commandButton value="Pagar" type="submit" />
+            <h:commandButton value="Pagar" type="submit" action="#{consultaPagoBean.confirmar()}">
+                <f:ajax execute="@form" render="@all" />
+            </h:commandButton>
         </h:panelGroup>
     </h:form>
 
-    <h:form onsubmit="#{consultaPagoBean.pagar()}">
+    <h:form>
         <h:panelGroup rendered="#{consultaPagoBean.paso3}">
             <h2>Está seguro de realizar el pago?</h2>
             <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
@@ -58,11 +61,13 @@
             </h:dataTable>
             <h3>Total a Pagar: #{consultaPagoBean.monto}</h3>
             <h3>Cuenta: #{consultaPagoBean.cuenta.numero} - #{consultaPagoBean.cuenta.alias}</h3>
-            <h:commandButton value="Confirmar Pago" type="submit" />
+            <h:commandButton value="Confirmar Pago" type="submit" action="#{consultaPagoBean.pagar()}">
+                <f:ajax execute="@form" render="@all" />
+            </h:commandButton>
         </h:panelGroup>
     </h:form>
 
-    <h:form onsubmit="#{consultaPagoBean.finalizar()}">
+    <h:form>
         <h:panelGroup rendered="#{consultaPagoBean.paso4}">
             <h2>Pago realizado exitosamente!</h2>
             <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
@@ -73,7 +78,9 @@
             <h3>Total: #{consultaPagoBean.monto}</h3>
             <h3>Cuenta: #{consultaPagoBean.cuenta.numero} - #{consultaPagoBean.cuenta.alias}</h3>
             <h3>Referencia de Pago: #{consultaPagoBean.referenciaPago}</h3>
-            <h:commandButton value="Continuar" type="submit" />
+            <h:commandButton value="Continuar" type="submit" action="#{consultaPagoBean.finalizar()}">
+                <f:ajax execute="@form" render="@all" />
+            </h:commandButton>
         </h:panelGroup>
     </h:form>
 

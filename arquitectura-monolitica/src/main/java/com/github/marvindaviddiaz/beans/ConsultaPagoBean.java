@@ -4,10 +4,7 @@ import com.github.marvindaviddiaz.bo.Cuenta;
 import com.github.marvindaviddiaz.bo.Servicio;
 import com.github.marvindaviddiaz.dto.ConsultaPagoDTO;
 import com.github.marvindaviddiaz.dto.IdentificadorDTO;
-import com.github.marvindaviddiaz.service.TerceroService;
-import com.github.marvindaviddiaz.service.CuentaService;
-import com.github.marvindaviddiaz.service.IdentificadorService;
-import com.github.marvindaviddiaz.service.ServicioService;
+import com.github.marvindaviddiaz.service.*;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -44,6 +41,7 @@ public class ConsultaPagoBean implements Serializable {
     private boolean paso3 = false;
     private boolean paso4 = false;
 
+    private Integer usuario = 36; // TODO
 
     @PostConstruct
     public void init() {
@@ -63,14 +61,14 @@ public class ConsultaPagoBean implements Serializable {
             ConsultaPagoDTO consultar = terceroService.consultar(servicio, identificadores);
             monto = consultar.getSaldo();
             // Obtener Cuentas
-            cuentas = cuentaService.obtenerCuentas(36);// TODO
+            cuentas = cuentaService.obtenerCuentas(usuario);
             paso2 = true;
             paso1 = false;
         }
     }
 
     public void confirmar() {
-        if (numeroCuenta != null) {
+        if (paso2 && numeroCuenta != null) {
             this.cuenta = this.cuentas.stream().filter(f -> numeroCuenta.equals(f.getNumero())).findFirst().orElse(null);
             paso2 = false;
             paso3 = true;
@@ -79,9 +77,8 @@ public class ConsultaPagoBean implements Serializable {
 
 
     public void pagar() {
-        if (cuenta != null) {
-            ConsultaPagoDTO pagoRespuesta = terceroService.pagar(servicio, identificadores, monto);
-            this.referenciaPago = pagoRespuesta.getId();
+        if (paso3 && cuenta != null) {
+            referenciaPago = terceroService.pagar(usuario, cuenta.getNumero(), servicio, identificadores, monto);
             paso3 = false;
             paso4 = true;
         }
