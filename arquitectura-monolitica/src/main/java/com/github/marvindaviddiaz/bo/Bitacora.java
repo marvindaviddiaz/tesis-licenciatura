@@ -32,11 +32,8 @@ public class Bitacora implements Serializable {
     @Column(name = "respuesta_tercero")
     @Convert(converter = BlobToStringConverter.class)
     private String respuestaTercero;
-    @Column
+    @Column(name = "mensaje_error")
     private String mensajeError;
-
-    @Column
-    private String nombre;
 
     public String getId() {
         return id;
@@ -44,14 +41,6 @@ public class Bitacora implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public Date getFecha() {

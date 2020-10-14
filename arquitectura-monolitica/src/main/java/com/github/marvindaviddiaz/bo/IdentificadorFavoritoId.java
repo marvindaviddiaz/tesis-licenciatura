@@ -11,6 +11,7 @@ public class IdentificadorFavoritoId implements Serializable {
     @ManyToOne
     @JoinColumn(name = "favorito")
     private Favorito favorito;
+
     @ManyToOne
     @JoinColumn(name = "identificador")
     private Identificador identificador;

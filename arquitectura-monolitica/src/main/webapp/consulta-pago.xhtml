@@ -78,7 +78,23 @@
             <h3>Total: #{consultaPagoBean.monto}</h3>
             <h3>Cuenta: #{consultaPagoBean.cuenta.numero} - #{consultaPagoBean.cuenta.alias}</h3>
             <h3>Referencia de Pago: #{consultaPagoBean.referenciaPago}</h3>
-            <h:commandButton value="Continuar" type="submit" action="#{consultaPagoBean.finalizar()}">
+            <h:commandButton value="Guardar Favorito" type="submit" action="#{consultaPagoBean.guardarFavorito()}">
+                <f:ajax execute="@form" render="@all" />
+            </h:commandButton>
+            <h:commandButton value="Continuar" type="submit" action="index" />
+        </h:panelGroup>
+    </h:form>
+
+    <h:form>
+        <h:panelGroup rendered="#{consultaPagoBean.paso5}">
+            <h2>Guardar Favorito</h2>
+            <h:inputText binding="#{alias}" pt:placeholder="Alias"/>
+            <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
+                <h:column>
+                    <h3> #{i.nombre}: #{i.valor}</h3>
+                </h:column>
+            </h:dataTable>
+            <h:commandButton value="Guardar" type="submit" action="#{consultaPagoBean.confirmarGuardarFavorito(alias.value)}">
                 <f:ajax execute="@form" render="@all" />
             </h:commandButton>
         </h:panelGroup>

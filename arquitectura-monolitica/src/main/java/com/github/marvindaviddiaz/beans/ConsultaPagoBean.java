@@ -26,6 +26,8 @@ public class ConsultaPagoBean implements Serializable {
     private transient TerceroService terceroService;
     @Inject
     private transient CuentaService cuentaService;
+    @Inject
+    private transient FavoritoService favoritoService;
 
     private Servicio servicio;
     private Integer servicioId;
@@ -40,6 +42,7 @@ public class ConsultaPagoBean implements Serializable {
     private boolean paso2 = false;
     private boolean paso3 = false;
     private boolean paso4 = false;
+    private boolean paso5 = false;
 
     private Integer usuario = 36; // TODO
 
@@ -84,7 +87,18 @@ public class ConsultaPagoBean implements Serializable {
         }
     }
 
-    public void finalizar() {
+    public void guardarFavorito() {
+        if (paso4) {
+            paso4 = false;
+            paso5 = true;
+        }
+    }
+
+    public String confirmarGuardarFavorito(String alias) {
+        if (alias != null) {
+            favoritoService.guardarFavorito(alias, usuario, servicio, identificadores);
+        }
+        return "index";
     }
 
     public Servicio getServicio() {
@@ -181,6 +195,14 @@ public class ConsultaPagoBean implements Serializable {
 
     public void setReferenciaPago(String referenciaPago) {
         this.referenciaPago = referenciaPago;
+    }
+
+    public boolean isPaso5() {
+        return paso5;
+    }
+
+    public void setPaso5(boolean paso5) {
+        this.paso5 = paso5;
     }
 
 }
