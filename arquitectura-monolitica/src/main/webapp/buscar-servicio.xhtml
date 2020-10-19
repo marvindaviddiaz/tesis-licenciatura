@@ -2,9 +2,8 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:app = "http://java.sun.com/jsf/composite/app-components">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:app="http://java.sun.com/jsf/composite/app-components">
 <h:head>
 </h:head>
 <h:body>
@@ -31,17 +30,20 @@
     </h:form>
 
     <h1>Favoritos</h1>
-
-    <h:dataTable value = "#{buscarServicioBean.favoritos}" var = "favorito">
-        <h:column>
-            <f:facet name = "header">Servicio</f:facet>
-            #{favorito.alias}
-        </h:column>
-        <h:column>
-            <f:facet name = "header">Proveedor</f:facet>
-            #{favorito.servicio.nombre}
-        </h:column>
-    </h:dataTable>
+    <h:form>
+        <h:dataTable value = "#{buscarServicioBean.favoritos}" var = "favorito">
+            <h:column>
+                <f:facet name = "header">Servicio</f:facet>
+                <h:commandLink action="#{'consulta-pago?faces-redirect=true&amp;favorito='.concat(favorito.id)}"
+                               value="#{favorito.alias}">
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Proveedor</f:facet>
+                #{favorito.servicio.nombre}
+            </h:column>
+        </h:dataTable>
+    </h:form>
 
 </h:body>
 

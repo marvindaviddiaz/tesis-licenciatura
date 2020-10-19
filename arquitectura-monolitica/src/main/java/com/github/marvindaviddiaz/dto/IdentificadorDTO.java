@@ -2,7 +2,9 @@ package com.github.marvindaviddiaz.dto;
 
 import com.github.marvindaviddiaz.bo.Identificador;
 
-public class IdentificadorDTO {
+import java.io.Serializable;
+
+public class IdentificadorDTO implements Serializable {
 
     private Integer id;
     private String nombre;

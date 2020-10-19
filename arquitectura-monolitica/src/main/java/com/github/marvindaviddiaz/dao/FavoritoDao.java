@@ -36,4 +36,22 @@ public class FavoritoDao extends FactoryEntityManager implements Serializable {
             transaction.rollback();
         }
     }
+
+    public Favorito obtenerFavorito(Integer usuario, Integer favorito) {
+        return entityManager.createQuery("select f " +
+                "from Favorito f " +
+                "where f.id = :id and f.usuario.codigo = :usuario", Favorito.class)
+                .setParameter("id", favorito)
+                .setParameter("usuario", usuario)
+                .getSingleResult();
+    }
+
+    public List<IdentificadorFavorito> obtenerIdentificadoresFavorito(Integer usuario, Integer favorito) {
+        return entityManager.createQuery("select f " +
+                "from IdentificadorFavorito f " +
+                "where f.id.favorito.id = :id and f.id.favorito.usuario.codigo = :usuario", IdentificadorFavorito.class)
+                .setParameter("id", favorito)
+                .setParameter("usuario", usuario)
+                .getResultList();
+    }
 }

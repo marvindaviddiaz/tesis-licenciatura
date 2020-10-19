@@ -1,6 +1,8 @@
 package com.github.marvindaviddiaz.beans;
 
 import com.github.marvindaviddiaz.bo.Cuenta;
+import com.github.marvindaviddiaz.bo.Favorito;
+import com.github.marvindaviddiaz.bo.IdentificadorFavorito;
 import com.github.marvindaviddiaz.bo.Servicio;
 import com.github.marvindaviddiaz.dto.ConsultaPagoDTO;
 import com.github.marvindaviddiaz.dto.IdentificadorDTO;
@@ -30,7 +32,9 @@ public class ConsultaPagoBean implements Serializable {
     private transient FavoritoService favoritoService;
 
     private Servicio servicio;
+    private Favorito favorito;
     private Integer servicioId;
+    private Integer favoritoId;
     private List<IdentificadorDTO> identificadores;
     private BigDecimal monto;
     private List<Cuenta> cuentas;
@@ -51,9 +55,25 @@ public class ConsultaPagoBean implements Serializable {
     }
 
     public void preRenderView() {
-        if (servicio == null || !servicio.getId().equals(servicioId)) {
+        if (servicioId != null && (servicio == null || !servicio.getId().equals(servicioId))) {
             servicio = servicioService.obtenerServicio(servicioId);
             identificadores = identificadorService.obtenerIdentificadores(servicioId);
+        }
+
+        if (favoritoId != null && (favorito == null || !favorito.getId().equals(favoritoId))) {
+            this.favorito = favoritoService.obtenerFavorito(usuario, favoritoId);
+            servicio = favorito.getServicio();
+            identificadores = identificadorService.obtenerIdentificadores(servicio.getId());
+            List<IdentificadorFavorito> identificadorFavoritos = favoritoService.obtenerIdentificadoresFavorito(usuario, favoritoId);
+            for (IdentificadorFavorito idf : identificadorFavoritos) {
+                for (IdentificadorDTO dto : identificadores) {
+                    if (dto.getId().equals(idf.getId().getIdentificador().getId())) {
+                        dto.setValor(idf.getValor());
+                        break;
+                    }
+                }
+            }
+            this.consultar();
         }
     }
 
@@ -205,4 +225,19 @@ public class ConsultaPagoBean implements Serializable {
         this.paso5 = paso5;
     }
 
+    public Integer getFavoritoId() {
+        return favoritoId;
+    }
+
+    public void setFavoritoId(Integer favoritoId) {
+        this.favoritoId = favoritoId;
+    }
+
+    public Favorito getFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(Favorito favorito) {
+        this.favorito = favorito;
+    }
 }

@@ -40,4 +40,12 @@ public class FavoritoService implements Serializable {
     public List<Favorito> obtenerFavoritos(Integer usuario) {
         return dao.obtenerFavoritos(usuario);
     }
+
+    public Favorito obtenerFavorito(Integer usuario, Integer favorito) {
+        return dao.obtenerFavorito(usuario, favorito);
+    }
+
+    public List<IdentificadorFavorito> obtenerIdentificadoresFavorito(Integer usuario, Integer favorito) {
+        return dao.obtenerIdentificadoresFavorito(usuario, favorito);
+    }
 }
