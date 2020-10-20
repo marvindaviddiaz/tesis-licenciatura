@@ -6,12 +6,11 @@ import com.github.marvindaviddiaz.dto.IdentificadorDTO;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
-public class FavoritoService implements Serializable {
+public class FavoritoService {
 
     @Inject
     private FavoritoDao dao;

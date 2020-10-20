@@ -5,11 +5,10 @@ import com.github.marvindaviddiaz.dao.CuentaDao;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.io.Serializable;
 import java.util.List;
 
 @Singleton
-public class CuentaService implements Serializable {
+public class CuentaService {
 
     @Inject
     private CuentaDao dao;

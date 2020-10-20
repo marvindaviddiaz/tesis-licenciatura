@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Singleton
-public class BitacoraService implements Serializable {
+public class BitacoraService {
 
     @Inject
     private BitacoraDao dao;

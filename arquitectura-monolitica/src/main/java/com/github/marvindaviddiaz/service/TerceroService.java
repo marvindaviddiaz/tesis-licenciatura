@@ -3,7 +3,6 @@ package com.github.marvindaviddiaz.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.marvindaviddiaz.bo.Interfaz;
 import com.github.marvindaviddiaz.bo.Servicio;
-import com.github.marvindaviddiaz.dao.FactoryEntityManager;
 import com.github.marvindaviddiaz.dao.InterfazDao;
 import com.github.marvindaviddiaz.dto.ConsultaPagoDTO;
 import com.github.marvindaviddiaz.dto.IdentificadorDTO;
@@ -11,7 +10,6 @@ import org.apache.commons.text.StringSubstitutor;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -26,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Singleton
-public class TerceroService extends FactoryEntityManager implements Serializable {
+public class TerceroService {
 
     private static final Logger logger = Logger.getLogger(TerceroService.class.getName());
 

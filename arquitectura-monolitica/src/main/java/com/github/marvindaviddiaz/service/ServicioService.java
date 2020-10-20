@@ -5,11 +5,10 @@ import com.github.marvindaviddiaz.dao.ServicioDao;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.io.Serializable;
 import java.util.List;
 
 @Singleton
-public class ServicioService implements Serializable {
+public class ServicioService {
 
     @Inject
     private ServicioDao dao;
