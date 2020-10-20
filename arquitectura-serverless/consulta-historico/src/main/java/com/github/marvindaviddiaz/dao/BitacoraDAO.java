@@ -53,7 +53,7 @@ public class BitacoraDAO {
         }
 
         String count = String.format(BITACORA_COUNT, BITACORA);
-        query += " order by fecha desc limit " + (pagina * MAX_ELEMENTS) + ", " + MAX_ELEMENTS;
+        query += " order by fecha desc limit " + ((pagina-1) * MAX_ELEMENTS) + ", " + MAX_ELEMENTS;
         Long total = jdbcTemplate.queryForObject(count, namedParameters, Long.class);
         SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
         List<BitacoraDTO> content = jdbcTemplate.query(query, namedParameters,

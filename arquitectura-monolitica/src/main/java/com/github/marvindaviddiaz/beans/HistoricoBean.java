@@ -35,7 +35,6 @@ public class HistoricoBean implements Serializable {
             calendar.add(Calendar.DATE, -30);
             inicio = calendar.getTime();
             fin = new Date();
-            buscar();
         }
     }
 

@@ -16,6 +16,12 @@ export class HistoricoComponent implements OnInit {
 
   form: FormGroup;
   list: any[] = [];
+  pagina = 1;
+  REGISTROS_POR_PAGINA = 10;
+  mostrarSiguiente = false;
+  mostrarAnterior = false;
+  totalRegistros = 0;
+  totalPaginas = 0;
 
   constructor(private service: HistoricoService,
               private notifications: NotificationsService) { }
@@ -28,10 +34,27 @@ export class HistoricoComponent implements OnInit {
     });
   }
 
-  buscar() {
-    this.service.buscar(this.form.value.inicio, this.form.value.fin, '0', this.form.value.filtro).subscribe( (data: any) => {
+  buscar(pagina) {
+    this.service.buscar(this.form.value.inicio, this.form.value.fin, pagina, this.form.value.filtro).subscribe( (data: any) => {
       this.list = data.content;
+      this.totalRegistros = data.totalElements;
+      this.mostrarAnterior = pagina > 1;
+      this.mostrarSiguiente = (this.REGISTROS_POR_PAGINA * pagina) < this.totalRegistros;
+      this.totalPaginas = Math.trunc(this.totalRegistros / this.REGISTROS_POR_PAGINA);
+      if (this.totalRegistros % this.REGISTROS_POR_PAGINA !== 0) {
+        this.totalPaginas = this.totalPaginas + 1;
+      }
     }, (error: HttpErrorResponse) => this.notifications.error('Error', HttpUtilService.handleError(error)));
+  }
+
+  anterior() {
+    this.pagina = this.pagina - 1;
+    this.buscar(this.pagina);
+  }
+
+  siguiente() {
+    this.pagina = this.pagina + 1;
+    this.buscar(this.pagina);
   }
 
   toYyyyMMdd(date: Date, first: boolean): string {
@@ -49,5 +72,4 @@ export class HistoricoComponent implements OnInit {
       return value;
     }
   }
-
 }

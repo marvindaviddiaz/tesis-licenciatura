@@ -1,6 +1,6 @@
 <div>
   <form class="form-signin"
-        (ngSubmit)="buscar()"
+        (ngSubmit)="buscar(1)"
         [formGroup]="form">
 
     <mat-toolbar>
@@ -62,6 +62,24 @@
       </tr>
       </tbody>
     </table>
+
+    <div *ngIf="list.length > 0">
+      Total Registros: {{totalRegistros}}  Página {{pagina}} / {{totalPaginas}}
+      <button
+        *ngIf="mostrarAnterior"
+        [disabled]="!form.valid"
+        type="button"
+        (click)="anterior()"
+        mat-raised-button>Anterior
+      </button>
+      <button
+        *ngIf="mostrarSiguiente"
+        [disabled]="!form.valid"
+        type="submit"
+        (click)="siguiente()"
+        mat-raised-button>Siguiente
+      </button>
+    </div>
 
 
   </form>

@@ -38,7 +38,7 @@ public class ConsultaHistoricoService implements RequestHandler<APIGatewayProxyR
         try {
             fechaInicio = simpleDateFormat.parse(event.getQueryStringParameters().getOrDefault("fechaInicio", null));
             fechaFin = simpleDateFormat.parse(event.getQueryStringParameters().getOrDefault("fechaFin", null));
-            pagina = Integer.valueOf(event.getQueryStringParameters().getOrDefault("pagina", null));
+            pagina = Integer.valueOf(event.getQueryStringParameters().getOrDefault("pagina", "1"));
             filtro = event.getQueryStringParameters().getOrDefault("filtro", null);
             logger.log(Level.INFO, "User: {0}, Fechas: {1} {2}, Filtro: {3} Pagina: {4}", new Object[]{usuario, fechaInicio, fechaFin, filtro, pagina});
 

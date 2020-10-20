@@ -32,7 +32,7 @@
         </h:panelGrid>
     </h:form>
 
-    <h:dataTable value = "#{historicoBean.pagina.listado}" var = "bitacora">
+    <h:dataTable value = "#{historicoBean.pagina.listado}" var = "bitacora" rendered="#{historicoBean.pagina != null and historicoBean.pagina.total > 0}">
         <h:column>
             <f:facet name = "header">Id</f:facet>
             #{bitacora.id.substring(24)}
@@ -60,7 +60,7 @@
     </h:dataTable>
 
     <h:form>
-        <h:panelGrid columns="4">
+        <h:panelGrid columns="4" rendered="#{historicoBean.pagina != null and historicoBean.pagina.total > 0}">
             Total Registros: #{historicoBean.pagina.total}
             Página #{historicoBean.pagina.pagina} / #{historicoBean.pagina.totalPaginas}
             <h:commandButton type="submit" rendered="#{historicoBean.pagina.anterior}" value="Anterior" action="#{historicoBean.anterior()}">
