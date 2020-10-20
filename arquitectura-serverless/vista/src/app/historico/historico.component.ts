@@ -35,6 +35,7 @@ export class HistoricoComponent implements OnInit {
   }
 
   buscar(pagina) {
+    this.pagina = pagina;
     this.service.buscar(this.form.value.inicio, this.form.value.fin, pagina, this.form.value.filtro).subscribe( (data: any) => {
       this.list = data.content;
       this.totalRegistros = data.totalElements;
@@ -48,13 +49,11 @@ export class HistoricoComponent implements OnInit {
   }
 
   anterior() {
-    this.pagina = this.pagina - 1;
-    this.buscar(this.pagina);
+    this.buscar(this.pagina - 1);
   }
 
   siguiente() {
-    this.pagina = this.pagina + 1;
-    this.buscar(this.pagina);
+    this.buscar(this.pagina + 1);
   }
 
   toYyyyMMdd(date: Date, first: boolean): string {
