@@ -2,6 +2,7 @@ package com.github.marvindaviddiaz.service;
 
 import com.github.marvindaviddiaz.bo.*;
 import com.github.marvindaviddiaz.dao.BitacoraDao;
+import com.github.marvindaviddiaz.dto.Pagina;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -41,5 +42,9 @@ public class BitacoraService implements Serializable {
         });
 
         dao.grabarBitacora(bitacora, detalle);
+    }
+
+    public Pagina<Bitacora> buscar(Integer usuario, Date inicio, Date fin, String busqueda, Integer page, Integer maxResults) {
+        return dao.buscar(usuario, inicio, fin, busqueda, page, maxResults);
     }
 }
