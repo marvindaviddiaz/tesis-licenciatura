@@ -27,12 +27,6 @@ public class Servicio implements Serializable {
     @Column
     private String tipo;
 
-    @Column
-    private Integer reintentos;
-
-    @Column(name = "tiempo_maximo_respuesta")
-    private Integer tiempoMaximoRespuesta;
-
     public Integer getId() {
         return id;
     }
@@ -73,22 +67,6 @@ public class Servicio implements Serializable {
         this.tipo = tipo;
     }
 
-    public Integer getReintentos() {
-        return reintentos;
-    }
-
-    public void setReintentos(Integer reintentos) {
-        this.reintentos = reintentos;
-    }
-
-    public Integer getTiempoMaximoRespuesta() {
-        return tiempoMaximoRespuesta;
-    }
-
-    public void setTiempoMaximoRespuesta(Integer tiempoMaximoRespuesta) {
-        this.tiempoMaximoRespuesta = tiempoMaximoRespuesta;
-    }
-
     @Override
     public String toString() {
         return "Servicio{" +
@@ -97,8 +75,6 @@ public class Servicio implements Serializable {
                 ", nombre='" + nombre + '\'' +
                 ", estado='" + estado + '\'' +
                 ", tipo='" + tipo + '\'' +
-                ", reintentos=" + reintentos +
-                ", tiempoMaximoRespuesta=" + tiempoMaximoRespuesta +
                 '}';
     }
 }
