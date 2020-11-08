@@ -16,6 +16,7 @@ artifacts:
   discard-paths: yes
   files:
     - template-export.yml
+    - arquitectura-monolitica/target/arquitectura-monolitica-1.0-SNAPSHOT.war
 cache:
   paths:
     - '/root/.m2/**/*'

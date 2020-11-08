@@ -53,4 +53,18 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.host.url>http://localhost:9000</sonar.host.url>
+                <sonar.exclusion>arquitectura-serverless/vista/node_modules</sonar.exclusion>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>
