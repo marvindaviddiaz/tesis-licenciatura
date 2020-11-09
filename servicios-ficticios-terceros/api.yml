@@ -54,6 +54,14 @@ Resources:
           Name: "AWS::Include"
           Parameters:
             Location: ./swagger.yml
+      Domain:
+        DomainName: terceros.consultapagoterceros.com
+        CertificateArn: arn:aws:acm:us-east-1:214527516697:certificate/06c4f18c-ba6f-4653-952a-56d73a03b582
+        EndpointConfiguration: REGIONAL
+        Route53:
+          HostedZoneId: Z0352316DW2LI73MXYYW
+        BasePath:
+          - /
 
   #################
   ######## PERMISSIONS
