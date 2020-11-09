@@ -42,6 +42,43 @@ Resources:
           Name: "AWS::Include"
           Parameters:
             Location: ./swagger.yml
+      Domain:
+        DomainName: api.serverless.consultapagoterceros.com
+        CertificateArn: arn:aws:acm:us-east-1:214527516697:certificate/06c4f18c-ba6f-4653-952a-56d73a03b582
+        EndpointConfiguration: REGIONAL
+        Route53:
+          HostedZoneId: Z0352316DW2LI73MXYYW
+        BasePath:
+          - /
+
+#  ServerlessApiDomain:
+#    Type: AWS::ApiGateway::DomainName
+#    Properties:
+#      DomainName: 'api.serverless.consultapagoterceros.com'
+#      SecurityPolicy: TLS_1_2
+#      RegionalCertificateArn: arn:aws:acm:us-east-1:214527516697:certificate/06c4f18c-ba6f-4653-952a-56d73a03b582
+#      EndpointConfiguration:
+#        Types:
+#          - REGIONAL
+#
+#  ServerlessApiMapping:
+#    DependsOn: ServerlessApiDomain
+#    Type: AWS::ApiGateway::BasePathMapping
+#    Properties:
+#      DomainName: 'api.serverless.consultapagoterceros.com'
+#      RestApiId: !Ref ServerlessApi
+##      Stage: !Ref ENV
+#
+#  ServerlessApiDns:
+#    DependsOn: ServerlessApiMapping
+#    Type: AWS::Route53::RecordSet
+#    Properties:
+#      HostedZoneId: !Sub '${ZoneId}'
+#      Name: 'api.serverless.consultapagoterceros.com'
+#      Type: A
+#      AliasTarget:
+#        HostedZoneId: 'Z0352316DW2LI73MXYYW'
+#        DNSName: !GetAtt ServerlessApiDomain.RegionalDomainName
 
   #################
   ######## PERMISSIONS
