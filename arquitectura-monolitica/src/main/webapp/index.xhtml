@@ -6,9 +6,19 @@
       xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:app = "http://java.sun.com/jsf/composite/app-components">
 <h:head>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="bootstrap-theme.css"/>
+    <h:outputStylesheet library="css" name="vivify.min.css"/>
+    <h:outputStylesheet library="css" name="layout.css"/>
+    <h:outputStylesheet library="css" name="navigation.css"/>
 </h:head>
-<h:body>
-    <app:menu></app:menu>
+<h:body styleClass="container-fluid">
+
+    <div class="col-lg-1 menu-layout">
+        <app:menu></app:menu>
+    </div>
+    <div class="col-lg-11 content-layout"></div>
+
 </h:body>
 
 </html>

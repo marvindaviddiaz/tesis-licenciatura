@@ -11,67 +11,84 @@
 </f:metadata>
 
 <h:head>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="bootstrap-theme.css"/>
+    <h:outputStylesheet library="css" name="vivify.min.css"/>
+    <h:outputStylesheet library="css" name="layout.css"/>
+    <h:outputStylesheet library="css" name="navigation.css"/>
+    <h:outputStylesheet library="css" name="historico.css"/>
 </h:head>
-<h:body>
-    <app:menu></app:menu>
+<h:body styleClass="container-fluid">
+    <div class="col-lg-1 menu-layout">
+        <app:menu></app:menu>
+    </div>
+    <div class="col-lg-11 content-layout pl-3">
 
-    <h1>Histórico de Servicios</h1>
+        <h1><strong>Histórico de Servicios</strong></h1>
 
-    <h:form>
-        <h:panelGrid columns="4">
-            <h:inputText value="#{historicoBean.inicio}" pt:placeholder="Inicio" pt:type="date">
-                <f:convertDateTime pattern="yyyy-MM-dd"/>
-            </h:inputText>
-            <h:inputText value="#{historicoBean.fin}" pt:placeholder="Fin"  pt:type="date">
-                <f:convertDateTime pattern="yyyy-MM-dd"/>
-            </h:inputText>
-            <h:inputText value="#{historicoBean.busqueda}" pt:placeholder="Búsqueda"/>
-            <h:commandButton value="Buscar" type="submit" action="#{historicoBean.buscar()}">
-                <f:ajax execute="@form" render="@all" />
-            </h:commandButton>
-        </h:panelGrid>
-    </h:form>
+        <h:form styleClass="col-lg-12">
+            <div class="row content-search">
+                <div class="input-group">
+                    <h:inputText styleClass="form-control" value="#{historicoBean.inicio}" pt:placeholder="Inicio" pt:type="date">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:inputText>
+                </div>
+                <div class="input-group">
+                    <h:inputText styleClass="form-control" value="#{historicoBean.fin}" pt:placeholder="Fin"  pt:type="date">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:inputText>
+                </div>
+                <div class="input-group">
+                    <h:inputText styleClass="form-control" value="#{historicoBean.busqueda}" pt:placeholder="Búsqueda"/>
+                </div>
+                <div class="col-lg-1">
+                    <h:commandButton styleClass="btn" value="Buscar" type="submit" action="#{historicoBean.buscar()}">
+                        <f:ajax execute="@form" render="@all" />
+                    </h:commandButton>
+                </div>
+            </div>
+        </h:form>
 
-    <h:dataTable value = "#{historicoBean.pagina.listado}" var = "bitacora" rendered="#{historicoBean.pagina != null and historicoBean.pagina.total > 0}">
-        <h:column>
-            <f:facet name = "header">Id</f:facet>
-            #{bitacora.id.substring(24)}
-        </h:column>
-        <h:column>
-            <f:facet name = "header">Fecha</f:facet>
-            #{bitacora.fecha}
-        </h:column>
-        <h:column>
-            <f:facet name = "header">Tercero</f:facet>
-            #{bitacora.tercero}
-        </h:column>
-        <h:column>
-            <f:facet name = "header">Servicio</f:facet>
-            #{bitacora.servicio}
-        </h:column>
-        <h:column>
-            <f:facet name = "header">Cuenta</f:facet>
-            #{bitacora.cuenta}
-        </h:column>
-        <h:column>
-            <f:facet name = "header">Monto</f:facet>
-            #{bitacora.monto}
-        </h:column>
-    </h:dataTable>
+        <h:dataTable styleClass="vivify fadeIn" value = "#{historicoBean.pagina.listado}" var = "bitacora" rendered="#{historicoBean.pagina != null and historicoBean.pagina.total > 0}">
+            <h:column>
+                <f:facet name = "header">Id</f:facet>
+                #{bitacora.id.substring(24)}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Fecha</f:facet>
+                #{bitacora.fecha}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Tercero</f:facet>
+                #{bitacora.tercero}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Servicio</f:facet>
+                #{bitacora.servicio}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Cuenta</f:facet>
+                #{bitacora.cuenta}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Monto</f:facet>
+                #{bitacora.monto}
+            </h:column>
+        </h:dataTable>
 
-    <h:form>
-        <h:panelGrid columns="4" rendered="#{historicoBean.pagina != null and historicoBean.pagina.total > 0}">
-            Total Registros: #{historicoBean.pagina.total}
-            Página #{historicoBean.pagina.pagina} / #{historicoBean.pagina.totalPaginas}
-            <h:commandButton type="submit" rendered="#{historicoBean.pagina.anterior}" value="Anterior" action="#{historicoBean.anterior()}">
-                <f:ajax execute="@form" render="@all" />
-            </h:commandButton>
-            <h:commandButton type="submit" rendered="#{historicoBean.pagina.siguiente}" value="Siguiente" action="#{historicoBean.siguiente()}">
-                <f:ajax execute="@form" render="@all" />
-            </h:commandButton>
-        </h:panelGrid>
-    </h:form>
-
+        <h:form>
+            <h:panelGrid columns="4" rendered="#{historicoBean.pagina != null and historicoBean.pagina.total > 0}">
+                Total Registros: #{historicoBean.pagina.total}
+                Página #{historicoBean.pagina.pagina} / #{historicoBean.pagina.totalPaginas}
+                <h:commandButton styleClass="btn" type="submit" rendered="#{historicoBean.pagina.anterior}" value="Anterior" action="#{historicoBean.anterior()}">
+                    <f:ajax execute="@form" render="@all" />
+                </h:commandButton>
+                <h:commandButton styleClass="btn" type="submit" rendered="#{historicoBean.pagina.siguiente}" value="Siguiente" action="#{historicoBean.siguiente()}">
+                    <f:ajax execute="@form" render="@all" />
+                </h:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </div>
 
 </h:body>
 

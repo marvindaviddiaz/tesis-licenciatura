@@ -1,0 +1,29 @@
+.account-btn, .search-content {
+    display: flex;
+}
+
+.content-favoritos {
+    height: 100vh;
+    background-color: aliceblue;
+    padding: 5rem;
+}
+
+table {
+    width: 600px;
+}
+
+table th {
+    font-size: 2rem;
+    padding-left: 16px;
+}
+
+table td {
+    font-size: 1.8rem;
+    padding: 16px;
+}
+
+.favoritos tr:hover {
+    box-shadow: 0 6px 15px -7px #00000059;
+    background-color: #fff;
+    border-radius: 10px;
+}

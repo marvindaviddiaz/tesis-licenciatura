@@ -1,0 +1,15 @@
+.buttons .btn {
+    width: 100%;
+    height: 100px;
+    background-size: 50% !important;
+    border: none;
+    margin: 0 auto;
+}
+
+.buttons .btn-card {
+    background: url(/arquitectura_monolitica_war/resources/img/credit_card.png) center no-repeat;
+}
+
+.buttons .btn-history {
+    background: url(/arquitectura_monolitica_war/resources/img/list_white.png) center no-repeat;
+}

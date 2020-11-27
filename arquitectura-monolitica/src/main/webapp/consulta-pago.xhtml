@@ -7,107 +7,155 @@
       xmlns:app="http://java.sun.com/jsf/composite/app-components">
 
 <f:metadata>
-    <f:viewParam name="servicio" value="#{consultaPagoBean.servicioId}"  />
-    <f:viewParam name="favorito" value="#{consultaPagoBean.favoritoId}"  />
+    <f:viewParam name="servicio" value="#{consultaPagoBean.servicioId}"/>
+    <f:viewParam name="favorito" value="#{consultaPagoBean.favoritoId}"/>
     <f:event listener="#{consultaPagoBean.preRenderView()}" type="preRenderView"/>
 </f:metadata>
 
 <h:head>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="bootstrap-theme.css"/>
+    <h:outputStylesheet library="css" name="vivify.min.css"/>
+    <h:outputStylesheet library="css" name="consulta-pago.css"/>
+    <h:outputStylesheet library="css" name="layout.css"/>
+    <h:outputStylesheet library="css" name="navigation.css"/>
 </h:head>
-<h:body>
-    <app:menu></app:menu>
+<h:body styleClass="container-fluid">
+    <div class="col-lg-1 menu-layout">
+        <app:menu></app:menu>
+    </div>
+
+    <div class="col-lg-11 content-layout">
+        <div class="jumbotron">
+            <h:panelGroup rendered="#{consultaPagoBean.favorito == null}">
+                <h1>#{consultaPagoBean.servicio.nombre} - #{consultaPagoBean.servicio.tercero.nombre}</h1>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{consultaPagoBean.favorito != null}">
+                <h1>#{consultaPagoBean.servicio.nombre} - #{consultaPagoBean.servicio.tercero.nombre} (#{consultaPagoBean.favorito.alias})</h1>
+            </h:panelGroup>
 
 
-    <h:panelGroup rendered="#{consultaPagoBean.favorito == null}" >
-        <h1>#{consultaPagoBean.servicio.nombre} - #{consultaPagoBean.servicio.tercero.nombre}</h1>
-    </h:panelGroup>
+            <h:form>
+                <h:panelGroup rendered="#{consultaPagoBean.paso1}">
+                    <h2>Búsqueda</h2>
+                    <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
+                        <h:column>
+                            #{i.nombre}
+                            <h:inputText value="#{i.valor}" pt:placeholder="#{i.nombre}"/>
+                        </h:column>
+                    </h:dataTable>
+                    <h:commandButton value="Consultar" type="submit" action="#{consultaPagoBean.consultar()}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                </h:panelGroup>
+            </h:form>
+        </div>
 
-    <h:panelGroup rendered="#{consultaPagoBean.favorito != null}">
-        <h1>#{consultaPagoBean.servicio.nombre} - #{consultaPagoBean.servicio.tercero.nombre} (#{consultaPagoBean.favorito.alias})</h1>
-    </h:panelGroup>
+        <h:form styleClass="vivify fadeIn col-lg-12">
+            <h:panelGroup rendered="#{consultaPagoBean.paso2}">
+                <h2 class="pl-3"><strong>Seleccionar cuenta para realizar pago</strong></h2>
 
+                <div class="col-lg-4 pl-0">
+                    <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
+                        <h:column>
+                            <h3><strong>#{i.nombre}:</strong> #{i.valor}</h3>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+                <div class="col-lg-4">
+                    <h3><strong>Total a Pagar:</strong> #{consultaPagoBean.monto}</h3>
+                </div>
 
-    <h:form>
-        <h:panelGroup rendered="#{consultaPagoBean.paso1}">
-            <h2>Búsqueda</h2>
-            <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
-                <h:column>
-                    #{i.nombre}
-                    <h:inputText value="#{i.valor}" pt:placeholder="#{i.nombre}"/>
-                </h:column>
-            </h:dataTable>
-            <h:commandButton value="Consultar" type="submit" action="#{consultaPagoBean.consultar()}">
-                <f:ajax execute="@form" render="@all" />
-            </h:commandButton>
-        </h:panelGroup>
-    </h:form>
+                <div class="account-btn col-lg-12 pl-0">
+                    <div class="input-group">
+                        <h:selectOneMenu styleClass="form-control" value="#{consultaPagoBean.numeroCuenta}">
+                            <f:selectItems value="#{consultaPagoBean.cuentas}" var="c" itemValue="#{c.numero}"
+                                           itemLabel="#{c.numero} - #{c.alias}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <h:commandButton styleClass="btn" value="Pagar" type="submit" action="#{consultaPagoBean.confirmar()}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                </div>
+            </h:panelGroup>
+        </h:form>
 
-    <h:form>
-        <h:panelGroup rendered="#{consultaPagoBean.paso2}">
-            <h2>Seleccionar cuenta para realizar pago</h2>
-            <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
-                <h:column>
-                    <h3> #{i.nombre}: #{i.valor}</h3>
-                </h:column>
-            </h:dataTable>
-            <h3>Total a Pagar: #{consultaPagoBean.monto}</h3>
-            <h:selectOneMenu value="#{consultaPagoBean.numeroCuenta}" >
-                <f:selectItems value="#{consultaPagoBean.cuentas}" var="c" itemValue="#{c.numero}" itemLabel="#{c.numero} - #{c.alias}"/>
-            </h:selectOneMenu>
-            <h:commandButton value="Pagar" type="submit" action="#{consultaPagoBean.confirmar()}">
-                <f:ajax execute="@form" render="@all" />
-            </h:commandButton>
-        </h:panelGroup>
-    </h:form>
+        <h:form styleClass="vivify fadeIn col-lg-12">
+            <h:panelGroup rendered="#{consultaPagoBean.paso3}">
+                <h2 class="pl-3"><strong>Está seguro de realizar el pago?</strong></h2>
+                <div class="col-lg-4 pl-0">
+                    <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
+                        <h:column>
+                            <h3> <strong>#{i.nombre}:</strong> #{i.valor}</h3>
+                        </h:column>
+                    </h:dataTable>
+                </div>
 
-    <h:form>
-        <h:panelGroup rendered="#{consultaPagoBean.paso3}">
-            <h2>Está seguro de realizar el pago?</h2>
-            <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
-                <h:column>
-                    <h3> #{i.nombre}: #{i.valor}</h3>
-                </h:column>
-            </h:dataTable>
-            <h3>Total a Pagar: #{consultaPagoBean.monto}</h3>
-            <h3>Cuenta: #{consultaPagoBean.cuenta.numero} - #{consultaPagoBean.cuenta.alias}</h3>
-            <h:commandButton value="Confirmar Pago" type="submit" action="#{consultaPagoBean.pagar()}">
-                <f:ajax execute="@form" render="@all" />
-            </h:commandButton>
-        </h:panelGroup>
-    </h:form>
+                <div class="col-lg-4">
+                    <h3><strong>Total a Pagar:</strong> #{consultaPagoBean.monto}</h3>
+                </div>
+                <div class="col-lg-12">
+                    <h3><strong>Cuenta:</strong> #{consultaPagoBean.cuenta.numero} - #{consultaPagoBean.cuenta.alias}</h3>
+                </div>
 
-    <h:form>
-        <h:panelGroup rendered="#{consultaPagoBean.paso4}">
-            <h2>Pago realizado exitosamente!</h2>
-            <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
-                <h:column>
-                    <h3> #{i.nombre}: #{i.valor}</h3>
-                </h:column>
-            </h:dataTable>
-            <h3>Total: #{consultaPagoBean.monto}</h3>
-            <h3>Cuenta: #{consultaPagoBean.cuenta.numero} - #{consultaPagoBean.cuenta.alias}</h3>
-            <h3>Referencia de Pago: #{consultaPagoBean.referenciaPago}</h3>
-            <h:commandButton value="Guardar Favorito" type="submit" action="#{consultaPagoBean.guardarFavorito()}" rendered="#{consultaPagoBean.favorito == null}">
-                <f:ajax execute="@form" render="@all" />
-            </h:commandButton>
-            <h:commandButton value="Continuar" type="submit" action="index" />
-        </h:panelGroup>
-    </h:form>
+                <div class="col-lg-12 pl-0">
+                    <h:commandButton styleClass="btn btn-custom-success" value="Confirmar Pago" type="submit" action="#{consultaPagoBean.pagar()}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                </div>
+            </h:panelGroup>
+        </h:form>
 
-    <h:form>
-        <h:panelGroup rendered="#{consultaPagoBean.paso5}">
-            <h2>Guardar Favorito</h2>
-            <h:inputText binding="#{alias}" pt:placeholder="Alias"/>
-            <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
-                <h:column>
-                    <h3> #{i.nombre}: #{i.valor}</h3>
-                </h:column>
-            </h:dataTable>
-            <h:commandButton value="Guardar" type="submit" action="#{consultaPagoBean.confirmarGuardarFavorito(alias.value)}">
-                <f:ajax execute="@form" render="@all" />
-            </h:commandButton>
-        </h:panelGroup>
-    </h:form>
+        <h:form styleClass="vivify fadeIn col-lg-12">
+            <h:panelGroup rendered="#{consultaPagoBean.paso4}">
+                <h2 class="pl-3"><strong>Pago realizado exitosamente!</strong></h2>
+                <div class="col-lg-4 pl-0">
+                    <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
+                        <h:column>
+                            <h3> <strong>#{i.nombre}:</strong> #{i.valor}</h3>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+
+                <div class="col-lg-4">
+                    <h3><strong>Total:</strong> #{consultaPagoBean.monto}</h3>
+                </div>
+
+                <div class="col-lg-12">
+                    <h3><strong>Cuenta:</strong> #{consultaPagoBean.cuenta.numero} - #{consultaPagoBean.cuenta.alias}</h3>
+                </div>
+
+                <div class="col-lg-12">
+                    <h3><strong>Referencia de Pago:</strong> #{consultaPagoBean.referenciaPago}</h3>
+                </div>
+
+                <div class="col-lg-4 pl-0">
+                    <h:commandButton styleClass="btn btn-info" value="Guardar Favorito" type="submit" action="#{consultaPagoBean.guardarFavorito()}"
+                                     rendered="#{consultaPagoBean.favorito == null}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                    <h:commandButton value="Continuar" styleClass="btn btn-custom-success" type="submit" action="index"/>
+                </div>
+            </h:panelGroup>
+        </h:form>
+
+        <h:form>
+            <h:panelGroup rendered="#{consultaPagoBean.paso5}">
+                <h2>Guardar Favorito</h2>
+                <h:inputText binding="#{alias}" pt:placeholder="Alias"/>
+                <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
+                    <h:column>
+                        <h3> #{i.nombre}: #{i.valor}</h3>
+                    </h:column>
+                </h:dataTable>
+                <h:commandButton value="Guardar" type="submit"
+                                 action="#{consultaPagoBean.confirmarGuardarFavorito(alias.value)}">
+                    <f:ajax execute="@form" render="@all"/>
+                </h:commandButton>
+            </h:panelGroup>
+        </h:form>
+    </div>
 
 </h:body>
 
