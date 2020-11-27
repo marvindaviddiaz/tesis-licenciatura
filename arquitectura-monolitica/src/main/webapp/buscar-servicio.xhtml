@@ -5,45 +5,67 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:app="http://java.sun.com/jsf/composite/app-components">
 <h:head>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="bootstrap-theme.css"/>
+    <h:outputStylesheet library="css" name="vivify.min.css"/>
+    <h:outputStylesheet library="css" name="layout.css"/>
+    <h:outputStylesheet library="css" name="navigation.css"/>
+    <h:outputStylesheet library="css" name="consulta-pago.css"/>
 </h:head>
-<h:body>
-    <app:menu></app:menu>
+<h:body styleClass="container-fluid">
+    <div class="col-lg-1 menu-layout">
+        <app:menu></app:menu>
+    </div>
 
-    <h1>Búsqueda de Servicios</h1>
+    <div class="col-lg-11 content-layout pl-3">
+        <div class="row">
 
-    <h:form onsubmit="#{buscarServicioBean.buscarServicio(busqueda.value)}">
-        <h:inputText binding="#{busqueda}" />
-        <h:commandButton value="Buscar" type="submit"/>
+            <div class="col-lg-6">
+                <h1><strong>Búsqueda de Servicios</strong></h1>
 
-        <h:dataTable value = "#{buscarServicioBean.listado}" var = "servicio">
-            <h:column>
-                <f:facet name = "header">Servicio</f:facet>
-                <h:commandLink action="#{'consulta-pago?faces-redirect=true&amp;servicio='.concat(servicio.id)}"
-                               value="#{servicio.nombre}">
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <f:facet name = "header">Proveedor</f:facet>
-                #{servicio.tercero.nombre}
-            </h:column>
-        </h:dataTable>
-    </h:form>
+                <h:form onsubmit="#{buscarServicioBean.buscarServicio(busqueda.value)}">
+                    <div class="search-content">
+                        <div class="input-group col-lg-6">
+                            <h:inputText binding="#{busqueda}" styleClass="form-control"/>
+                        </div>
+                        <h:commandButton styleClass="btn ml-3" value="Buscar" type="submit"/>
+                    </div>
 
-    <h1>Favoritos</h1>
-    <h:form>
-        <h:dataTable value = "#{buscarServicioBean.favoritos}" var = "favorito">
-            <h:column>
-                <f:facet name = "header">Servicio</f:facet>
-                <h:commandLink action="#{'consulta-pago?faces-redirect=true&amp;favorito='.concat(favorito.id)}"
-                               value="#{favorito.alias}">
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <f:facet name = "header">Proveedor</f:facet>
-                #{favorito.servicio.nombre}
-            </h:column>
-        </h:dataTable>
-    </h:form>
+                    <h:dataTable value = "#{buscarServicioBean.listado}" var = "servicio">
+                        <h:column>
+                            <f:facet name = "header">Servicio</f:facet>
+                            <h:commandLink action="#{'consulta-pago?faces-redirect=true&amp;servicio='.concat(servicio.id)}"
+                                           value="#{servicio.nombre}">
+                            </h:commandLink>
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">Proveedor</f:facet>
+                            #{servicio.tercero.nombre}
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+
+            <div class="col-lg-6 content-favoritos vivify fadeIn">
+                <h1 class="pl-3"><strong>Favoritos</strong></h1>
+                <h:form>
+                    <h:dataTable styleClass="favoritos" value = "#{buscarServicioBean.favoritos}" var = "favorito">
+                        <h:column>
+                            <f:facet name = "header">Servicio</f:facet>
+                            <h:commandLink action="#{'consulta-pago?faces-redirect=true&amp;favorito='.concat(favorito.id)}"
+                                           value="#{favorito.alias}">
+                            </h:commandLink>
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">Proveedor</f:facet>
+                            #{favorito.servicio.nombre}
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+
+        </div>
+    </div>
 
 </h:body>
 

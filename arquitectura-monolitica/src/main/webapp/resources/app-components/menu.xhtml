@@ -2,20 +2,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns = "http://www.w3.org/1999/xhtml"
-      xmlns:h = "http://java.sun.com/jsf/html"
-      xmlns:f = "http://java.sun.com/jsf/core"
-      xmlns:composite = "http://java.sun.com/jsf/composite">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
 
 <composite:interface>
 </composite:interface>
 
 <composite:implementation>
     <h:form>
-        <h:commandButton action="buscar-servicio"
-                         value = "Pagos"/>
-        <h:commandButton action="historico"
-                         value = "Histórico de Pagos"/>
+
+        <div class="buttons">
+            <h:commandButton action="buscar-servicio" styleClass="btn btn-card" />
+
+            <h:commandButton action="historico" styleClass="btn btn-history" />
+        </div>
+
     </h:form>
 </composite:implementation>
 </html>

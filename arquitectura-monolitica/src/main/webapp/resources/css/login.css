@@ -1,0 +1,33 @@
+.login {
+    background-image: linear-gradient(#718d9f, #bed0dd);
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+}
+
+.login-content {
+    width: 400px;
+    margin-top: 50px;
+    background-color: #fff;
+    height: 310px;
+}
+
+.login-content .inner-content {
+    padding: 30px;
+}
+
+.login-content .login-text {
+    background-color: #3f51b5;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.login-content .logo {
+    background: url(/arquitectura_monolitica_war/resources/img/logoicc.png) center no-repeat;
+}

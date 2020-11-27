@@ -1,0 +1,28 @@
+.content-search {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.content-search .input-group {
+    width: 15%;
+    margin-right: 15px;
+}
+
+table {
+    width: 90%;
+}
+
+table thead {
+    border-bottom: 2px solid #00000038;
+}
+
+table th {
+    font-size: 2rem;
+    padding-bottom: 15px;
+}
+
+table td {
+    font-size: 1.8rem;
+    padding: 15px 0;
+}
