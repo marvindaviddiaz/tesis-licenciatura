@@ -54,6 +54,14 @@
 
         <h:form styleClass="vivify fadeIn col-lg-12">
             <h:panelGroup rendered="#{consultaPagoBean.paso2}">
+
+                <div class="stepper">
+                    <span class="selected">1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span class="line"></span>
+                </div>
+
                 <h2 class="pl-3"><strong>Seleccionar cuenta para realizar pago</strong></h2>
 
                 <div class="col-lg-4 pl-0">
@@ -83,6 +91,13 @@
 
         <h:form styleClass="vivify fadeIn col-lg-12">
             <h:panelGroup rendered="#{consultaPagoBean.paso3}">
+                <div class="stepper">
+                    <span>1</span>
+                    <span class="selected">2</span>
+                    <span>3</span>
+                    <span class="line"></span>
+                </div>
+
                 <h2 class="pl-3"><strong>Está seguro de realizar el pago?</strong></h2>
                 <div class="col-lg-4 pl-0">
                     <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">
@@ -109,6 +124,13 @@
 
         <h:form styleClass="vivify fadeIn col-lg-12">
             <h:panelGroup rendered="#{consultaPagoBean.paso4}">
+                <div class="stepper">
+                    <span>1</span>
+                    <span>2</span>
+                    <span class="selected">3</span>
+                    <span class="line"></span>
+                </div>
+
                 <h2 class="pl-3"><strong>Pago realizado exitosamente!</strong></h2>
                 <div class="col-lg-4 pl-0">
                     <h:dataTable value="#{consultaPagoBean.identificadores}" var="i">

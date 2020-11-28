@@ -4,13 +4,14 @@
     background-size: cover;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .login-content {
     width: 400px;
-    margin-top: 50px;
     background-color: #fff;
     height: 310px;
+    border-radius: 16px;
 }
 
 .login-content .inner-content {
@@ -18,14 +19,20 @@
 }
 
 .login-content .login-text {
-    background-color: #3f51b5;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #464646;
     font-size: 2rem;
     font-weight: bold;
+}
+
+.login-content .btn:not(disabled) {
+    background-color: #3f51b5;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 100px;
 }
 
 .login-content .logo {

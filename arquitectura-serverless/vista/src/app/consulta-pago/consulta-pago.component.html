@@ -1,77 +1,193 @@
-<div>
+<div class="consulta-pago-component">
 
   <mat-toolbar>
     <mat-toolbar-row color="primary"><span class="title">{{title}}</span></mat-toolbar-row>
   </mat-toolbar>
 
-  <!--  Búsqueda -->
+  <mat-horizontal-stepper [linear]="false" #stepper>
+    <mat-step [stepControl]="paso === 1">
+      <ng-template matStepLabel>Búsqueda</ng-template>
 
-  <div *ngIf="paso == 1">
-    <form (ngSubmit)="consultar()" [formGroup]="form">
-      <h1>Búsqueda</h1>
-      <div class="col-md-6">
-        <ul id="params" formArrayName="identificadores">
-          <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
-            <div formGroupName="{{i}}" class="form-group">
-              <!-- INPUT -->
-              <mat-form-field>
-                <input matInput
-                       placeholder="{{e.value.nombre}}"
-                       required
-                       type="text"
-                       maxlength="80"
-                       formControlName="valor">
-              </mat-form-field>
+      <form (ngSubmit)="consultar()" [formGroup]="form" class="form-step form-first">
+        <h1>Búsqueda</h1>
+        <div class="col-md-6">
+          <div id="params" formArrayName="identificadores" class="p-0">
+            <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+              <div formGroupName="{{i}}" class="content-form">
+                <!-- INPUT -->
+                <mat-form-field class="col-4">
+                  <input matInput
+                         placeholder="{{e.value.nombre}}"
+                         required
+                         type="text"
+                         maxlength="80"
+                         formControlName="valor">
+                </mat-form-field>
+              </div>
             </div>
           </div>
-        </ul>
-      </div>
-      <div>
-        <button [disabled]="!form.valid" type="submit" mat-raised-button>Buscar
+        </div>
+        <div>
+          <button [disabled]="!form.valid" color="primary" type="submit" matStepperNext  mat-raised-button>Buscar
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="paso === 2">
+      <ng-template matStepLabel>Seleccionar cuenta</ng-template>
+
+      <form (ngSubmit)="pagar()" [formGroup]="formPay" class="form-step form-two">
+        <h1>Seleccionar cuenta para realizar pago</h1>
+        <div class="information">
+          <div class="mb-3" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+            <label> <strong>{{e.value.nombre}}:</strong> {{e.value.valor}}</label>
+          </div>
+
+          <div class="mb-3">
+            <label><strong>Total a Pagar:</strong> Q. {{saldo}}</label>
+          </div>
+        </div>
+        <div class="col-md-6 mt-3">
+          <mat-form-field>
+            <mat-select placeholder="Cuenta" formControlName="cuenta">
+              <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.numero">
+                {{cuenta.numero + " - " + cuenta.alias}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-button type="button" matStepperPrevious class="btn-back mr-3">Regresar</button>
+            <button [disabled]="!formPay.valid" color="primary" type="submit" matStepperNext mat-raised-button>Pagar</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="paso === 3">
+      <ng-template matStepLabel>Confirmar</ng-template>
+
+      <form (ngSubmit)="confirmarPago()" class="form-step form-three">
+        <h1>Está seguro de realizar el pago?</h1>
+        <div class="information">
+          <div class="mb-3" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+            <label> <strong>{{e.value.nombre}}:</strong> {{e.value.valor}}</label>
+          </div>
+          <div class="mb-3">
+            <label><strong>Total a Pagar:</strong> {{saldo}}</label>
+          </div>
+          <div class="mb-3">
+            <label><strong>Cuenta:</strong> {{cuenta?.numero + ' - ' + cuenta?.alias}}</label>
+          </div>
+        </div>
+
+        <div>
+          <button mat-button type="button" matStepperPrevious class="btn-back mr-3">Regresar</button>
+          <button [disabled]="!formPay.valid" color="primary" type="submit" matStepperNext mat-raised-button>Confirmar Pago</button>
+        </div>
+      </form>
+
+    </mat-step>
+
+    <mat-step [stepControl]="paso === 4">
+      <ng-template matStepLabel>Finalizar</ng-template>
+
+      <form class="form-step">
+        <h1>Pago realizado exitosamente!</h1>
+        <div class="mb-3" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+          <label> <strong>{{e.value.nombre}}:</strong> {{e.value.valor}}</label>
+        </div>
+        <div class="mb-3">
+          <label><strong>Cuenta:</strong> {{cuenta?.numero + ' - ' + cuenta?.alias}}</label>
+        </div>
+        <div class="mb-3">
+          <label><strong>Total:</strong> {{saldo}}</label>
+        </div>
+        <div class="mb-3">
+          <label><strong>Referencia de Pago:</strong> {{idPago}}</label>
+        </div>
+
+        <button [routerLink]="['/favorito/' + servicio]" [queryParams]="identificadoresUsados" *ngIf="!this.favorito"
+                mat-raised-button>Guardar Favorito
         </button>
-      </div>
-    </form>
-  </div>
+
+        <div>
+          <button [routerLink]="['/buscar-servicio']" color="primary" mat-raised-button>Continuar</button>
+        </div>
+      </form>
+
+    </mat-step>
+  </mat-horizontal-stepper>
+
+
+  <!--  Búsqueda -->
+
+  <!--  <div *ngIf="paso == 1">
+      <form (ngSubmit)="consultar()" [formGroup]="form">
+        <h1>Búsqueda</h1>
+        <div class="col-md-6">
+          <ul id="params" formArrayName="identificadores">
+            <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+              <div formGroupName="{{i}}" class="form-group">
+                &lt;!&ndash; INPUT &ndash;&gt;
+                <mat-form-field>
+                  <input matInput
+                         placeholder="{{e.value.nombre}}"
+                         required
+                         type="text"
+                         maxlength="80"
+                         formControlName="valor">
+                </mat-form-field>
+              </div>
+            </div>
+          </ul>
+        </div>
+        <div>
+          <button [disabled]="!form.valid" type="submit" mat-raised-button>Buscar
+          </button>
+        </div>
+      </form>
+    </div>-->
 
   <!--  Selección de Cuenta -->
 
-  <div *ngIf="paso == 2">
-    <form  (ngSubmit)="pagar()" [formGroup]="formPay">
-      <h1>Seleccionar cuenta para realizar pago</h1>
-      <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
-        <h3> {{e.value.nombre}}: {{e.value.valor}}</h3>
-      </div>
-      <div class="col-md-6">
-        <h3>Total a Pagar: Q. {{saldo}}</h3>
-        <mat-form-field>
-          <mat-select placeholder="Cuenta" formControlName="cuenta">
-            <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.numero">
-              {{cuenta.numero + " - " + cuenta.alias}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div>
-          <button [disabled]="!formPay.valid" type="submit" mat-raised-button>Pagar</button>
+  <!--  <div *ngIf="paso == 2">
+      <form  (ngSubmit)="pagar()" [formGroup]="formPay">
+        <h1>Seleccionar cuenta para realizar pago</h1>
+        <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+          <h3> {{e.value.nombre}}: {{e.value.valor}}</h3>
         </div>
-      </div>
-    </form>
-  </div>
+        <div class="col-md-6">
+          <h3>Total a Pagar: Q. {{saldo}}</h3>
+          <mat-form-field>
+            <mat-select placeholder="Cuenta" formControlName="cuenta">
+              <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta.numero">
+                {{cuenta.numero + " - " + cuenta.alias}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button [disabled]="!formPay.valid" type="submit" mat-raised-button>Pagar</button>
+          </div>
+        </div>
+      </form>
+    </div>-->
 
   <!--  Confirmación -->
 
-  <div *ngIf="paso == 3">
-    <form (ngSubmit)="confirmarPago()">
-      <h1>Está seguro de realizar el pago?</h1>
-      <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
-        <h3> {{e.value.nombre}}: {{e.value.valor}}</h3>
-      </div>
-      <h3>Total a Pagar: {{saldo}}</h3>
-      <h3>Cuenta: {{cuenta.numero + ' - ' + cuenta.alias}}</h3>
-      <button [disabled]="!formPay.valid" type="submit" mat-raised-button>Confirmar Pago</button>
-    </form>
-  </div>
+  <!--  <div *ngIf="paso == 3">
+      <form (ngSubmit)="confirmarPago()">
+        <h1>Está seguro de realizar el pago?</h1>
+        <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
+          <h3> {{e.value.nombre}}: {{e.value.valor}}</h3>
+        </div>
+        <h3>Total a Pagar: {{saldo}}</h3>
+        <h3>Cuenta: {{cuenta.numero + ' - ' + cuenta.alias}}</h3>
+        <button [disabled]="!formPay.valid" type="submit" mat-raised-button>Confirmar Pago</button>
+      </form>
+    </div>-->
 
-  <div *ngIf="paso == 4">
+<!--  <div *ngIf="paso == 4">
     <form>
       <h1>Pago realizado exitosamente!</h1>
       <div class="row" *ngFor="let e of form.get('identificadores')['controls']; let i = index">
@@ -81,9 +197,11 @@
       <h3>Total: {{saldo}}</h3>
       <h3>Referencia de Pago: {{idPago}}</h3>
 
-      <button [routerLink]="['/favorito/' + servicio]" [queryParams]="identificadoresUsados" *ngIf="!this.favorito" mat-raised-button>Guardar Favorito</button>
+      <button [routerLink]="['/favorito/' + servicio]" [queryParams]="identificadoresUsados" *ngIf="!this.favorito"
+              mat-raised-button>Guardar Favorito
+      </button>
       <button [routerLink]="['/']" mat-raised-button>Continuar</button>
     </form>
-  </div>
+  </div>-->
 
 </div>
