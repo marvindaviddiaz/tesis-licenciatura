@@ -1,8 +1,35 @@
 
-.div-card-servicios {
+.consulta-pago-component .div-card-servicios {
   width: 30%;
 }
 
-.servicios-card {
+.consulta-pago-component .mat-horizontal-content-container {
+  height: 78vh;
+}
+
+.consulta-pago-component .servicios-card {
   margin: 3px;
 }
+
+.consulta-pago-component .form-step {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.consulta-pago-component .form-step .mat-form-field {
+  width: 30%;
+}
+
+.consulta-pago-component .form-step .form-two .information {
+  display: flex;
+  align-items: center;
+}
+
+.consulta-pago-component .form-step .form-two .information {
+  display: block;
+}
+
+.consulta-pago-component .information div {
+  width: 300px;
+}
+

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConsultaPagoService} from './consulta-pago.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -17,7 +17,8 @@ import {Favorito} from '../dominio/Favorito';
 @Component({
   selector: 'app-consulta-pago',
   templateUrl: './consulta-pago.component.html',
-  styleUrls: ['./consulta-pago.component.css']
+  styleUrls: ['./consulta-pago.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ConsultaPagoComponent implements OnInit, OnDestroy {
 

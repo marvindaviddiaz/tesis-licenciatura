@@ -7,42 +7,48 @@
       <mat-toolbar-row color="primary"><span class="title">Búsqueda de Servicios</span></mat-toolbar-row>
     </mat-toolbar>
 
-    <mat-form-field>
-      <input matInput
-             placeholder="Servicio ó palabra clave"
-             required
-             type="text"
-             maxlength="80"
-             formControlName="search">
-    </mat-form-field>
+    <div class="main-content">
+      <div class="card-left">
+        <mat-form-field>
+          <input matInput
+                 placeholder="Servicio ó palabra clave"
+                 required
+                 type="text"
+                 maxlength="80"
+                 formControlName="search">
+        </mat-form-field>
 
-    <div>
-      <button
-        [disabled]="!form.valid"
-        type="submit"
-        mat-raised-button>Buscar
-      </button>
-    </div>
+        <div>
+          <button color="primary"
+            [disabled]="!form.valid"
+            type="submit"
+            mat-raised-button>Buscar
+          </button>
+        </div>
 
-    <div class="div-card-servicios">
-      <mat-card class="servicios-card" *ngFor="let entity of servicios">
-        <mat-card-header [routerLink]="['/consulta-pago/' + entity.idServicio]" [queryParams]="{desc: entity.nombreServicio + ' - ' + entity.nombreTercero}">
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>{{entity.nombreServicio}}</mat-card-title>
-          <mat-card-subtitle>{{entity.nombreTercero}}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    </div>
+        <div class="div-card-servicios">
+          <mat-card class="servicios-card" *ngFor="let entity of servicios">
+            <mat-card-header [routerLink]="['/consulta-pago/' + entity.idServicio]" [queryParams]="{desc: entity.nombreServicio + ' - ' + entity.nombreTercero}">
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{entity.nombreServicio}}</mat-card-title>
+              <mat-card-subtitle>{{entity.nombreTercero}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </div>
+      </div>
 
-    <div class="div-card-favoritos" *ngIf="favoritos.length > 0">
-      <h3>Favoritos</h3>
-      <mat-card class="favoritos-card" *ngFor="let entity of favoritos">
-        <mat-card-header [routerLink]="['/consulta-pago/' + entity.servicioId]" [queryParams]="{favorito: entity.id}" >
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>{{entity.alias}}</mat-card-title>
-          <mat-card-subtitle>{{entity.servicio}}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
+      <div class="card-right">
+        <h2>Favoritos</h2>
+        <div class="div-card-favoritos" *ngIf="favoritos.length > 0">
+          <mat-card class="favoritos-card" *ngFor="let entity of favoritos">
+            <mat-card-header [routerLink]="['/consulta-pago/' + entity.servicioId]" [queryParams]="{favorito: entity.id}" >
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{entity.alias}}</mat-card-title>
+              <mat-card-subtitle>{{entity.servicio}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </div>
+      </div>
     </div>
 
   </form>

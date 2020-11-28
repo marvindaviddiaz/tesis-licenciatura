@@ -1,6 +1,6 @@
 
 .div-card-servicios {
-  width: 30%;
+  width: 80%;
 }
 
 .servicios-card {
@@ -13,4 +13,21 @@
 
 .favoritos-card {
   margin: 3px;
+}
+
+.main-content {
+  display: flex;
+  align-items: baseline;
+  padding: 16px 30px;
+}
+
+.main-content .card-left,
+.main-content .card-right {
+  width: 50%;
+}
+
+.main-content .card-right .div-card-favoritos {
+  overflow: auto;
+  height: 78vh;
+  width: 90%;
 }
