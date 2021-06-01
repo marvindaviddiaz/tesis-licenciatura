@@ -4,9 +4,9 @@
         <properties>
             <!-- JPA -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://tesis-licenciatura.cn8jbgeyzda1.us-east-1.rds.amazonaws.com:3306/tesis" />
-            <property name="javax.persistence.jdbc.user" value="mkiolrkr89dk" />
-            <property name="javax.persistence.jdbc.password" value="tesisvMmCmrJLtDkcmokd625c" />
+<!--            <property name="javax.persistence.jdbc.url" value="" />-->
+<!--            <property name="javax.persistence.jdbc.user" value="" />-->
+<!--            <property name="javax.persistence.jdbc.password" value="" />-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 <!--            <property name="hibernate.hbm2ddl.auto" value="update" />-->
             <property name="hibernate.show_sql" value="true" />
